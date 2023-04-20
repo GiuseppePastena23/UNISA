@@ -1,4 +1,4 @@
-main.exe: list.o item.o main.o
+main.exe: clean list.o item.o main.o
 	gcc list.o item.o main.o -o main.exe -g
 
 main.o: list.o list.h item.o item.h
