@@ -237,11 +237,10 @@ item getItem(list L, int pos) {
         return NULLITEM;
     if ((pos < 0) || (pos > L->size))
         return NULLITEM;
-    int i = 0;
+
     struct node *new = L->first;
-    while (i != pos) {
+    for (int i = 0; i < pos-1; i++) {
         new = new->next;
-        i++;
     }
     return new->value;
 }
