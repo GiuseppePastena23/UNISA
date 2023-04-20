@@ -10,6 +10,6 @@ int main(int argc, char const *argv[]) {
     insertList(nuova, 0, 3);
 
     outputList(nuova);
-    
+
     return 0;
 }

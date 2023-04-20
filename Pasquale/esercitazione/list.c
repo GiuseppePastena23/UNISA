@@ -59,7 +59,7 @@ PROGETTAZIONE:
 */
 list tailList (list L)
 {
-	struct c_list *new;
+	struct c_list *new = newList();
 	if((L -> first == NULL) || (L -> size == 0)) {
 		new -> first = NULL;
 		new -> size = 0; 
@@ -423,14 +423,15 @@ void outputListLercio (list L)
 
 void outputList (list L)
 {
-	list copia = L;
-	for (int i = 0; !emptyList(copia); i++)
+	item elemento;
+	for (int i = 0; !emptyList(L); i++)
 	{
-		item elemento = getFirst(copia);
+		elemento = getFirst(L);
 
 		printf("Elemento in posizione %d: ", i);
 		output_item(elemento);
+		printf("\n");
 
-		copia = tailList(L);
+		L = tailList(L);
 	}
 }
