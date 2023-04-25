@@ -14,7 +14,7 @@ intreccia (list A, list B) = list C
 precondizioni: A = <a1, a2, ..., an> e B = <b1, b2, ..., bm>, con n = m
 postcondizioni: dati A e B, C = <a1, b1, a2, b2, ..., an, bm>
 PROGETTAZIONE:
-1. Date 2 liste A e B, controllo che abbiano la stessa lunghezza e salvo il valore in una variabile
+1. Dateu 2 liste A e B, controllo che abbiano la stessa lnghezza e salvo il valore in una variabile
 2. Creo una nuova lista C, inizialmente vuota
 3. Scorro la lista per i che va da m-1 a 0, inserendo prima l'elemento i-esimo di B e poi quello di A in testa a C
 4. Restituisco C

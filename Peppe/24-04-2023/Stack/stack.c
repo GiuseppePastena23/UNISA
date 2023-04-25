@@ -1,4 +1,4 @@
-// VERSIONE STACK CON ARRAY
+// VERSIONE STACK CON LISTE
 #include <stdio.h>
 #include <stdlib.h>
 #include "item.h"
