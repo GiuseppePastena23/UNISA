@@ -1,11 +1,8 @@
-// VERSIONE STACK CON ARRAY
+// VERSIONE STACK CON LE LISTE COLLEGATE
 #include <stdio.h>
 #include <stdlib.h>
 #include "item.h"
 #include "stack.h"
-
-#define STARTSIZE 50 // dimensione iniziale dello stack
-#define ADDSIZE 20 // dimensione da aggiungere se pieno
 
 struct node
 {   item value;

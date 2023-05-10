@@ -216,15 +216,17 @@ PROGETTAZIONE:
 item getItem(list L, int pos) {
     if (emptyList(L))
         return NULLITEM;
-    if ((pos < 0) || (pos > L->size))
+    if ((pos < 0) || (pos >= L->size))
         return NULLITEM;
     int i = 0;
     struct node *new = L->first;
     while (i != pos) {
         new = new->next;
+        i++; // Aggiunta dell'incremento di i
     }
     return new->value;
 }
+
 
 /*PROGETTAZIONE DI INSERTLIST
 Dizionario dei dati:
