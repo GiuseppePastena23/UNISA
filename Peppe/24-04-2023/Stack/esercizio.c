@@ -106,4 +106,34 @@ void merge(stack s1, stack s2)
     }
 }
 
+stack estraiN(stack s, item n)
+{
+  stack appoggio = NewStack();
+  item val;
+
+  while(!EmptyStack(s))
+  {
+    val = top(s)
+    if(!Equal(val, n))
+    {
+      push(val, appoggio);
+    }
+    pop(s);
+  }
+
+  appoggio = reverseStack(appoggio);
+
+  while(!EmptyStack(appoggio))
+  {
+    val = top(appoggio);
+    push(val, s);
+    pop(appoggio);
+  }
+
+  free(appoggio);
+
+  return s;
+}
+
+
 
