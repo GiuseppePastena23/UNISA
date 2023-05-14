@@ -50,10 +50,18 @@ int emptyList(list L) {
         return 0;
 }
 
-// list tailList (list L)
-//{
+list tailList(list l){
+	list result;
 
-//}
+	result = malloc(sizeof(struct c_list));
+	if(l!=NULL && result != NULL && l->size > 0){
+		result->first = (l->first)->next;
+		result->size = l->size - 1;
+		return result;
+	}
+
+	return NULL;
+}
 
 /* PROGETTAZIONE DI CONSLIST
 Dizionario dei dati:

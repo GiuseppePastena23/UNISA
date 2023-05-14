@@ -6,6 +6,7 @@ typedef struct c_list *list;
 
 list newList(void);
 int emptyList(list L); // as booelan
+list tailList(list L);
 list consList(item val, list L); // insertHead
 item getFirst(list L);
 item getItem(list L, int pos);

@@ -1,249 +1,404 @@
-#include<stdlib.h>
-#include"item.h"
-#include"list.h"
+// LIST.C
 
-struct node{
-	item value;
-	struct node* next;
+#include "list.h"
+#include "item.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+
+static struct node *insertNode(struct node *l, int pos, item val);
+static struct node *removeNode(struct node *l, int pos);
+
+struct c_list {
+    struct node *first;
+    int size;
 };
 
-typedef struct c_list{
-	int size;
-	struct node* first;
-}*list;
+struct node {
+    item value;
+    struct node *next;
+};
 
-static struct node* insertNode(struct node* l, int pos, item val);
-static struct node* removeNode(struct node* l, int pos);
-
-list newList(){
-	list new;
-	
-	new = malloc(sizeof(struct c_list));
-	if(new != NULL){
-		new->size = 0;
-		new->first = NULL;
-	}
-	
-	return new;
+/* PROGETTAZIONE DI NEWLIST
+1. Crea un nodo di intestazione
+2. Riempie i campi del nodo
+*/
+list newList(void) {
+    struct c_list *l;
+    l = malloc(sizeof(struct c_list));
+    if (l != NULL) {
+        l->first = NULL;
+        l->size = 0;
+    }
+    return l;
 }
 
-int emptyList(list l){
-	if(!l|| l->first == NULL || l->size == 0){
-		return 1;
-	}
-	
-	return 0;
+/*PROGETTAZIONE DI EMPTYLIST
+Dizionario dei dati:
+        lista da controllare: L
+PROGETTAZIONE:
+1. Controlla che la lista esista, considerandola vuota nel caso non lo fosse
+2. Controlla che i campi siano vuoti
+3. Restituire il valore corretto: 1 in caso la lista sia vuota, 0 altrimenti
+*/
+int emptyList(list L) {
+    if (L == NULL)
+        return 1;
+    if ((L->first == NULL) || (L->size == 0))
+        return 1;
+    else
+        return 0;
 }
 
 list tailList(list l){
 	list result;
-	
+
 	result = malloc(sizeof(struct c_list));
 	if(l!=NULL && result != NULL && l->size > 0){
 		result->first = (l->first)->next;
 		result->size = l->size - 1;
 		return result;
 	}
-	
+
 	return NULL;
 }
 
-int insertList(list l, int pos, item val){
-	struct node *tmp;
-	if(!l || pos<0 || pos>l->size){
-		return 0;
-	}//else
-	
-	tmp = insertNode(l->first, pos, val);
-	if(!tmp){
-		return 0;
-	}//else
-	
-	l->first = tmp;
-	l->size++;
-	
-	return 1;
+/* PROGETTAZIONE DI CONSLIST
+Dizionario dei dati:
+        valore da inserire: val
+        lista da modificare: L
+PROGETTAZIONE:
+1. Inserisce il valore nella prima posizione
+2. Restituisce la lista modificata
+*/
+list consList(item val, list L) {
+    insertList(L, 0, val);
+    return L;
+}
+/* PROGETTAZIONE DI GETFIRST
+Dizionario dei dati:
+        lista da cui ottenere l'elemento: L
+PROGETTAZIONE:
+1. Controlla che la lista abbia almeno un elemento
+2. Restituisce il valore se presente, altrimenti NULLITEM
+*/
+item getFirst(list L) {
+    if (emptyList(L))
+        return NULLITEM;
+    else
+        return L->first->value;
 }
 
-static struct node* insertNode(struct node* l, int pos, item val){
-	struct node *new, *prec;
-	int i;
-	
-	new = malloc(sizeof(struct node));
-	if(!new){
-		return NULL;
-	}
-	new->value = val;
-	
-	if(pos == 0){
-		new->next = l;
-	}
-	
-	i = 0;
-	prec = l;
-	while(i<pos-1){
-		prec = prec->next;
-		i++;
-	}
-	
-	new->next = prec->next;
-	prec->next = new;
-	
-	return l;
+/*PROGETTAZIONE DI SIZELIST
+Dizionario dei dati:
+        lista di cui ottenere la taglia: L
+PROGETTAZIONE:
+1. Ottenere la taglia della lista e restituirla
+*/
+int sizeList(list L) {
+    return L->size;
 }
 
-int consList(item val, list l){
-	return insertList(l, 0, val);
+/*PROGETTAZIONE DI POSITEM
+Dizionario dei dati:
+        lista in cui cercare: L
+        valore da cercare: val
+PROGETTAZIONE:
+1. Verifica che la lista esista
+2. Scorre la lista fino alla fine, fermandosi se il valore viene trovato
+3. Restituisce la posizione in cui si trova il valore, -1 altrimenti
+*/
+int posItem(list L, item val) {
+    int i = 0, found = 0;
+    if (emptyList(L))
+        return -1;
+    else {
+        struct node *new = L->first;
+        while ((i < L->size) && (new != NULL) && (!found)) {
+            if (eq(new->value, val)) {
+                found = 1;
+                break;
+            } else {
+                i++;
+                new = new->next;
+            }
+        }
+    }
+    if (found == 1)
+        return i;
+    else
+        return -1;
 }
 
-item getFirst(list l){
-	if(!l || l->size == 0 || l->first == NULL){
-		return NULLITEM;
-	}
-	return getItem(l, 0);
+/*PROGETTAZIONE DI SEARCHITEM
+Dizionario dei dati:
+        lista in cui cercare l'elemento: L
+        elemento da trovare: val
+PROGETTAZIONE
+1. Controlla che la lista esista e non sia nulla
+2. Scorre la lista per intero, fermandosi se il valore viene trovato
+3. Restituisce 1 nel caso il valore sia presente, 0 altrimenti
+*/
+int searchItem(list L, item val) {
+    int i = 0, found = 0;
+    if (emptyList(L))
+        return 0;
+    else {
+        struct node *new = L->first;
+        while ((i < L->size) && (new != NULL) && (!found)) {
+            if (eq(new->value, val))
+                found = 1;
+            else {
+                i++;
+                new = new->next;
+            }
+        }
+    }
+    if (found == 1)
+        return 1;
+    else
+        return 0;
 }
 
-int sizeList(list l){
-	if(!l){
-		return 0;
-	}
-	return l->size;
+/*PROGETTAZIONE DI REVERSELIST
+Dizionario dei dati:
+        lista da invertire: L
+PROGETTAZIONE
+1. Allocare un nuovo nodo di intestazione
+2. Verificare che la lista di partenza esista e non sia vuota
+3. Verificare che il nuovo nodo sia stato allocato
+4. Scorrere la lista originale e ricopiare ogni nodo in testa alla nuova lista
+5. Restituire la lista creata
+*/
+list reverseList(list L) {
+    struct c_list *rev = newList();
+    if ((emptyList(L)) || (!rev))
+        return rev;
+    else {
+        struct node *curr = L->first;
+        while (curr != NULL) {
+            insertList(rev, 0, curr->value);
+            curr = curr->next;
+        }
+    }
+    return rev;
 }
 
-int removeList(list l, int pos){
-	if(!l || pos<0 || pos>l->size -1){
-		return 0;
-	}
-	l->first = removeNode(l->first, pos);
-	l->size--;
-	return 1;
+/*PROGETTAZIONE DI REMOVEITEM
+Dizionario dei dati:
+        lista da cui eliminare il valore: L
+        valore da eliminare se presente: val
+PROGETTAZIONE
+1. Verificare che la lista esista e non sia vuota
+2. Scorrere la lista fino alla fine, interrompendo nel caso il valore venga trovato
+3. Restituire la lista risultante, sia che il valore venga rimosso o non venga trovato
+*/
+list removeItem(list L, item val) {
+    int i = 0, found = 0;
+    if (emptyList(L))
+        return L;
+    else {
+        struct node *new = L->first;
+        while ((i < L->size) && (new != NULL) && (!found)) {
+            if (eq(new->value, val)) {
+                removeNode(new, 0);
+                found = 1;
+            } else {
+                i++;
+                new = new->next;
+            }
+        }
+    }
+    return L;
 }
 
-static struct node* removeNode(struct node* l, int pos){
-	struct node *prec, *l1;
-	int i;
-	
-	if(pos == 0){
-		l1 = l;
-		l = l->next;
-		free(l1);
-	}
-	else{
-		prec = l;
-		i = 0;
-		while(i<pos-1){
-			prec = prec->next;
-			i++;
-		}
-		l1 = prec->next;
-		prec->next = l1->next;
-		free(l1);
-	}
-	
-	return l;
+/*PROGETTAZIONE DI GETITEM
+Dizionario dei dati:
+        lista da cui prendere il valore: L
+        posizione da cui prendere il valore: pos
+PROGETTAZIONE:
+1. Verificare che lista e posizione siano validi
+2. Scorrere la lista fino alla posizione cercata
+3. Restituire il valore
+*/
+item getItem(list L, int pos) {
+    if (emptyList(L))
+        return NULLITEM;
+    if ((pos < 0) || (pos >= L->size))
+        return NULLITEM;
+    int i = 0;
+    struct node *new = L->first;
+    while (i != pos) {
+        new = new->next;
+        i++; // Aggiunta dell'incremento di i
+    }
+    return new->value;
 }
 
-item getItem(list l, int pos){
-	struct node *curr;
-	int i;
-	
-	if(!l || l->size == 0 || l->first == NULL || pos<0 || pos>=l->size){
-		return NULLITEM;
-	}
-	
-	curr = l->first;
-	i=0;
-	while(i<pos){
-		curr = curr->next;
-		i++;
-	}
-	
-	return curr->value;
+
+/*PROGETTAZIONE DI INSERTLIST
+Dizionario dei dati:
+        lista in cui inserire un elemento: L
+        posizione in cui inserire il nuovo elemento: pos
+        elemento da inserire: val
+PROGETTAZIONE
+1. Crea un nodo temporaneo (sarà una nuova funzione)
+2. Aggiorna i campi del nodo di intestazione
+3. Restituisce il valore corretto
+*/
+int insertList(list L, int pos, item val) {
+    struct node *temp = insertNode(L->first, pos, val);
+    if (temp == NULL)
+        return 0;
+    L->first = temp;
+    L->size++;
+    return 1;
 }
 
-void freeList(list l){
-	if(l != NULL){
-		while(l->size > 0){
-			removeList(l, 0);
-		}
-		free(l->first);
-		free(l);
-	}
+/*SPECIFICA DI INSERTNODE
+Scopo della funzione: Inserire un nodo in una lista
+Dizionario dei dati:
+        primo nodo della lista: l
+        posizione in cui inserire il valore: pos
+        valore da inserire: val
+Precondizioni: Nessuna
+Postcondizioni: La funzione restituisce la lista modificata se ha successo, NULL altrimenti
+PROGETTAZIONE DI INSERTNODE
+1. Alloca un nuovo nodo in cui salvare il valore
+2. Scorre la lista fino a raggiungere la posizione precedene a quella cercata
+3. Collega il nuovo nodo alla lista nel posto giusto
+4. Restituisce il primo nodo della lista ora modificata, altrimenti NULL
+*/
+static struct node *insertNode(struct node *l, int pos, item val) {
+    struct node *new, *prec = l;
+    int i = 0;
+    new = malloc(sizeof(struct node));
+    if (!new)
+        return NULL;
+    new->value = val;
+    if (pos == 0) {
+        new->next = l;
+        return new;
+    }
+    while ((i < (pos - 1)) && (prec != NULL)) {
+        prec = prec->next;
+        i++;
+    }
+    if (prec == NULL) {
+        free(new);
+        return NULL;
+    }
+    new->next = prec->next;
+    prec->next = new;
+    return l;
 }
 
-list reverseList(list l){
-	list rev;
-	struct node* curr;
-	
-	rev = newList();
-	if(!l || !rev || l->size == 0 || l->first == NULL){
-		return rev;
-	}
-	
-	curr = l->first;
-	while(curr != NULL){
-		if(!consList(curr->value, rev)){
-				freeList(rev);
-				return NULL;
-		}
-		curr = curr->next;
-	}
-	
-	return rev;
+/*PROGETTAZIONE DI REMOVELIST
+Dizionario dei dati:
+        lista da cui rimuovere un elemento: L
+        posizione dell'elemento: pos
+PROGETTAZIONE
+1. Controlla che il nodo di intestazione esista ed abbia campi validi
+2. Controlla che il valore della posizione sia valido
+3. Rimuovere il nodo (nuova funzione)
+4. Aggiornare i valori del nodo di intestazione
+*/
+int removeList(list L, int pos) {
+    if (emptyList(L))
+        return 0;
+    if ((pos < 0) || (pos > (L->size - 1)))
+        return 0;
+    L->first = removeNode(L->first, pos);
+    L->size--;
+    return 1;
 }
 
-list cloneList(list l){
-	return reverseList(reverseList(l));
+/*SPECIFICA DI REMOVENODE
+Scopo della funzione: Rimuovere un nodo da una lista
+Dizionario dei dati:
+        primo nodo della lista: l
+        posizione del nodo da rimuovere: pos
+Precondizioni: La lista esiste e non è vuota; la posizione è valida
+Postcondizioni: Dalla lista risultante manca un nodo
+PROGETTAZIONE DI REMOVENODE
+1. Crea un nodo temporaneo
+2. Scorre la lista fino alla posizione precedente a quella voluta
+3. Scollega e libera il nodo di posizione pos
+4. Restituisce il primo nodo della nuova lista
+*/
+static struct node *removeNode(struct node *l, int pos) {
+    struct node *l1;
+    if (pos == 0) {
+        l1 = l;
+        l = l->next;
+        free(l1);
+    } else {
+        int i = 0;
+        struct node *prec = l;
+        while (i < (pos - 1)) {
+            prec = prec->next;
+            i++;
+        }
+        l1 = prec->next;
+        prec->next = l1->next;
+        free(l1);
+    }
+    return l;
 }
 
-int searchItem(list l, item val){
-	struct node* curr;
-	int found;
-	
-	if(!l || l->size == 0 || l->first == NULL){
-		found = 0;
-	}
-	else{
-		curr = l->first;
-		found = 1;
-		while(curr!=NULL && curr->value != val){
-			curr = curr->next;
-		}
-		if(!curr){	//non trovato
-			found = 0;
-		}
-	}
-	
-	return found;
+/*PROGETTAZIONE DI INPUTLIST
+Dizionario dei dati:
+        lunghezza della lista: n
+PROGETTAZIONE
+1. Creo un nodo di intestazione
+*/
+list inputList(int n) {
+    if (n < 0)
+        return NULL;
+    struct c_list *new = newList();
+    if (new == NULL) {
+        fprintf(stderr, "Errore durante l'allocazione\n");
+        exit(-1);
+    }
+    if (n == 0)
+        return new;
+    else {
+        item val;
+        for (int i = 0; i < n; i++) {
+            printf("Inserisci l'elemento di posizione %d: ", i);
+            input_item(&val);
+            insertList(new, i, val);
+        }
+    }
+    return new;
 }
 
-int posItem(list l, item val){
-	struct node* curr;
-	int pos;
-	
-	if(!l || l->size == 0 || l->first == NULL){
-		pos = -1;
-	}
-	else{
-		curr = l->first;
-		pos = 0;
-		while(curr!=NULL && curr->value != val){
-			curr = curr->next;
-			pos++;
-		}
-		if(!curr){	//non trovato
-			pos = -1;
-		}
-	}
-	
-	return pos;
+/*PROGETTAZIONE DI OUTPUTLIST
+Dizionario dei dati:
+        lista da cui trarre i valori: L
+PROGETTAZIONE:
+1. Scorrere con un ciclo la lista, stampando un solo elemento per riga
+*/
+void outputList(list L) {
+    int i = 0;
+    struct node *curr = L->first;
+    item val;
+    while (curr != NULL) {
+        val = curr->value;
+        printf("Elemento in posizione %d: ", i);
+        output_item(val);
+		printf("\n");
+        i++;
+        curr = curr->next;
+    }
 }
 
-list removeItem(list l, item val){
-	int pos;
-	
-	pos = posItem(l, val);
-	removeList(l, pos);
-	
-	return l;
+// ------------------------------------------
+
+int insertHead(list L, item val) { // as boolean
+	return insertList(L, 0, val);
+}
+
+int insertTail(list L, item val) { // as boolean
+	return insertList(L, sizeList(L), val);
 }
