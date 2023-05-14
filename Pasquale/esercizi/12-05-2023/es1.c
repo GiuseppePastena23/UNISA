@@ -30,23 +30,32 @@ item getBottom(stack a) {
         return previous;
     }
     else {
-        item el = getBottom_tail(a);
+        item el = getBottom(a);
         push(previous, a);
         return el;
     }
+}
+
+int euclide(int m, int n) {
+    int differenza = m - n;
+    if (differenza < 0);
+}
+
+int palindroma(char string[]) {
+    
 }
 
 
 int main(int argc, char const *argv[])
 {
     stack s = newStack();
-    for (int i = 0; i < 5; i++)
+    for (int i = 1; i < 5; i++)
     {
-        item el = new_item(i);
-        push(el, s);
+        item asdf = new_item(i);
+        push(asdf, s);
     }
 
-    item el = getBottom_tail(s);
+    item el = getBottom(s);
     printf("BOTTOM: %d\n\n", el);
 
 

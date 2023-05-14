@@ -14,4 +14,4 @@ modules/item.o: modules/item.h modules/item.c
 	gcc -c modules/item.c -o modules/item.o -g
 
 clean:
-	rm -f modules/*.out modules/*.o .*.out *.o
+	rm -f modules/*.out modules/*.o *.out *.o
