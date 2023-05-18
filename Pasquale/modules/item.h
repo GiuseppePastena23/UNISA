@@ -10,6 +10,6 @@ item new_item(int val);
 int eq(item a, item b);
 
 
-item input_item();
+void input_item(item *el);
 
 void output_item(item a);
