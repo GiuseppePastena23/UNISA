@@ -86,5 +86,23 @@ SPECIFICA SEMANTICA
     Btree getRoot(Btree T) = N'
     post: T' = Ts
 */
-node *getRoot(Btree T);                                                                           
+node *getRoot(Btree T);   
 
+Btree inputBtree(void);
+
+// ALGORITMI DI VISITA
+
+/* PRE-ORDINE: analizza la radice dell'albero e poi i due sottoalberi prima il sx e poi il destro
+   POST-ORDINE: richiede la visita dei sottoalberi(prima sx e poi dx) e in seguito l'analisi della radice
+   SIMMETRICA: richiede la visita del sottoalbero sx poi analisi della radice e poi la visita del sottoalbero destro
+*/
+
+void visitaPre(Btree T);
+void visitaPost(Btree T);
+void visitaInOrder(Btree T);
+
+// ESERCIZI 
+
+int altezza(Btree T);
+
+int numeroNodi(Btree T);
