@@ -11,12 +11,10 @@ int eq(item a, item b) {
     return a == b;
 }
 
-item input_item() {
-    int a;
-    scanf("%d", &a);
-    return a;
+void input_item(item *el) {
+    scanf("%d", el);
 }
 
 void output_item(item a) {
-    printf("%d", a);
+    printf("%d\n", a);
 }
