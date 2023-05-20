@@ -104,3 +104,19 @@ Btree inputBtree()
 
     return consBtree(el, T1, T2);
 }
+
+// FUNZIONI UTILI
+/*
+Dato un array, crea l'albero
+Btree arrayToBtree(item values[], int start, int end) {
+    if (start > end) {
+        return NULL;
+    }
+    
+    int mid = (start + end) / 2;
+    item el = values[mid];
+    Btree t1 = arrayToBtree(values, start, mid-1);
+    Btree t2 = arrayToBtree(values, mid+1, end);
+    return consBtree(el, t1, t2);
+}
+*/
