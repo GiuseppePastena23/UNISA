@@ -27,6 +27,26 @@ void setItem(struct node *N, item el)
     N->value = el; // correttezza di = dipende dal tipo item
 }
 
+struct node *minValue(struct node *node)
+{
+    struct node *current = node;
+    while (current->left != NULL)
+        current = current->left;
+    return current;
+}
+
+BST creaFoglia(item elem)
+{
+    struct node *N;
+    N = malloc(sizeof(struct node));
+    if (N == NULL)
+        return NULL;
+    setItem(N, elem);
+    N->left = NULL;
+    N->right = NULL;
+    return N;
+}
+
 BST newBST(void)
 {
     return NULL;
@@ -35,6 +55,22 @@ BST newBST(void)
 int emptyBST(BST T)
 {
     return T == NULL;
+}
+
+BST figlioSX(BST T)
+{
+    if (T != NULL)
+        return T->left;
+    else
+        return NULL;
+}
+
+BST figlioDX(BST T)
+{
+    if (T != NULL)
+        return T->right;
+    else
+        return NULL;
 }
 
 int contains(BST T, item val)
@@ -61,18 +97,6 @@ BST insert(BST T, item elem)
 }
 //  deve essere usata sempre nel modo
 //   bst = insert(bst, elem);
-
-BST creaFoglia(item elem)
-{
-    struct node *N;
-    N = malloc(sizeof(struct node));
-    if (N == NULL)
-        return NULL;
-    setItem(N, elem);
-    N->left = NULL;
-    N->right = NULL;
-    return N;
-}
 
 struct node *deleteNode(struct node *root, item key)
 {
@@ -105,12 +129,4 @@ struct node *deleteNode(struct node *root, item key)
         root->right = deleteNode(root->right, temp->value);
     }
     return root;
-}
-
-struct node *minValue(struct node *node)
-{
-    struct node *current = node;
-    while (current->left != NULL)
-        current = current->left;
-    return current;
 }
