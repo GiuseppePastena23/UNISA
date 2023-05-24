@@ -1,6 +1,6 @@
 // file item.h
 
-typedef int item;
+typdef int ciao;
 
 #define NULLITEM 0
 
