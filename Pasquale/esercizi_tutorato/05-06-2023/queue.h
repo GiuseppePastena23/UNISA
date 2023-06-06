@@ -26,3 +26,4 @@ item dequeue(queue q);
 // Inserisci un nuovo elemento in testa alla coda
 int enqueue(item val, queue q);
 
+int sizeQueue(queue q);
