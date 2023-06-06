@@ -3,8 +3,6 @@
 
 typedef struct node *Btree;
 
-item getItem(struct node *N);
-void setItem(struct node *N, item el);
 
 // prototipi
 Btree newBtree(void);
@@ -22,3 +20,6 @@ void inorder(Btree T);
 
 // input
 Btree inputBtree();
+
+Btree arrayToBtree(item values[], int start, int end);
+void printBtree(Btree T, int depth);

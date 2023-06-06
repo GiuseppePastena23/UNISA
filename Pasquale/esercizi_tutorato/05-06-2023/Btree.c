@@ -11,8 +11,8 @@ struct node
     struct node *right;
 };
 
-item getItem(struct node *N);
-void setItem(struct node *N, item el);
+static item getItem(struct node *N);
+static void setItem(struct node *N, item el);
 
 item getItem(struct node *N)
 {
@@ -108,6 +108,7 @@ Btree inputBtree()
 // FUNZIONI UTILI
 /*
 Dato un array, crea l'albero
+*/
 Btree arrayToBtree(item values[], int start, int end) {
     if (start > end) {
         return NULL;
@@ -119,4 +120,19 @@ Btree arrayToBtree(item values[], int start, int end) {
     Btree t2 = arrayToBtree(values, mid+1, end);
     return consBtree(el, t1, t2);
 }
-*/
+
+void printBtree(Btree T, int depth) {
+    if (emptyBtree(T)) {
+        return;
+    }
+
+    printBtree(figlioDX(T), depth + 1);
+
+    for (int i = 0; i < depth; i++) {
+        printf("    ");
+    }
+
+    printf("%d\n", getItem(getRoot(T)));
+
+    printBtree(figlioSX(T), depth + 1);
+}

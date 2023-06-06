@@ -62,6 +62,10 @@ item dequeue(queue q) {
     return result;
 }
 
+int sizeQueue(queue q) {
+    return q->numel;
+}
+
 item peek(queue q) {
     if (q == NULL) return NULLITEM;
     if (q->numel == 0) return NULLITEM;  // coda vuota
