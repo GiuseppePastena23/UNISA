@@ -98,7 +98,7 @@ Btree figlioDX(Btree T)
 void visitaPre(Btree T)
 {
     if(emptyBtree(T)) return;
-    OutputItem(getItem(getRoot(T)))
+    visitaPre(getRoot(T));
     visitaPre(figlioSX(T));
     visitaPre(figlioDX(T));
     return;
