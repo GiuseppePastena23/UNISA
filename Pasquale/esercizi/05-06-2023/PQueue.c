@@ -133,7 +133,7 @@ int deleteMax(PQueue q) {
 2. Inserisco l'elemento nell'ultima posizione e incremento il numero di elementi
 3. Riordino lo heap(funzione separata)
 */
-int insert(PQueue q, int key) {
+int insertPQ(PQueue q, int key) {
 	if((!q) || (q -> numel == MAXPQ))	//verifica che la coda non sia piena
 		return 0;
 	q -> numel ++;

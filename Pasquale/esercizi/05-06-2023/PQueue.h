@@ -57,4 +57,4 @@ insert(PQ, elem) -> PQ'
 precondizioni: Nessuna
 postcondizioni: PQ' contiene elem e tutte le entry di PQ
 */
-int insert(PQueue q, int key);
+int insertPQ(PQueue q, int key);
