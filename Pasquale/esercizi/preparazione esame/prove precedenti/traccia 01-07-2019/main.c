@@ -3,6 +3,17 @@
 #include "queue.h"
 #include "item.h"
 
+
+void cancFinoItem(queue q, item el) {
+    while (!emptyQueue(q))
+    {
+        if (eq(el, dequeue(q))) {
+            return;
+        }
+    }
+}
+
+
 /*
 POSTCONDIZIONI:
 q1 e q2 saranno modificate
