@@ -1,0 +1,45 @@
+ASTRAZIONE E MODULI
+Un modulo è un'unità di programma che presenta risorse e servizi computazionali che consentono di
+riutilizzare componenti già costruite e verificate e di realizzare i concetti di astrazione ed information hiding.
+L'astrazione consente di evidenziare le caratteristiche importanti di un problema e trascurare gli aspetti secondari
+e la si può riscontrare, ad esempio, nella decomposizione funzionale.
+- Astrazione funzionale: una funzionalità è totalmente definita e dusabile indipendentemente dall'algoritmo che la implementa.
+- Astrazione sui dati: un tipo di dato, assieme alle operazioni effettuabili con esso, è totalmente definito ed usabile
+    a prescindere dalle modalità di implementazione.
+- Astrazione sul controllo: un meccanismo di controllo è totalmente definito ed usabile indipendentemente dalle tecniche con cui è realizzato.
+- Information hiding: definire ed imporre vincoli di inaccessibilità ai dettagli funzionali e di rappresentazione
+    della struttura dati.
+Il modulo è diviso in due parti:
+- Interfaccia, che definisce le risorse e i servizi messi a disposizione del cliente, a cui è completamente visibile.
+- Sezione implementativa, che implementa risorse e servizi ed è completamente occultata.
+In C questo si ottiene dividendo i moduli in un header file, che comprende l'interfaccia,
+ed un file .c che comprende i corpi delle funzioni.
+I singoli moduli sono compilabili indipendentemente gli uni dagli altri, ma vanno poi linkati manualmente,
+motivo per cui si utilizzano i makefile, programmi che non sono altro che una sequenza di comandi da eseguire:
+target_file: dipendenze
+  comandi
+
+LINEA DI COMANDO E VARIABILI GLOBALI
+Il main è una funzione invocata dal sistema operativo e può prendere due parametri come argomento:
+argument counter: int argc, che conta il numero di argomenti su linea di comando
+argument vector: char * argc[], un array di stringhe corrispondenti agli argomenti ([0] è il nome del programma)
+Una variabile globale è visibile a tutte le funzioni la cui definizione segue la dichiarazione della variabile
+nel file sorgente e prende il nome di variabile statica, poiché sono allocate all'atto del caricamento del programma.
+Scope: parte del programma in cui è attiva una dichiarazione.
+Visibilità: dice quali variabili sono accessibili in una determinata parte del programma.
+Durata: periodo durante il quale una variabile è allocata in memoria.
+Le dichiarazioni static di funzioni le rendono private al file in cui sono dichiarate, modificandone lo scope.
+È possibile dichiarare static variabili locali, ma questo va ad influire non sullo scope ma sulla durata
+della stessa, la quale poi non viene deallocata a funzione eseguita.
+
+TESTING
+Il testing di un programma serve a verificare che il suo comportamento sia conforme a quello atteso.
+Poiché è impraticabile testare il programma con tutti i dati di test, vengono individuate delle classi di dati
+per studiare cosa avviene con determinate formazioni di input e le si riunisce in una test suite.
+Se per esempio dovessimo testare un algoritmo di ordinamento, dovremmo prevedere casi in cui l'array di partenza
+può avere diversi elementi, uno soltanto oppure essere vuoto, e quelli in cui l'array è disordinato, ordinato in
+maniera crescente ed ordinato in maniera decrescente.
+Una volta delineate le classi, si costruisce il file oracolo, contenente la soluzione corretta al problema, che servirà
+poi come metro di paragone della soluzione trovata dal programma.
+L'intero processo può essere automatizzato in quanto si possono creare anche i file per fornire gli input e quelli
+in cui stampare l'output, da fornire tutti su linea di comando al nostro programma.

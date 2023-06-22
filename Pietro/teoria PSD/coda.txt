@@ -1,0 +1,18 @@
+ADT CODA
+Una coda, chiamata anche queue, è una sequenza di un determinato tipo in cui gli elementi si inseriscono
+da un lato (tail) e si rimuovono dall'altro (head), pertanto la sequenza è gestita in modalità
+FIFO: First in First out.
+La coda è una struttura lineare a dimensione variabile in cui si può accedere direttamente solo alla testa.
+
+queue è l'insieme delle sequenze S = a1, a2, ..., an di tipo item ed è incluso l'elemento nil, che
+rappresenta la coda vuota.
+
+L'implementazione con array viene eseguita gestendo l'array in maniera circolare:
+head e tail, i due interi che indicano la posizione corrente nella coda, non si limitano
+a scorrere fino alla fine dell'array per poi fermarsi, ma, se possibile, tornano
+alla posizione 0 dell'array.
+Si garantisce in questo modo che la coda abbia capacità massima N - 1 in ogni istante.
+Dato che il successore di p è (p + 1) % N, la coda è piena quando (tail + 1) % N == head
+mentre possiede un solo elemento quando tail == (head + 1) % N.
+(Quando si inserisce un elemento tail avanza, quando si rimuove avanza head.)
+Quando i valori di head e tail coincidono, la coda è vuota.

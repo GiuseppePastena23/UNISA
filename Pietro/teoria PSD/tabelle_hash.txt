@@ -1,0 +1,35 @@
+ADT Dizionario
+In molte applicazioni è necessario che un insieme dinamico fornisca solo le operazioni di insert, search e delete,
+mentre sono inutili quelle di ordinamento o di restituzione di elemento massimo: tali strutture prendono il nome di dizionari.
+Una delle loro caratteristiche principali è che non ci sono entry con la stessa chiave.
+Per scegliere quale possibile implementazione usare, serve analizzare due insiemi:
+U - universo di tutte le possibili chiavi
+K - insieme delle chiavi effettivamente utilizzate
+Quando la cardinalità degli insiemi circa la stessa, si usano tabelle ad indirizzamento diretto,
+mentre quando |K| << |U| usiamo le tabelle hash.
+
+Nel primo caso ritroviamo il concetto di array: ad ogni chiave corrisponde una posizione/slot della tabella,
+la quale è in grado di restituire il dato richiesto in tempo O(1) ed occupa O(|U|) spazio.
+Nel caso le chiavi possibili siano un numero particolarmente grande, si avrebbero tabelle quasi vuote,
+ammesso che sia abbia la capacità di memoria necessaria. In questo caso va fatto un compromesso
+ed è qui che entrano in gioco le tabelle hash.
+
+Con il metodo hash, data una chiave k, l'elemento viene salvato nella posizione h(k),
+per cui la funzione hash h crea una corrispondenza tra U e una tabella di taglia m, garantendo tempi di esecuzione O(1).
+L'hashing è uno dei problemi classici dell'informatica e gli algoritmi, largamente usati,
+sono studiati sia teoricamente che praticamente: un esempio sono i compilatori.
+
+Una funzione hash non può essere iniettiva, cioè 2 chiavi distinte possono restituire lo stesso valore
+e questo porta a delle collisioni: una buona funzione ne minimizza il numero e viene poi previsto un metodo per gestirle.
+Una buona funzione hash data una chiave k restituisce una valore nell'intervallo [0 , m-1] in modo equiprobabile
+e lo fa considerando tutte le componenti della chiave. Generalmente si assume che l'universo delle chiavi sia
+un sottoinsieme di N e quando non succede si esegue una conversione.
+
+Per risolvere le collisioni si può ricorrere al metodo di indirizzamento aperto, oppure scegliere quello di
+concatenazione, in cui gli elementi vengono inseriti in una lista concatenata.
+Data una tabella hash T con n elementi memorizzati ed m posti totali, si definisce fattore di carico 'alfa' il rapporto n/m,
+che indica il numero medio di elementi memorizzati in una lista concatenata.
+Per ipotesi, il tempo di calcolo di h è O(1) e quindi il tempo di calcole delle varie operazioni dipende 
+dalla lunghezza delle liste: se sono limitate da un valore costante si ha O(1), mentre nel caso peggiore O(n).
+Per quanto riguarda una ricerca, si considera il tempo per generare la chiave + quello per scandire la sequenza,
+dunque O(1 + alfa).
