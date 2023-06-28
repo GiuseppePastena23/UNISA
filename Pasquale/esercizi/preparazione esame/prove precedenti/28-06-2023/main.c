@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Btree.h"
+#include "queue.h"
 
 int somma_albero(Btree T) {
     if (emptyBtree(T)) {
@@ -27,4 +28,34 @@ int uguale_somma_sx_dx(Btree T) {
     int left = somma_albero(figlioSX(T));
     int right = somma_albero(figlioDX(T));
     return left == right;
+}
+
+
+// precon q != null
+int vicini(queue q, int a, int b) {
+    int contatore = 0;
+    queue tmp = newQueue();
+    item el;
+    while (emptyQueue(q))
+    {
+        el = dequeue(q);
+        enqueue(el, tmp);
+
+        if (eq(el, a)) {
+            item next = dequeue(q);
+            enqueue(next, tmp);
+
+            if (eq(next, b)) {
+                contatore++;
+            }
+        }
+    }
+    
+    while (emptyQueue(tmp))
+    {
+        enqueue(dequeue(tmp), q);
+    }
+    
+    // libera tmp
+    return contatore;
 }
