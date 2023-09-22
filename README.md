@@ -14,5 +14,9 @@ Tutti i documenti seguiranno la seguente convenzione di denominazione:
 - `ddmmyy-NomeFile` (ad esempio, `220923-Appunti`)
 - `ddmmyy-xx-NomeFile` (principalmente per le slide, ad esempio, `220923-01-Appunti`)
 
-Alcuni file avranno solo il nome, il che significa che sono file più vecchi e non sono stati creati durante il semestre corrente.
+i file che hanno solo il proprio nome e che quindi non rispettano la naming convention, il che significa che sono file più vecchi e non sono stati creati durante il semestre corrente.
 
+Se Possibile inserire la traccia di ogni esercitazione in un file .txt 
+
+
+**road to 18 di media**
