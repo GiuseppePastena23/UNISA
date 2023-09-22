@@ -3,10 +3,9 @@
 La struttura delle directory per gli esercizi sarà organizzata nel seguente modo:
 
 ```
-/Laboratorio/ddmmyy/*Nome*
+/Laboratorio/ddmmyy/*Nome* 
 ```
-
-es. /Laboratorio/220923/Peppe
+ad esempio, `/Laboratorio/220923/*Nome*`
 
 ## Naming Convention dei Documenti
 
