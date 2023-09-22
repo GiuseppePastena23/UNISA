@@ -1,6 +1,6 @@
-# Struttura delle Directory per gli Esercizi
+# ReadMe!
 
-La struttura delle directory per gli esercizi sarà organizzata nel seguente modo:
+La struttura delle directory per gli esercizi e' organizzata in questo modo:
 
 ```
 /Laboratorio/*ddmmyy*/*Nome* 
