@@ -1,4 +1,0 @@
-1. Contare i figliunici di un albero
-2. Dati due stack inserire il secondo stack al centro del primo stack
-Alla fine della funzione il secondo stack doveva rimanere invariato.
-Invece il primo è quello che subisce le modifiche

@@ -1,8 +1,0 @@
-1) Fogliek(Btree T, int k)
-La funzione conta il numero di foglie (se presenti) al livello , restituendolo
-
-2) void PriorityQueueIncrease (Pqueue q)
-La funzione incrementa di 1 la priorità di tutti gli elementi ESCLUSO il primo. La coda q (a fine esecuzione) deve contenere il primo elemento + tutti gli altri elementi con priorità +1.
-
-3) BOOL strutturalmenteSimili(Btree T1, Btree T2)
-Restituisce true (1) o false (0) se gli alberi sono o meno strutturalmente simili
