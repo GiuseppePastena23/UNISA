@@ -5,6 +5,8 @@
 #define STRING_MAX_LENGHT 40
 #define PATH_NAME "database.txt"
 
+// Formato delle canzoni
+// nome_canzone - nome_artista
 typedef struct song_tag {
     char title[STRING_MAX_LENGHT];
     char artist[STRING_MAX_LENGHT];
@@ -21,96 +23,25 @@ song read_song(FILE *f) {
 }
 
 song read_song_prompt() {
-    song canzone;
     printf("Inserisci il nome della canzone nel formato corretto\n");
-    fscanf(stdin, "%s - %s", canzone.title, canzone.artist);
-    return canzone;
+    return read_song(stdin);
 }
 
+/////////////////////////////////
+
+// stampa in stdout tutte le occorrenze delle canzoni di un artista specificato
 void search_by_artist(FILE *f);
+
+// appende una nuova canzone in fondo al file
 void insert_new_song(FILE *f);
-void modify_artist(FILE **f);
-void delete_artist(FILE **f);
 
-void search_by_artist(FILE *f) {
-    char new_artist[STRING_MAX_LENGHT];
-    printf("Inserisci il nome dell'artista: ");
-    scanf("%s", new_artist);
+// modifica il nome di un artista in tutte le canzoni che ha composto e restituisce il puntatore al file modificato
+FILE *modify_artist(FILE *f);
 
-    while (!feof(f)) {
-        song canzone = read_song(f);
-        if (strncmp(new_artist, canzone.artist, STRING_MAX_LENGHT) == 0) {
-            print_song(&canzone, stdout);
-            printf("\n");
-        }
-    }
-    rewind(f);
-}
+// cancella tutte le canzoni di un artista nel file e restituisce il puntatore al file modificato
+FILE *delete_artist(FILE *f);
 
-void insert_new_song(FILE *f) {
-    fclose(f);
-    song canzone = read_song_prompt();
-    f = fopen(PATH_NAME, "a");
-    fprintf(f, "\n");
-    print_song(&canzone, f);
-    fclose(f);
-    f = fopen(PATH_NAME, "r");
-}
-
-void modify_artist(FILE **f) {
-    char previous_name[STRING_MAX_LENGHT], new_name[STRING_MAX_LENGHT];
-    printf("Inserisci il nome dell'artista da modificare: ");
-    scanf("%s", previous_name);
-    printf("Inserisci il nuovo nome per l'artista: ");
-    scanf("%s", new_name);
-
-    FILE *tmp = fopen("db_tmp.txt", "w");
-
-    /*
-    leggo dal file le canzoni, se trovo una
-    canzone fatta dal autore col vecchio nome
-    lo sovrascrivo con il nuovo.
-    stampo la canzone
-    */
-    while (!feof(*f)) {
-        song canzone = read_song(*f);
-        if (strncmp(previous_name, canzone.artist, STRING_MAX_LENGHT) == 0) {
-            strcpy(canzone.artist, new_name);
-        }
-        print_song(&canzone, tmp);
-        if (!feof(*f)) fprintf(tmp, "\n");
-    }
-
-    fclose(*f);
-    fclose(tmp);
-    rename("db_tmp.txt", PATH_NAME);
-    *f = fopen(PATH_NAME, "r");
-}
-
-void delete_artist(FILE **f) {
-    char elim[STRING_MAX_LENGHT];
-    printf("Inserisci il nome dell'artista da eliminare: ");
-    scanf("%s", elim);
-
-    int new_line_mark = 0;
-    FILE *tmp = fopen("db_tmp.txt", "w");
-    while (!feof(*f)) {
-        song canzone = read_song(*f);
-        if (strncmp(elim, canzone.artist, STRING_MAX_LENGHT) != 0) {
-            if (new_line_mark) {
-                fprintf(tmp, "\n");
-            }
-            print_song(&canzone, tmp);
-            new_line_mark = 1;
-        }
-    }
-
-    fclose(*f);
-    fclose(tmp);
-    rename("db_tmp.txt", PATH_NAME);
-    *f = fopen(PATH_NAME, "r");
-}
-
+/////////////////////////////////
 
 int main() {
     int scelta = 1;
@@ -119,9 +50,7 @@ int main() {
         fprintf(stderr, "Non e' stato trovato il db\n");
         return EXIT_FAILURE;
     }
-    else {
-        printf("db caricato\n");
-    }
+    printf("db caricato\n");
 
     while (scelta) {
         printf("Inserisci l'operazione da svolgere:\n");
@@ -139,19 +68,116 @@ int main() {
                 insert_new_song(f_in);
                 break;
             case 3:
-                modify_artist(&f_in);
+                f_in = modify_artist(f_in);
                 break;
             case 4:
-                delete_artist(&f_in);
+                f_in = delete_artist(f_in);
                 break;
             default:
                 scelta = 0;
                 break;
         }
-
         printf("\n");
     }
 
     fclose(f_in);
     return 0;
+}
+
+void search_by_artist(FILE *f) {
+    char new_artist[STRING_MAX_LENGHT];
+    printf("Inserisci il nome dell'artista: ");
+    scanf("%s", new_artist);
+
+    /*
+    finché non finisce il file 
+    se trovo l'artista corripondente stampo la canzone
+    */
+    while (!feof(f)) {
+        song canzone = read_song(f);
+        if (strncmp(new_artist, canzone.artist, STRING_MAX_LENGHT) == 0) {
+            print_song(&canzone, stdout);
+            printf("\n");
+        }
+    }
+    rewind(f);
+}
+
+void insert_new_song(FILE *f) {
+    fclose(f);
+    song canzone = read_song_prompt();
+    if ((f = fopen(PATH_NAME, "a")) == NULL ) exit(EXIT_FAILURE); // apro il file in modalità append
+    fprintf(f, "\n");
+    print_song(&canzone, f); // aggiungo la canzone al file
+    fclose(f);
+    if ((f = fopen(PATH_NAME, "r")) == NULL ) exit(EXIT_FAILURE); // riapro il file in lettura
+}
+
+FILE *modify_artist(FILE *f) {
+    char previous_name[STRING_MAX_LENGHT], new_name[STRING_MAX_LENGHT];
+    printf("Inserisci il nome dell'artista da modificare: ");
+    scanf("%s", previous_name);
+    printf("Inserisci il nuovo nome per l'artista: ");
+    scanf("%s", new_name);
+
+    FILE *tmp = fopen("db_tmp.txt", "w");
+
+    /*
+    leggo dal file le canzoni, se trovo una
+    canzone fatta dal autore col vecchio nome
+    lo sovrascrivo con il nuovo.
+    stampo la canzone
+    */
+    while (!feof(f)) {
+        song canzone = read_song(f);
+        if (strncmp(previous_name, canzone.artist, STRING_MAX_LENGHT) == 0) {
+            strcpy(canzone.artist, new_name);
+        }
+        print_song(&canzone, tmp);
+        if (!feof(f)) fprintf(tmp, "\n");
+    }
+
+    /*
+    chiudo tutti i file
+    sovrascrivo il db con quello temporaneo rinominandolo
+    apro il nuovo db in lettura, ritorno il puntatore al nuovo file
+    */
+    fclose(f);
+    fclose(tmp);
+    if (rename("db_tmp.txt", PATH_NAME) != 0) exit(EXIT_FAILURE);
+    if ((f = fopen(PATH_NAME, "r")) == NULL) exit(EXIT_FAILURE);
+    return f;
+}
+
+FILE *delete_artist(FILE *f) {
+    char elim[STRING_MAX_LENGHT];
+    printf("Inserisci il nome dell'artista da eliminare: ");
+    scanf("%s", elim);
+
+    /*
+    se trovo una canzone con autore diverso da quello definito lo stampo
+    */
+    int new_line_mark = 0;
+    FILE *tmp = fopen("db_tmp.txt", "w");
+    while (!feof(f)) {
+        song canzone = read_song(f);
+        if (strncmp(elim, canzone.artist, STRING_MAX_LENGHT) != 0) {
+            if (new_line_mark) {
+                fprintf(tmp, "\n");
+            }
+            print_song(&canzone, tmp);
+            new_line_mark = 1;
+        }
+    }
+
+    /*
+    chiudo tutti i file
+    sovrascrivo il db con quello temporaneo rinominandolo
+    apro il nuovo db in lettura, ritorno il puntatore al nuovo file
+    */
+    fclose(f);
+    fclose(tmp);
+    if (rename("db_tmp.txt", PATH_NAME) != 0) exit(EXIT_FAILURE);
+    if ((f = fopen(PATH_NAME, "r")) == NULL) exit(EXIT_FAILURE);
+    return f;
 }
