@@ -16,7 +16,7 @@ Tutti i documenti seguiranno la seguente convenzione di denominazione:
 
 i file che hanno solo il proprio nome e che quindi non rispettano la naming convention, il che significa che sono file più vecchi e non sono stati creati durante il semestre corrente.
 
-Se Possibile inserire la traccia di ogni esercitazione in un file .txt 
+Se Possibile inserire la traccia di ogni esercitazione in un file .txt o .md
 
 
 **road to 18 di media**
