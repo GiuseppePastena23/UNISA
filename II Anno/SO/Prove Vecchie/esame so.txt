@@ -1,0 +1,85 @@
+ESERCIZIO SCRITTO SO 
+
+Scrivere in C un programma che implementi la seguente situazione:
+Un processo P scrive i primi 30 numeri di Fibonacci e poi termina.
+In presenza di un control c immesso da tastiera, P dovrà chiedere all’utente se deve continuare la sua esecuzione o terminare e regolarsi di conseguenza.
+
+#include <unistd.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<signal.h>
+#include<string.h>
+void chiedi(int sig)
+{
+char c[2];
+printf("\nricevuto segnale di interruzione, inserire c per continuare e s per stoppare\n");
+scanf("%s",c);
+if(*c=='c') signal(SIGINT,chiedi);
+else
+{
+printf("processo terminato da tastiera\n"); exit(1);
+}
+}
+int fib(int n)
+{sleep(0.04);
+if(n<=1)return n;
+else return (fib(n-1)+fib(n-2));
+}
+int main()
+{
+printf("il segnale SIGINT corrisponde a %d\n",SIGINT);
+signal(SIGINT,chiedi);
+
+for(int i=0;i<=30;i++)
+{
+  printf("fib %d:%d\n",i,fib(i));
+}
+}
+---------------------------------------------------
+Cosa fa la sys call LSEEK (mi sembra) 
+Cos’è il puntatore alla posizione corrente
+Parlami del deadlock
+Cos’e l’impossibilità di prelazione
+---------------------------------------------------
+Mi parli pure tu del deadlock, dello stallo (di nuovo)?
+Se un grafo di allocazione risorse non contiene cicli, ci sarà il deadlock?
+---------------------------------------------------
+Dimmi la differenza tra schedulazione preemptive e non preemptive
+Cos’è il dispatcher
+---------------------------------------------------
+Parliamo di comunicazione tra processi e quindi di sistema a scambio di messaggi
+---------------------------------------------------
+Quando parlavamo di comunicazione tra processi, abbiamo parlato anche di canali e di code di messaggi… Cosa sono?
+Che differenza c’è tra schedulazione preemptive e non preemptive
+syscall lseek
+---------------------------------------------------
+Schedulazione preemptive e non preemptive
+Cos’e lo scheduling per priorità
+---------------------------------------------------
+Mi parli della schedulazione del disco
+Parlami del diagramma di transizione di stato dei processi
+---------------------------------------------------
+Mi sai parlare tu della schedulazione del disco?
+Cos’è un descrittore di processo
+Che differenza c’è tra un processo e un programma
+---------------------------------------------------
+Mi sai parlare tu della schedulazione del disco?
+---------------------------------------------------
+Ti ricordi cos’è l’allocazione contigua?
+Mi parli degli Stati di un processo?
+---------------------------------------------------
+Quando abbiamo parlato di paginazione, abbiamo parlato dei vari modi di realizzare la tabella delle pagine
+---------------------------------------------------
+Mi parli un po’ di come realizzare la tabella delle pagine?
+---------------------------------------------------
+Parlami della realizzazione delle directory
+Parliamo di allocazione contigua
+---------------------------------------------------
+Mi parli di allocazione concatenata?
+---------------------------------------------------
+Allocazione indicizzata
+deadlock
+---------------------------------------------------
+realizzazione della tabella delle pagine
+Tabella gerarchica e invertita
+---------------------------------------------------
