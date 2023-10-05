@@ -1,5 +1,7 @@
 # ReadMe!
 
+Repository per tutti i file di teoria e pratica del corso di informatica
+
 La struttura delle directory per gli esercizi e' organizzata in questo modo:
 
 ```
