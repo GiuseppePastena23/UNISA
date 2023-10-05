@@ -9,7 +9,7 @@ ad esempio `/Laboratorio/Peppe/`
 
 Ciascun collaboratore puo' gestire la propria cartella a sua discrezione senza naming convention e directory preimpostate
 
-[comment]: <## Naming Convention dei Documenti
+<!-- ## Naming Convention dei Documenti
 
 Tutti i documenti seguiranno la seguente convenzione di denominazione:
 
@@ -21,4 +21,4 @@ i file che hanno solo il proprio nome e che quindi non rispettano la naming conv
 Se Possibile inserire la traccia di ogni esercitazione in un file .txt o .md
 
 
-**road to 18 di media**>
+**road to 18 di media**> -->
