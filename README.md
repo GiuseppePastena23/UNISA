@@ -2,7 +2,7 @@
 
 Repository per tutti i file di teoria e pratica del corso di informatica
 
-La struttura delle directory per gli esercizi e' organizzata in questo modo:
+La struttura delle directory per i laboratori e' organizzata nel modo seguente:
 
 ```
 /Laboratorio/nome/
@@ -22,5 +22,5 @@ i file che hanno solo il proprio nome e che quindi non rispettano la naming conv
 
 Se Possibile inserire la traccia di ogni esercitazione in un file .txt o .md
 
-
-**road to 18 di media**> -->
+-->
+**road to 18 di media**> 
