@@ -32,7 +32,7 @@ int main()
 	
 	if(value == -1)
 	{
-		printf(stderr, "Errore nella system call fork!");
+		fprintf(stderr, "Errore nella system call fork!");
 	}
 	else if(value == 0)
 	{
