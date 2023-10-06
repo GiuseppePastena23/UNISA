@@ -6,7 +6,7 @@ int main()
 	pid_t  value;
 	value = fork();	
   
-	if(value == 0)
+	if(value == 0) 
 	{
 		printf("Errore nella system call fork\n");
 	}
