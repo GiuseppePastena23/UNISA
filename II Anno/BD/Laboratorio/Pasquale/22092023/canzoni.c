@@ -20,7 +20,7 @@ song read_song(FILE *f) {
     song canzone;
     fscanf(f, "%s - %s", canzone.title, canzone.artist);
     return canzone;
-}
+}aaa
 
 song read_song_prompt() {
     printf("Inserisci il nome della canzone nel formato corretto\n");
