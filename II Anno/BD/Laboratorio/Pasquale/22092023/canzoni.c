@@ -61,7 +61,7 @@ int main() {
         printf("altro per uscire\n> ");
         scanf("%d", &scelta);
         switch (scelta) {
-            case 1: 
+            case 1:
                 search_by_artist(f_in);
                 break;
             case 2:
