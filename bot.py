@@ -1,9 +1,17 @@
 import os
 import datetime
+import time
 import git
 
-repo = git.Repo(os.getcwd())
+last_commit = ""
 
-master = repo.head.reference
+while(True):
+    repo = git.Repo(os.getcwd())
+    master = repo.head.reference    
+    commit = master.commit.message
+    if(commit != last_commit):
+        print(commit)
+        last_commit = commit
+    
 
-print(master.commit.message)
+    time.sleep(5);
