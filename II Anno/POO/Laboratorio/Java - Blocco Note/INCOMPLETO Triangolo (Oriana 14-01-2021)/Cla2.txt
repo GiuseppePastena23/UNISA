@@ -1,0 +1,15 @@
+package gestione_triangolo_ereditarietà;
+public class triangolo_equilatero extends triangolo
+{
+    public triangolo_equilatero(int l1, int l2, int l3)
+    {
+	super(l1, l2, l3);
+    }
+
+    public triangolo_equilatero(int l)
+    {
+	this.lato1=l;
+	this.lato2=l;
+	this.lato3=l;
+    }
+}
