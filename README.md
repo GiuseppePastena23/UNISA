@@ -23,5 +23,5 @@ i file che hanno solo il proprio nome e che quindi non rispettano la naming conv
 Se Possibile inserire la traccia di ogni esercitazione in un file .txt o .md
 
 -->
-**road to 18 di media** aaaa
+**road to 18 di media** aaa
 
