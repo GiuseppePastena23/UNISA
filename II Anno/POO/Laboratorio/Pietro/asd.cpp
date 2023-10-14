@@ -4,7 +4,7 @@ using namespace std 	//evita di scrivere std:: ad ogni chiamata di cout e cin
 class Triangle {
 public:
 	double base;
-	duoble altezza;
+	double altezza;
 	
 	Triangle (double base, double altezza) {
 		this->base = base;
