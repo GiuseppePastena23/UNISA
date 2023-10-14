@@ -1,7 +1,0 @@
-package operatore_telefonico;
-import java.util.Scanner;
-public class Operatore_telefonico;
-{
-    public static void main(String[] args)
-    {
-	
