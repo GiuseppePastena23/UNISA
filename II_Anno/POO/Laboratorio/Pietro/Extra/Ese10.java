@@ -3,7 +3,7 @@
 
 import java.time.LocalTime;
 
-public class Airplane {
+class Airplane {
 	private String flightNumber;
 	private String destination;
 	private LocalTime scheduledDeparture;
@@ -48,5 +48,23 @@ public class Airplane {
 		} else {
 			System.out.println("Flight " + flightNumber + " is delayed by " + delayTime + " minutes.");
 		}
+	}
+}
+
+public class Ese10 {
+	public static void main (String[] args) {
+		Airplane f1 = new Airplane ("AAA", "London", LocalTime.of (10, 30));
+		Airplane f2 = new Airplane ("BBB", "Paris", LocalTime.of (14, 0));
+		Airplane f3 = new Airplane ("CCC", "Rome", LocalTime.of (14, 0));
+		System.out.println ("Flight status:");
+		f1.checkStatus();
+		f2.checkStatus();
+		f3.checkStatus();
+		f1.delay (40);
+		f2.delay (110);
+		System.out.println ("Current flight status:");
+		f1.checkStatus();
+		f2.checkStatus();
+		f3.checkStatus();
 	}
 }
