@@ -1,25 +1,31 @@
-#include <unistd.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
-int main(void)
-{
-    char usr_command[100];
-    while(1){
-        printf("%% ");
-        scanf("%s", &usr_command);
-        pid_t value = fork();
-        if(value == 0)
-        {
-            if(execlp(usr_command, NULL) == -1)
-            {
-                printf("Error in execl\n");
+#define MAXLEN 512
+
+int main() {
+    char buf[MAXLEN];
+    int pid, status;
+    printf("%%"); /*prompt*/
+    while (fgets(buf, 512, stdin) != NULL) {
+        buf[strlen(buf) - 1] = 0; /*sostituisce newline con NULL */
+        if ((pid = fork ()) < 0) {
+            printf("ERRORE DI SISTEMA: fork\n");
+            exit(1);
+        }
+        else if (pid == 0) { /* processo figlio*/
+            if (execlp(buf, buf, (char *) 0) == -1) {
+                printf("ERRORE : non posso eseguire %s\n", buf);
+                exit(1);
             }
-
+            exit(0);
         }
-        else
-        {
-            wait();
+        if ((pid = waitpid(pid, &status, 0)) < 0) /* padre */ {
+            printf("ERRORE DI SISTEMA: waitpid\n");
+            exit(1);
         }
+        printf("%%");
     }
+    exit(0);
 }
