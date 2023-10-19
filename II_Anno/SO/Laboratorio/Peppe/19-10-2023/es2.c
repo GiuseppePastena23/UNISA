@@ -21,7 +21,7 @@ int main() {
         
         // processo figlio
         else if (pid == 0) { 
-            if (execlp(buf, buf, arg, (char *) 0) == -1) {
+            if (expecl(buf, buf, arg, (char *) 0) == -1) {
             	// errore in exec
                 printf("ERRORE : non posso eseguire %s %s\n", buf, arg);
                 exit(1);
