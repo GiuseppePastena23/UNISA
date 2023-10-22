@@ -7,5 +7,5 @@ int main() {
 	printf("Sopra la panca\n");
 	//execl("/bin/echo", "echo", "la", "capra", "campa", NULL);
 	execlp("echo", "echo", "la", "capra", "campa", NULL); 	//cerca la prima directory in cui esiste il comando echo
-	printf("Prova\n");
+	printf("Prova\n");	//non viene mai eseguito
 }

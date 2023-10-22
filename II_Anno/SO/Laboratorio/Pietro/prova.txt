@@ -1,0 +1,4 @@
+#!/bin/bash
+echo Questo e\' uno script
+echo I file in \/bin sono
+ls /bin
