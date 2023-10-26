@@ -1,4 +1,4 @@
-package figure;
+-package figure;
 
 public class Triangolo_esteso extends Triangolo {
   private double l2;
