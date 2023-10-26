@@ -19,7 +19,7 @@ int main() {
 		}
 		
 		else {
-			waitpid(figlio1, NULL, 0);
+			waitpid(figlio1, NULL, 0);	//pid_t waitpid(pid_t pid, int *statloc, int options)
 			waitpid(figlio2, NULL, 0);
 			printf("[Padre] figlio1: %d, figlio2 %d\n", figlio1, figlio2);
 		}
