@@ -5,9 +5,9 @@ public class Main
 {
 	public static void main(String[] args)
 	{
-		Triangolo triangolo = new Triangolo(10, 5);
+		Triangolo_esteso triangolo = new Triangolo_esteso(10, 5, 4, 5);
 		
-		System.out.println(triangolo);
+		System.out.println(String.valueOf(triangolo.perimetro()));
 	}
 }
 

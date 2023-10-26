@@ -2,7 +2,7 @@ package figure;
 
 public class Triangolo
 {
-  private double base;
+  protected double base;
   private double altezza;
   
   public Triangolo(double base, double altezza)
@@ -16,9 +16,6 @@ public class Triangolo
     return ((base * altezza) / 2);
   }
   
-  @Override
-  public String toString() 
-  {
-  	return String.valueOf(calcolo());	 
-  }
+
 }
+
