@@ -1,3 +1,5 @@
+package geometria;
+
 public class Quadrato {
 	double lato;
 	//Costruttore
@@ -5,10 +7,10 @@ public class Quadrato {
 		this.lato = lato;
 	}
 	//Metodi di calcolo
-	double calcoloArea() {
+	public double calcoloArea() {
 		return (lato * lato);
 	}
-	double calcoloPerimetro() {
+	public double calcoloPerimetro() {
 		return (lato * 4);
 	}
 }

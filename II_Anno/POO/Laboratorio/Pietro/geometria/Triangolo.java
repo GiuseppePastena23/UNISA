@@ -1,3 +1,5 @@
+package geometria;
+
 public class Triangolo {
 	double base, altezza, l2, l3;
 	//Costruttore
@@ -8,10 +10,10 @@ public class Triangolo {
 		this.l3 = l3;
 	}
 	//Metodi di calcolo
-	double calcoloArea() {
+	public double calcoloArea() {
 		return ((base * altezza) / 2);
 	}
-	double calcoloPerimetro() {
+	public double calcoloPerimetro() {
 		return (base + l2 + l3);
 	}
 }
