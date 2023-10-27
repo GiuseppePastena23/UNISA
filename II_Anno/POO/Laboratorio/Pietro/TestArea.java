@@ -9,7 +9,7 @@ public class TestArea {
 		System.out.println("1: Triangolo\t 2: Quadrato\t 3: Cerchio");
 		int i = scan.nextInt();
 		
-		if (i == 1) {
+		if(i == 1) {
 			System.out.println("Inserisci base");
 			double base = scan.nextDouble();	//next + datatype
 			System.out.println("Inserisci altezza");
@@ -18,7 +18,7 @@ public class TestArea {
 			double l2 = scan.nextDouble();
 			System.out.println("Inserisci il terzo lato");
 			double l3 = scan.nextDouble();
-			Triangolo t1 = new Triangolo (base, altezza, l2, l3);
+			TriangoloEsteso t1 = new TriangoloEsteso (base, altezza, l2, l3);
 			System.out.println("L'area è: " + t1.calcoloArea());
 			System.out.println("Il perimetro: " + t1.calcoloPerimetro());
 		}
