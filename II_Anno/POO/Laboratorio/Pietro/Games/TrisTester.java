@@ -44,6 +44,9 @@ public class TrisTester {
 		Tris game = new Tris();
 		Scanner in = new Scanner(System.in);
 		boolean done = false;
+		System.out.println("La griglia è formata da 3 righe e 3 colonne, contata dall'alto in basso e da sinistra verso destra");
+		System.out.println("Puoi inserire ovunque, a patto che la casella sia libera");
+		System.out.println("Il gioco termina quando 3 segni uguali sono posti di fila, orizzontalmente, verticalmente o in obliquo");
 		while(!done) {
 			System.out.println(game.toString());	//stampa l'attuale partita
 			System.out.println("Turno del giocatore: " + player);

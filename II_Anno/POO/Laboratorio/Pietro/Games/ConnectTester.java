@@ -52,6 +52,10 @@ public class ConnectTester {
 		Scanner in = new Scanner(System.in);
 		String player = "R";
 		boolean done = false;
+		System.out.println("La griglia è formata da 6 righe e 7 colonne, contate dall'alto in basso e da sinistra a destra");
+		System.out.println("Inserisci a partire dalla riga più bassa (6) la tua pedina");
+		System.out.println("Puoi inserire pedine in righe più in alto solo se sotto sono già presenti altre pedine");
+		System.out.println("Il gioco termina quando 4 pedine uguali sono disposte in fila, in orizzontale, verticale o obliquo");
 		while(!done) {
 			System.out.println(game.toString());	//stampa l'attuale partita
 			System.out.println("Turno del giocatore: " + player);

@@ -11,13 +11,13 @@ class CoinToss {
 	private int tails = 1;
 	Coin coinFlip;
 	public void flip() {
-		result = randomNum.nextInt(2);	//pone un limite al numero generabile, tra 0, incluso, e valore, escluso
+		result = randomNum.nextInt(2);	//pone un limite al numero generabile, tra 0, incluso, e valore, escluso: [0,2)
 		if (result == 0) {
 			coinFlip = Coin.Heads;
-			System.out.println("You flipped Heads!");
+			System.out.println("Testa!");
 		} else {
 			coinFlip = Coin.Tails;
-			System.out.println("You flipped Tails!");
+			System.out.println("Coda!");
 		}
 	}
 }
@@ -27,14 +27,14 @@ public class TossGame {
 		CoinToss test = new CoinToss();
 		Scanner input = new Scanner(System.in);
 		int choice;
-		System.out.println("Welcome to the coin toss game!");
+		System.out.println("Il programma simula il lancio di una moneta");
 		do {
-			System.out.print("Enter 1 to toss coin or enter 0 to quit: ");
+			System.out.print("Inserisci 1 per lanciare oppure 0 per uscire: ");
 			choice = input.nextInt();
 			if (choice == 1) {
 				test.flip();
 			} else if ((choice != 1) && (choice != 0)) {
-				System.out.println("Invalid entry");
+				System.out.println("Numero non valido");
 			}
 		} while (choice != 0);
 	}
