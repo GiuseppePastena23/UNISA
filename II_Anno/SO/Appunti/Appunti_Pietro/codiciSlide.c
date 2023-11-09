@@ -60,7 +60,7 @@ do {
 	//sezione non critica
 }while(true);
 
-SECONDO ALGORITMO
+SECONDO ALGORITMO PER RISOLVERE LA SEZIONE CRITICA CON DUE PROCESSI
 //condivise
 boolean pronto[2]; //tutto a false
 //processo Pi
@@ -72,7 +72,7 @@ do {
 	//sezione non critica
 }while(true);
 
-SOLUZIONE DI PETERSON
+SOLUZIONE DI PETERSON PER RISOLVERE LA SEZIONE CRITICA CON DUE PROCESSI
 //condivise
 int turno = 0;
 boolean pronto[2]; //tutto a false
@@ -111,7 +111,7 @@ boolean TestAndSet(boolean *obiettivo) {
 	return valore;
 }
 
-MUTUA ESCLUSIONE
+MUTUA ESCLUSIONE TestAndSet
 //condivise
 boolean blocco = false;
 //Processo Pi
@@ -129,7 +129,7 @@ void Swap(boolean *a, boolean *b) {
 	*b = temp;
 }
 
-MUTUA ESCLUSIONE
+MUTUA ESCLUSIONE SWAP
 //condivise
 boolean blocco = false;
 //processo Pi
@@ -142,7 +142,7 @@ do {
 	//sezione non critica
 }while(true);
 
-MUTUA ESCLUSIONE CON ATTESA LIMITATA TandS
+MUTUA ESCLUSIONE E ATTESA LIMITATA TestAndSet
 //condivise
 boolean blocco, attesa[n];
 //processo Pi
@@ -172,7 +172,7 @@ signal(S): {
 	S++;
 }
 
-MUTUA ESCLUSIONE
+MUTUA ESCLUSIONE SEMAFORI
 //condivise
 semaforo mutex = 1;
 //processo Pi
@@ -206,6 +206,10 @@ void signal (semaforo *S) {
 }
 
 SEMAFORO CONTATORE CON SEMAFORI BINARI
+//condivise
+semaforo_binario S1=1, S2=0;
+int C = //valore iniziale del semaforo contatore S
+//codice
 wait:
 	wait(S1);
 	C--;
@@ -222,7 +226,7 @@ signal:
 	else
 		signal(S1);
 
-PROD/COND CON SEMAFORI
+PROD/CONS CON SEMAFORI
 //condivise
 item vettore[n];
 semaforo piene=0, vuote=n, mutex=1;
@@ -328,7 +332,7 @@ monitor fc {
 	}
 	void posa(int i) {
 		stato[i] = pensa;
-		//verifica lo stato dei vicini sx e dx
+		//verifica lo stato dei vicini sx e dx:
 		verifica((i+4) % 5);
 		verifica((i+1) % 5);
 	}
