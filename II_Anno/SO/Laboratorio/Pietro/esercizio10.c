@@ -1,3 +1,5 @@
+//Programma che usa due diversi modi per la gestione di ctrl+c
+//Non funziona correttamente: ctrl+c si 'attiva' per entrambi e non si può fare più nulla da terminale fino alla fine dell'esecuzione
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -46,8 +48,10 @@ int main(void) {
 	}
 	else if (figlio1 == 0) {
 		signal(SIGINT, ctrl_c_handler_child1);
-		for(int i = 0; i < 30; i++)
+		for(int i = 0; i < 30; i++) {
 			printf("[figlio1] fib(%2d) = %d\n", i, fib(i));
+			sleep(10);
+		}
 	}
 	else {
 		figlio2 = fork();
@@ -57,8 +61,10 @@ int main(void) {
 		}
 		else if (figlio2 == 0) {
 			signal(SIGINT, ctrl_c_handler_child2);
-			for(int i = 0; i < 20; i++)
-			printf("[figlio2] fatt(%2d) = %d\n", i, fatt(i));
+			for(int i = 0; i < 20; i++) {
+				printf("[figlio2] fatt(%2d) = %d\n", i, fatt(i));
+				sleep(10);
+			}
 		}
 		else {
 			waitpid(figlio1, NULL, 0);

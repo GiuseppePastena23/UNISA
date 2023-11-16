@@ -1,3 +1,4 @@
+//Programma di esempio per la gestione di ctrl+c
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
