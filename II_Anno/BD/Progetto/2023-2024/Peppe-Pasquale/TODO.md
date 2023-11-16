@@ -1,0 +1,5 @@
+- [x] Descrizione Dettagliata
+- [] Analisi della specifica
+- [] Glossario dei termini
+- [] Schema ER
+- [] Commenti scelte progettuali
