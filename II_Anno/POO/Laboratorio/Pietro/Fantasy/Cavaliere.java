@@ -1,7 +1,9 @@
 package Fantasy;
 
 public class Cavaliere extends Personaggio {
-	
+	public Cavaliere (int i) {
+		super (i);
+	}
 	public int colpisci (Personaggio p) {
 		p.energia--;
 		return p.energia;

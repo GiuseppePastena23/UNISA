@@ -3,9 +3,9 @@
 package Fantasy;
 
 public abstract class Personaggio implements SuperPersonaggio {
-	public static String ID;
+	protected static String ID;
 	protected int posizione = 0;
-	protected int energy = 100;
+	protected int energia = 100;
 	/*
 	public String type;
 	public int energy;

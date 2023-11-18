@@ -1,6 +1,9 @@
 package Fantasy;
 
 public class Orco extends Personaggio {
+	public Orco (int i) {
+		super (i);
+	}
 	public int colpisci (Personaggio p) {
 		p.energia--;
 		return p.energia;

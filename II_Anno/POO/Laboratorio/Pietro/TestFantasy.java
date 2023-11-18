@@ -6,16 +6,17 @@ public class TestFantasy {
 	private static int counter = 0;
 	public static void main (String[] args) {
 		Random pgs = new Random(1);
-		ArrayList pgList = new ArrayList();
+		ArrayList <Personaggio> pgList = new ArrayList <Personaggio> ();
 		for(int i = 0; i < 10; i++) {
 			if(pgs.nextInt() == 0)
-				pgList.add(new Cavaliere());
+				pgList.add(new Cavaliere(i));
 			else
-				pgList.add(new Orco());
+				pgList.add(new Orco(i));
 			counter++;
 		}
+		for(int i = 0; i < 10; i++) {
+			System.out.println(((Personaggio)pgList.get(i)).posizione());
+		}
+		((Personaggio)pgList.get(0)).colpisci((Personaggio)pgList.get(1));
 	}
-//	System.out.println(((Personaggio) pgList.get(0)).posizione((Personaggio)pgList.get(1)));
-	
-	//((Personaggio) pgList.get(0)).colpisci((Personaggio)pgList.get(1));
 }
