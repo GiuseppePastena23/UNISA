@@ -57,15 +57,19 @@ public abstract class Personaggio implements SuperPersonaggio{
     public void Avanti(int s)
     {
         if (this.direction == Direction.UP) {
+	    System.out.println("1");
             this.pos.y += s;
         }
         else if (this.direction == Direction.RIGHT) {
+            System.out.println("1");
             this.pos.x += s;
         }
         else if (this.direction == Direction.DOWN) {
+	    System.out.println("1");
             this.pos.y -= s;
         }
         else if (this.direction == Direction.LEFT) {
+	    System.out.println("1");
             this.pos.x -= s;
         }
     }

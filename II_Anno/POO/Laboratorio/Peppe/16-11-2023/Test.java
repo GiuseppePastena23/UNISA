@@ -17,6 +17,7 @@ public class Test{
         for (int j = 0; j < pg.length; j++)
         {
             System.out.println(pg[j].getId() + " " + pg[j].getType() + " " + pg[j].getEnergy() + " " + pg[j].posizione().x + " " + pg[j].posizione().y);
+	    pg[j].Avanti(1);
         }
     }
 }
