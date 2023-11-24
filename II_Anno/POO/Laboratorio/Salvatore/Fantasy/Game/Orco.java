@@ -2,16 +2,23 @@ package Game;
 
 public class Orco extends Personaggio
 {
-	static int ID_Orco = 0;
+	private static int Last_ID_Orco = 0;
+	private int ID_Orco;
 	
 	public Orco(String tipo, int energia, int posizione_iniziale)
 	{
-		this.ID_Orco = ++ID_Orco;
-    	this.id = ++last_ID;
-    	this.tipo = tipo;
-    	this.energia = energia;
-    	this.posizione_iniziale = posizione_iniziale;
-    	this.posizione = posizione_iniziale;
+		super(tipo, energia, posizione_iniziale);
+		this.ID_Orco = ++Last_ID_Orco;
     }	
-		
+    
+    @Override public void Colpisci(Personaggio pers)
+    {
+    	Danneggia(pers, 50);
+    }
+    
+    @Override
+    public String toString()
+    {
+        return ("ORCO: Tipo = " + this.tipo + " Vita = " + this.energia + " Posizione = " + this.posizione);
+    }
 }

@@ -6,7 +6,7 @@ public abstract class Personaggio implements SuperPersonaggio
 	protected int ID;
 	protected String tipo;
 	protected int energia;
-	protected final int posizione_iniziale;
+	protected int posizione_iniziale;
 	protected int posizione;
 	protected int direzione;
 	
@@ -19,12 +19,23 @@ public abstract class Personaggio implements SuperPersonaggio
     	this.posizione = posizione_iniziale;
     }
     
+    @Override
+    public String toString()
+    {
+        return ("PERSONAGGIO: Tipo = " + this.tipo + " Vita = " + this.energia + " Posizione = " + this.posizione);
+    }
+    
     public int getPosizione(Personaggio pers)
 	{
 		return (this.posizione);
 	}
 	
-	public abstract void Colpisci(Personaggio pers){} 
+	public abstract void Colpisci(Personaggio pers);
+	
+	public void Danneggia(Personaggio pers, int danno)
+	{
+		this.energia = this.energia - danno;
+	}
 
 	public void ruota(int gradi)
 	{
