@@ -1,0 +1,2 @@
+es1.StudenteDSA{patologia=DISLESSIA, nome='Giuseppe', cognome='Gialli', codiceFiscale='GPPGLL80A01H501R', matricola='159753', esamiSuperati=[es1.Esame{nomeEsame='P1', CFU=9, voto=30, date=Wed Nov 29 12:37:13 CET 2023}, es1.Esame{nomeEsame='PSD', CFU=9, voto=25, date=Wed Nov 29 12:37:13 CET 2023}]}
+es1.StudenteDSA{patologia=DISLESSIA, nome='Antonio', cognome='Arancioni', codiceFiscale='ANTARC80A01H501R', matricola='357159', esamiSuperati=[]}

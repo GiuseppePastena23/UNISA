@@ -1,0 +1,8 @@
+es1.Studente{nome='Mario', cognome='Rossi', codiceFiscale='MRORSS80A01H501R', matricola='123456', esamiSuperati=[es1.Esame{nomeEsame='Analisi', CFU=9, voto=18, date=Wed Nov 29 12:37:13 CET 2023}, es1.Esame{nomeEsame='Fisica', CFU=9, voto=20, date=Wed Nov 29 12:37:13 CET 2023}]}
+es1.Studente{nome='Luigi', cognome='Verdi', codiceFiscale='LGVVRD80A01H501R', matricola='654321', esamiSuperati=[es1.Esame{nomeEsame='POO', CFU=9, voto=30L, date=Wed Nov 29 12:37:13 CET 2023}]}
+es1.Studente{nome='Giovanni', cognome='Bianchi', codiceFiscale='GVNBNC80A01H501R', matricola='789456', esamiSuperati=[]}
+es1.Studente{nome='Paolo', cognome='Neri', codiceFiscale='PLNLR80A01H501R', matricola='987654', esamiSuperati=[]}
+es1.Studente{nome='Francesco', cognome='Fucsia', codiceFiscale='FRNFCS80A01H501R', matricola='753159', esamiSuperati=[]}
+es1.Studente{nome='Giorgio', cognome='Grigi', codiceFiscale='GRGGRI80A01H501R', matricola='951753', esamiSuperati=[]}
+es1.Studente{nome='Daniele', cognome='Dorati', codiceFiscale='DNDRTI80A01H501R', matricola='357951', esamiSuperati=[]}
+es1.Studente{nome='Carlo', cognome='Ciano', codiceFiscale='CRLCNO80A01H501R', matricola='159357', esamiSuperati=[]}
