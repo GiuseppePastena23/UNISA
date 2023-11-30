@@ -27,6 +27,7 @@ void cntrl_c_handler(int sig)
 		char risposta[512];
 		printf("Vuoi continuare o terminare F? (k per terminare)\n");
 		scanf("%s", risposta);
+		printf("Cazzo succede?\n");
 		if(*risposta == 'k')
 		{
 			kill(getppid(), SIGKILL);
@@ -51,10 +52,12 @@ int main()
 	if(F == 0)
 	{
 		signal(SIGINT, cntrl_c_handler);
-		for(int i = 1; i <= 45; i++)
+		for(int i = 1; i <= 43; i++)
 		{
 			printf("fib %d = %d\n", i, fib(i));
 		}
+		printf("Adios gringos\n");
+		exit(2);//arriva qui
 	}
 	if(F != 0)
 	{
