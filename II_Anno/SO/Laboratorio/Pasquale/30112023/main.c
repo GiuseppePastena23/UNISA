@@ -21,21 +21,20 @@ minuscole
 #include <unistd.h>
 
 
-int main()
+int main(int argc, char const *argv[])
 {
-    char F1[255], F2[255];
-    printf("Insersci il nome di F1: ");
-    scanf("%s", F1);
-    printf("Insersci il nome di F2: ");
-    scanf("%s", F2);
+    if (argc < 3) {
+        printf("Fornisci due file\n");
+        exit(EXIT_FAILURE);
+    }
 
-    int fd1 = open(F1, O_RDONLY);
-    int fd2 = open(F2, O_WRONLY);
+    int fd1 = open(argv[1], O_RDONLY);
+    int fd2 = open(argv[2], O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH); // permessi UNIX ottale: 644 rw-r--r-- 
+
     if (fd1 == -1 || fd2 == -1) {
         printf("Errore nell'apertura dei file\n");
         exit(EXIT_FAILURE);
     }
-
 
     char buff;
     while (read(fd1, &buff, 1) > 0) {
