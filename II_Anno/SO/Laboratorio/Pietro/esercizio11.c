@@ -1,5 +1,4 @@
 //Programma che usa due diversi modi per la gestione di ctrl+c
-//Non funziona correttamente: ctrl+c si 'attiva' per entrambi e non si può fare più nulla da terminale fino alla fine dell'esecuzione
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -22,20 +21,19 @@ int fatt (int n) {
 }
 
 void ctrl_c_handler_child1 (int sig) {
-	//signal(SIGINT, SIG_IGN);
 	printf("\n%s%d\n", "Ricevuto segnale di interruzione, segnale = ", sig);
 	printf("[figlio1] pid del figlio1: %d\n", getpid());
-	printf("[figlio1] proseguo con il mio lavoro\n");
-	signal(SIGINT, ctrl_c_handler_child1);
+	printf("[figlio1] proseguo con il mio lavoro\n\n");
+	signal(SIGINT, ctrl_c_handler_child1);	//non dovrebbe esserci differenza tra assenza e presenza
 }
 
 void ctrl_c_handler_child2 (int sig) {
-	//signal(SIGINT, SIG_IGN);
 	char answer[512];
-	printf("\n%s%d\n%s", "Ricevuto segnale di interruzione, segnale = ", sig, "Vuoi continuare (c) o uscire (q) ?");
+	printf("\n%s%d\n", "Ricevuto segnale di interruzione, segnale = ", sig); 
+	printf("[figlio2] vuoi continuare (c) o uscire (q) ?");
 	scanf("%s", answer);
 	if(*answer == 'c') {
-		signal (SIGINT, ctrl_c_handler_child2);
+		signal(SIGINT, ctrl_c_handler_child2);
 	}	
 	else {
 		printf("Processo terminato dall'utente\n");
@@ -54,7 +52,7 @@ int main(void) {
 	//Nel figlio1
 	else if (figlio1 == 0) {
 		signal(SIGINT, ctrl_c_handler_child1);
-		for(int i = 0; i < 40; i++) {
+		for(int i = 0; i < 30; i++) {
 			printf("[figlio1] fib(%2d) = %d\n", i, fib(i));
 			sleep(2);	//altrimenti stamperebbe troppo velocemente
 		}
@@ -71,10 +69,11 @@ int main(void) {
 		//Nel figlio2
 		else if (figlio2 == 0) {
 			signal(SIGINT, ctrl_c_handler_child2);
-			for(int i = 0; i < 40; i++) {
+			for(int i = 0; i < 20; i++) {
 				printf("[figlio2] fatt(%2d) = %d\n", i, fatt(i));
 				sleep(2);	//altrimenti stamperebbe troppo velocemente
 			}
+			//exit(1);
 		}
 		//Nel processo padre
 		else {
