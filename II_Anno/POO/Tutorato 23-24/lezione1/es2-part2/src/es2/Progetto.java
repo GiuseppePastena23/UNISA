@@ -27,4 +27,5 @@ public class Progetto {
     public int getBudget() {
         return budget.getLast();
     }
+
 }

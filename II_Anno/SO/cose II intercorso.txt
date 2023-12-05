@@ -1,0 +1,19 @@
+Cose importanti SO
+
+CAP 9
+paginazione su richiesta, (gestione del page fault)
+algoritmi sostituzione
+trashing
+
+CAP 10
+
+CAP 11
+
+CAP 12
+
+CAP 13
+
+
+SIGNALS
+
+

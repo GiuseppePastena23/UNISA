@@ -3,16 +3,34 @@ package es2;
 import java.io.Serializable;
 
 public abstract class Dipendente implements Serializable {
-    public final int id;
-    public final String nome, cognome;
-    private float salario;
+    private static int lastID = 0;
+    protected final int id;
+    protected final String nome, cognome;
+    protected float salario;
 
 
+    // Autoincrement ID
+    public Dipendente(String nome, String cognome, float salario) {
+        this.id = ++lastID;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.salario = salario;
+    }
+
+    // Specified ID
     public Dipendente(int id, String nome, String cognome, float salario) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
         this.salario = salario;
+    }
+
+    public static int getLastID() {
+        return lastID;
+    }
+
+    public static void setLastID(int lastID) {
+        Dipendente.lastID = lastID;
     }
 
     public int getId() {
@@ -39,8 +57,15 @@ public abstract class Dipendente implements Serializable {
         return salario;
     }
 
-    public boolean equals(Dipendente d) {
-        return id == d.getId();
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Dipendente)) {
+            return false;
+        }
+        Dipendente dip = (Dipendente) obj;
+        return this.getId() == dip.getId();
     }
 
     @Override

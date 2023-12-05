@@ -6,6 +6,7 @@ contenuto di F1 invertendo maiuscole e
 minuscole
 */
 
+
 #include <stdio.h>
 #include <ctype.h>
 

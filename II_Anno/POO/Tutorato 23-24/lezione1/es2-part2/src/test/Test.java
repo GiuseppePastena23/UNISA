@@ -25,7 +25,7 @@ public class Test {
          */
 
         for (int i = 0; i < 100; i++) {
-            System.out.println(Util.genRandomAlphaID());
+            System.out.println(Util.genRandomAlphaNumID());
         }
     }
 }

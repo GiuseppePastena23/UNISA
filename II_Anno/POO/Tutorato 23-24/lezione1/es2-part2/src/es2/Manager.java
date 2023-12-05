@@ -4,13 +4,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class Manager implements FileManager {
-    public List<Dipendente> dipendenti;
+    private final List<Dipendente> dipendenti;
 
     public Manager() {
-        dipendenti = new ArrayList<Dipendente>();
+        dipendenti = new ArrayList<>();
     }
 
     public Manager(Dipendente ...d) {
@@ -25,8 +24,16 @@ public class Manager implements FileManager {
         dipendenti.remove(d);
     }
 
+    public void removeAt(int index) {
+        dipendenti.remove(index);
+    }
+
+    public Dipendente getAt(int index) {
+        return dipendenti.get(index);
+    }
+
     public List<Stagista> getStagisti() { //? public List<Dipendente> getStagisti() ?
-        List<Stagista> res = new ArrayList<Stagista>();
+        List<Stagista> res = new ArrayList<>();
         for (Dipendente d : dipendenti) {
             if (d instanceof Stagista) {
                 res.add((Stagista) d);

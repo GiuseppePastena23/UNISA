@@ -1,17 +1,16 @@
 package es2;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Determinato extends Dipendente {
-    public Date fineContratto;
+    public GregorianCalendar fineContratto;
 
-
-    public Determinato(int id, String nome, String cognome, float salario, Date fineContratto) {
+    public Determinato(int id, String nome, String cognome, float salario, GregorianCalendar fineContratto) {
         super(id, nome, cognome, salario);
         this.fineContratto = fineContratto;
     }
 
-    public Date getFineContratto() {
+    public GregorianCalendar getFineContratto() {
         return fineContratto;
     }
 
