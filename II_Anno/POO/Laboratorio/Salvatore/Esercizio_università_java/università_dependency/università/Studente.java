@@ -1,6 +1,7 @@
 package università;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Studente
 {
@@ -11,7 +12,7 @@ public class Studente
     private List<Esame> Esami_superati = new ArrayList<>();
 
     //costruttore
-    public studente(String Nome, String Cognome, String Datnas, String Codfis)
+    public Studente(String Nome, String Cognome, String Datnas, String Codfis)
     {
         this.Nome = Nome;
         this.Cognome = Cognome;
@@ -25,8 +26,8 @@ public class Studente
     public String getDatnas(){return Datnas;}
     public String getCodfis(){return Codfis;}
 
-    public Esame getEsami_superati(){return Esami_superati;}
-    public Esame getEsame_superato(int pos)
+    public Esame getEsamiSuperati(){return Esami_superati;}
+    public Esame getEsameSuperatoPos(int pos)
     {
         if(pos >= 0 && pos < Esami_superati.size())
         {
@@ -42,13 +43,31 @@ public class Studente
     public void setCodfis(String Codfis){this.Codfis = Codfis;}
 
     //aggiungi un esame superato
-    public void set_Esami_superati(Esame esame_superato){Esami_superati.add(esame_superato);}
-    public void setEsame_superato(Esame esame_superato, int pos)
+    public void setEsameSuperato(Esame esame_superato)
+    {
+        Esami_superati.add(esame_superato);
+    }
+
+    //aggiungi esame superato in pos definita
+    public void setEsameSuperatoPOS(Esame esame_superato, int pos)
     {
         if(pos >= 0 && pos < Esami_superati.size())
         {
             Esami_superati.set(pos, esame_superato);
         }
         else{java.out.println("Errore indice");}
+    }
+
+    @Override
+    public String toString()
+    {
+        return 
+        (
+            "Studente:\n" +
+            "Nome= " + getNome() + "\n" +
+            "Cognome= " + getCognome() + "\n" +
+            "Datnas='" + getDatnas() + "\n" +
+            "Codfis='" + getCodfis() + "\n"
+        );
     }
 }
