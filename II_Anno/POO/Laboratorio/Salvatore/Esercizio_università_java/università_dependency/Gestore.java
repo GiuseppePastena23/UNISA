@@ -136,7 +136,7 @@ public class Gestore
         } 
         catch (IOException exception) 
         {
-            exception.printStackTrace();
+            System.out.println(expection);
         }
     }
 
