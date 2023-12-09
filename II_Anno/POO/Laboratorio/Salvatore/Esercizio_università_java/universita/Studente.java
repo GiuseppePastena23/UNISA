@@ -1,4 +1,4 @@
-package università;
+package universita;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +70,8 @@ public class Studente
             "Studente:\n" +
             "Nome= " + getNome() + "\n" +
             "Cognome= " + getCognome() + "\n" +
-            "Datnas='" + getDatnas() + "\n" +
-            "Codfis='" + getCodfis() + "\n"
+            "Datnas= " + getDatnas() + "\n" +
+            "Codfis= " + getCodfis() + "\n"
         );
     }
 }

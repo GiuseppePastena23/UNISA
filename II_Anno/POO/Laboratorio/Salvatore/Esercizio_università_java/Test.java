@@ -1,9 +1,7 @@
 //import List e Arraylist
-import java.util.ArrayList;
-import java.util.List;
 
 //import Sottoclassi
-import università.*;
+import universita.*;
 
 public class Test 
 {
