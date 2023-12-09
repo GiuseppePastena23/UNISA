@@ -1,5 +1,5 @@
 //creazione Package (anche se a singolo file)
-package università;
+package universita;
 
 //import List e Arraylist
 import java.util.ArrayList;

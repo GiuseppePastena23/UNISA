@@ -1,4 +1,4 @@
-package università;
+package universita;
 
 public class Studente_DSA extends Studente
 {   
