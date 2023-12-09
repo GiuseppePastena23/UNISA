@@ -1,7 +1,5 @@
 package università;
 
-import java.util.ArrayList;
-
 public class Esame
 {
     private String Nome;
@@ -13,8 +11,8 @@ public class Esame
         this.SSD = SSD;
     }
 
-    public String getNome(){Return Nome;}
-    public String getSSD(){Return SSD;}
+    public String getNome(){return Nome;}
+    public String getSSD(){return SSD;}
 
     public void setNome(String Nome){this.Nome = Nome;}
     public void setSSD(String SSD){this.SSD = SSD;}

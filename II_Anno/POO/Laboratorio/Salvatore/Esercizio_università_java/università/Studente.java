@@ -26,14 +26,18 @@ public class Studente
     public String getDatnas(){return Datnas;}
     public String getCodfis(){return Codfis;}
 
-    public Esame getEsamiSuperati(){return Esami_superati;}
+    public List<Esame> getEsamiSuperati(){return Esami_superati;}
     public Esame getEsameSuperatoPos(int pos)
     {
         if(pos >= 0 && pos < Esami_superati.size())
         {
             return Esami_superati.get(pos);
         }
-        else{java.out.println("Errore indice");}
+        else
+        {
+            System.out.println("Errore indice");
+            return null;
+        }
     }
 
     //setter
@@ -55,7 +59,7 @@ public class Studente
         {
             Esami_superati.set(pos, esame_superato);
         }
-        else{java.out.println("Errore indice");}
+        else{System.out.println("Errore indice");}
     }
 
     @Override
