@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //import Sottoclassi
-import universita.*;
+import università.*;
 
 public class Test 
 {

@@ -1,4 +1,4 @@
-package universita;
+package università;
 
 public class Esame
 {
