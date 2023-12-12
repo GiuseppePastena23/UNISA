@@ -1,65 +1,50 @@
-//
+//Ficco fornisce belle tracce e le esegue male
+//Classe astratta che implementa l'interfaccia
+//Serve a definire i tratti generali che ogni personaggio deve possedere
 
 package Fantasy;
 
+import java.util.Random;
+
 public abstract class Personaggio implements SuperPersonaggio {
-	protected static String ID;
-	protected int posizione = 0;
-	protected int energia = 100;
-	/*
-	public String type;
-	public int energy;
-	public Posizione start;
-	public Posizione position;
-	public int dir;
-	public enum Direction {NORD, EST, SUD, OVEST};*/
-	
-	public Personaggio() {
-		this(10);
+	protected int hp;
+	protected int staminaTotale;
+	public boolean dimezzaDanni;	//dimezza il danno subito con il prossimo colpo
+	public boolean potenziamento;	//potenzia l'attacco successivo
+	//Costruttore
+	public Personaggio(int hp, int staminaTotale) {
+		this.hp = hp;
+		this.staminaTotale = staminaTotale;
+		dimezzaDanni = false;
+		potenziamento = false;
 	}
-	public Personaggio(int i) {
-		posizione = i;
+	//Non implementabile a questo livello
+	public abstract int colpisci(Personaggio p);
+	//Metodo che viene richiamato dai figli per eseguire i calcoli
+	protected int calcoloDanni(int dannoBase, int range) {	//range indica di quanto spostarsi in una direzione
+		int dannoMin = dannoBase - range;
+		int intervallo = (2 * range) + 1;
+		Random gen = new Random();
+		int num = gen.nextInt(intervallo);
+		return (num + dannoMin);
 	}
-	public int posizione () {
-		return this.posizione;
+	//Metodi get/set
+	public int getHp() {
+		return hp;
 	}
-	public abstract int colpisci (Personaggio p);
-	
-	/*
-	public Personaggio (String ID, String type, int energy, Posizione start) {
-		this.ID = ID;
-		this.type = type;
-		this.energy = energy;
-		this.start = start;
-		this.position = start;
-		this.dir = 0;
-		this.Direction = NORD;
+	public void setHp(int hp) {
+		this.hp = hp;
 	}
-	
-	public Posizione posizione () {
-		return this.position;
+	public boolean getDimezzaDanni() {
+		return dimezzaDanni;
 	}
-	public void colpisci (Personaggio pers) {
-		
+	public void setDimezzaDanni(boolean b) {
+		this.dimezzaDanni = b;
 	}
-	
-	public void ruotaDX (int g) {
-		this.dir += g;
-		if(this.dir >= 360)
-			this.dir -= 360;
-		this.Direction = Direction.values()[(this.dir / 90)];
+	public boolean getPotenziamento() {
+		return potenziamento;
 	}
-	public void ruotaSX (int g) {
-		this.dir -= g;
-		if(this.dir <= 360)
-			this.dir += 360;
-		this.Direction = Direction.values()[(this.dir / 90)];
+	public void setPotenziamento(boolean b) {
+		this.potenziamento = b;
 	}
-	public Posizione avanti (int s) {
-	
-	}
-	public Posizione indietro (int s) {
-	
-	}
-	*/
 }

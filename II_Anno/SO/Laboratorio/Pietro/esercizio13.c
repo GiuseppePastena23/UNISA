@@ -11,25 +11,32 @@ invertendo maiuscole e minuscole*/
 #include <limits.h>
 #include <fcntl.h>
 
-#define BUFFSIZE 1024
-
 int main (int argc, char **argv) {
-	char mybuf[BUFFSIZE], *p;
-	int in_fd, out_fd, n;
+	char buffer;
+	int in_fd, out_fd;
+	
+	if(argc != 3) {
+		printf("Errore: numero di file non corretto\n");
+		exit(-1);
+	}
 	
 	in_fd = open(argv[1], O_RDONLY);
-	out_fd = open(argv[2], O_WRONLY | O_EXCL | O_CREAT, 0600);
+	out_fd = open(argv[2], O_WRONLY | O_EXCL | O_CREAT, 0644);	//0: file - 6: owner con rw - 4: group e world solo lettura
 	
-	while((n = read(in_fd, mybuf, BUFFSIZE)) > 0) {
-		for(p = mybuf; p - mybuf < n; p++) {
-			if(islower(*p))
-				*p = toupper(*p);
-			else if(isupper(*p))
-				*p = tolower(*p);
-		}
-		write(out_fd, mybuf, n);
-	}
+	if((in_fd == -1) || (out_fd == -1)) {
+        printf("Errore: apertura file\n");
+        exit(-2);
+    }
+	
+    while(read(in_fd, &buffer, sizeof(buffer)) > 0) {
+        buffer = (islower(buffer)) ? toupper(buffer) : tolower(buffer);
+        if(write(out_fd, &buffer, sizeof(buffer)) == -1) {
+            printf("Errore: scrittura\n");
+            exit(-3);
+        }
+    }
+	
 	close(in_fd);
 	close(out_fd);
-	exit(0);
+	return 0;
 }

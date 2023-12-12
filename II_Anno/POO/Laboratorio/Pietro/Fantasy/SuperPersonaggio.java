@@ -1,8 +1,8 @@
+//Ficco fornisce belle tracce e le esegue male
 //Interfaccia SuperPersonaggio
 
 package Fantasy;
 
 public interface SuperPersonaggio {
-	int posizione();	//posizione del pg
-	int colpisci(Personaggio pers);	//metodo che colpisce il pg pers
+	int colpisci(Personaggio pers);	//chi invoca il metodo colpisce il personaggio pers
 }

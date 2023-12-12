@@ -1,22 +1,19 @@
+//Ficco fornisce belle tracce e le esegue male
+//Il gioco si struttura come una lotta tra cavaliere, controllato dall'utente, ed orco, che invece sceglie a caso l'azione da eseguire ad ogni turno
+//Finito lo scontro, l'utente sceglie se iniziarne un'altro oppure concludere.
+
 import java.util.Random;
 import java.util.ArrayList;
 import Fantasy.*;
 
 public class TestFantasy {
-	private static int counter = 0;
 	public static void main (String[] args) {
-		Random pgs = new Random(1);
-		ArrayList <Personaggio> pgList = new ArrayList <Personaggio> ();
-		for(int i = 0; i < 10; i++) {
-			if(pgs.nextInt() == 0)
-				pgList.add(new Cavaliere(i));
-			else
-				pgList.add(new Orco(i));
-			counter++;
-		}
-		for(int i = 0; i < 10; i++) {
-			System.out.println(((Personaggio)pgList.get(i)).posizione());
-		}
-		((Personaggio)pgList.get(0)).colpisci((Personaggio)pgList.get(1));
+		//Condizioni iniziali: regole, ottenimento degli input
+		
+		//Inizia lo scontro: gestire l'alternanza delle azioni
+		
+		//Alla fine (hp a 0 per uno dei due) si chiede se continuare: si riporta il Cavaliere alle condizioni iniziali
+		
+		//Uscita con stampa dei risultati
 	}
 }
