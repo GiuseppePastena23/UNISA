@@ -62,7 +62,6 @@ public class TestFantasy {
 			}
 			
 		}
-		
-		//Uscita con stampa dei risultati
+		//Uscita con stampa dei risultati (e/o su file in un futuro lontano)
 	}
 }
