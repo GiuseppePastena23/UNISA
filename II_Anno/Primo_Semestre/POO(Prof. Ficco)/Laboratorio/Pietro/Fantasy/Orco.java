@@ -4,11 +4,14 @@ package Fantasy;
 import java.util.Random;
 
 public class Orco extends Personaggio {
+	private int staminaAttuale;
+	
 	//Bisogna aggiungere resistenze elementali: enum?
 	
 	//Costruttore
 	public Orco () {
-		super (150, 75);	//150hp, 75staminaTotale -> parametrizzare?
+		super (TOTAL_HP, TOTAL_STAMINA);
+		staminaAttuale = staminaTotale;
 		//Scelta random di un elemento per resistenza e, di conseguenza, debolezza (non viene detto esplicitamente?)
 	}
 	//Metodo che sceglie a caso la prossima azione dell'orco -> diverse soglie in cui dare pesi diversi alle azioni
@@ -19,8 +22,15 @@ public class Orco extends Personaggio {
 		return ch;
 	}
 	
+	public int colpisci(Personaggio pers) {
+		return 5;
+	}
+	
 	//Metodo che stampa lo stato attuale di un Orco
 	public void stato() {
 		System.out.println("L'orco avversario ha attualmente " + hp + "hp e " + staminaAttuale + "stamina");
 	}
+	//Costanti
+	private static final int TOTAL_HP = 150;
+	private static final int TOTAL_STAMINA = 75;
 }

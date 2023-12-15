@@ -6,12 +6,12 @@ public class Cavaliere extends Personaggio {
 	private int staminaAttuale;	//forse da spostare in Personaggio
 	//Costruttori
 	public Cavaliere() {
-		super(100, 100);	//100hp, 100staminaTotale -> parametrizzare?
+		super(TOTAL_HP, TOTAL_STAMINA);
 		id = "senza nome";
 		staminaAttuale = staminaTotale;
 	}
 	public Cavaliere (String id) {
-		super(100, 100);	//100hp, 100staminaTotale -> parametrizzare?
+		super(TOTAL_HP, TOTAL_STAMINA);
 		this.id = id;
 		staminaAttuale = staminaTotale;
 	}
@@ -25,6 +25,8 @@ public class Cavaliere extends Personaggio {
 		//Calcolo del danno a cui si aggiungono i modificatori
 		
 		//Uscita: riduzione hp del nemico con messaggio che indica l'output
+		
+		return 5;
 	}
 	public void difendi() {
 		dimezzaDanni = true;	//da controllare nel calcolo dei danni
@@ -46,4 +48,7 @@ public class Cavaliere extends Personaggio {
 	public void stato() {
 		System.out.println("Il cavaliere: " + id + " ha attualmente " + hp + "hp e " + staminaAttuale + "stamina");
 	}
+	//Costanti
+	private static final int TOTAL_HP = 100;
+	private static final int TOTAL_STAMINA = 100;
 }
