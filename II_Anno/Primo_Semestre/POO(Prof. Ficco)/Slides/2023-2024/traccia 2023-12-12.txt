@@ -1,0 +1,10 @@
+TRACCIA: 
+
+Realizzare un applicativo Java per la gestione dell’anagrafica di una scuola 
+che include delle classi frequentati da studenti e docenti, tutti caratterizzati 
+da nome, cognome e CF. Gli studenti sono associati ad una sola classe, 
+mentre i docenti insegnano una specifica materia in più classi.
+
+Il programma deve gestire i voti che gli studenti conseguono per ogni materia, 
+pertanto deve gestire inserimento/modifica/cancellazione dei voti, 
+il calcolo della media di uno studente, o della classe per una determinata materia.
