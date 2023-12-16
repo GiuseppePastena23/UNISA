@@ -1,0 +1,134 @@
+traccia8_11_2018_9.pdf
+
+3. Grafi
+
+a) Fornire lo pseudocodice un algoritmo ricorsivo che in O(n+m) trova l’ordinamento topologico di un DAG. Occorre aggiungere allo pseudocodice anche le istruzioni che consentono di ottenere il tempo di esecuzione O(n+m) illustrando il significato delle strutture dati utilizzate dall’algoritmo
+
+Algoritmo:
+S <- Vuoto						//Costante
+Inizializza L ad una lista vuota 			//Costante
+foreach arco (u,v)
+	count[v] = count[v] + 1				//Costante, totale O(m)
+endforeach
+foreach u in G
+	if( count[u] == 0 )				//Costante, totale O(n)
+		S = S Union {u}				//Costante, totale O(n)
+	endif
+endforeach
+Ordinamento_topologico(G,S,L)				//???
+
+
+Ordinamento_topologico(G,S,L):
+	if(S è vuoto)					//Costante
+		return					//Costante
+
+	Prendi un elemento di S e mettilo in z.		//Costante
+	Cancella z da S					//Costante
+	foreach arco (z,w)
+		count[w] = count[w] - 1			//Costante	/*
+		if(count[w] == 0)			//Costante		Per il totale delle iterazioni del for, O(deg(z)), per il totale della ricorsione O(m)
+			S = S Union {w}			//Costante	*/
+		endif
+	endforeach
+	Cancella z da G					//Costante
+	Ordinamento_topologico(G,S,L)			//???
+	inserisci z in testa ad L			//Costante
+
+
+In totale l'inizializzazione costa tempo O(m) + O(n). La singola chiamata ricorsiva costa O(deg(z)). Viene iterata per ogni nodo del grafo quindi in totale O(m).
+Il totale è quindi O(m) + O(n) + O(m) e quindi O(n + m).
+
+c) Dimostrare che in un DAG c’è almeno un nodo senza archi entranti.
+
+Un DAG è un grafo direzionato aciclico, significa che non possono esistere cicli.
+Sia G un DAG e per assurdo si supponga che ogni nodo abbia almeno un arco entrante.
+Preso un nodo generico u, esisterà di certo un arco (w,u). Posso percorrerlo in senso inverso e siccome per ipotesi ogni nodo ha almeno un arco entrante, posso ripetere la stessa operazione un numero infinito di volte. Si supponga di fare questa operazione per n volte. Siccome per un grado di n nodi sono sufficienti n - 1 archi e io ne ho percorsi n, significa che almmeno un nodo è stato visitato almeno due volte. Questo significa che c'è un ciclo e quindi G non è DAG, ma questo è un assurdo nato dal fatto di aver supposto che ogni nodo ha almeno un arco entrante. Di conseguenza esiste almeno un nodo senza archi entranti.
+
+
+
+traccia12_7_2018_9.pdf
+
+2) Si scriva lo pseudocodice di un algoritmo ricorsivo che prende in input un nodo u di un albero binario di interi e restituisce la somma degli elementi dei nodi del sottoalbero avente come radice u.  NB: L’elemento di un generico nodo v  è v.dato.
+
+somma = u.dato
+set explored[v] = false for each v
+DFS(u,somma)
+
+DFS(u):
+	explored[u] = true
+	foreach arco (u,v) in G
+		if(explored[v] = false)
+			somma = somma + v.dato
+			DFS(v, somma)
+		endIF
+	endForeach
+END DFS
+return somma
+
+
+3.
+a) Scrivere lo pseudocodice dell’algoritmo BFS che fa uso di una coda FIFO e si analizzi la complessita` dell’algoritmo nel caso pessimo. Analizzare il tempo di esecuzione di un algoritmo significa fornire una stima asintotica quanto migliore è possibile del suo tempo di esecuzione giustificando in modo chiaro la risposta.
+
+1. Sia Q una coda vuota
+2. Sia T l'albero BFSTree vuoto
+3. Sia discovered[s] = true e discovered[v] per tutti gli altri v
+4. Enqueue(Q,s)
+5. 
+6. while(Q non è vuota)
+7.	u = Dequeue(Q)
+8.	foreach arco (u,v) in G
+9.		if( discovered[v] = false )
+10.			discovered[v] = true
+11.			Enqueue(Q,v)
+12.			Aggiungi l'arco (u,v) a T
+13.		endif	
+14.	endforeach
+15. endwhile
+
+Le prime due righe richiedono tempo costante. La terza riga richiede tempo O(n). La quarta riga tempo costante. La settima riga tempo costante. Il corpo del foreach richiede tempo costante e viene iterato O(deg(u)) volte in una singola iterazione del while. Il while viene iterato al più n volte quindi in totale O(m). In totale il costo è O(n) + O(m) -> O(n + m).
+
+
+b) Si  forniscano le istruzioni che permettono all’algoritmo BFS al punto a) di costruire l’albero BFS e si indichi in che punti dell’algoritmo vanno inserite queste istruzioni. A tale scopo si numerino le linee di codice dell’algoritmo BFS. 
+
+Ehm... già fatto sopra(?)
+
+c) Si descriva in modo chiaro e schematico come modificare o come utilizzare l’algoritmo BFS per disegnare un algoritmo che dato in input un grafo non direzionato restituisce true se il grafo non contiene cicli e false altrimenti. Non e` necessario scrivere lo pseudocodice.
+
+/*
+Idea di puddi:
+	eseguendo la bfs con lista di adiacenza ad ogni iterazione si verifica se l'indice i è pari e dispari e a seconda di questo si assegna un colore a color[v]
+	alla fine della bfs si esegue un foreach su ogni arco (u,v) di G e se si trova almeno un color[u]==color[v] allora esiste un ciclo
+	altrimenti se nessuna coppia soddisfa questa condizione il grafo non contiene cicli
+
+
+	Inizializza la lista L[0]
+	Poni s in L[0]
+	Inizializza l'albero BFSTree T
+	inizializza il contatore dei livelli i a 0 //QUESTO LO AVEVO DATO PER SCONTATO E INVECE DOVEVO SCRIVERLO
+	Poni discovered[s] = true e discovered[v] = false per tutti gli altri nodi
+	while(L[i] non è vuota)
+		Inizializza L[i+1] con una lista vuota //DIMENTICATO
+		foreach nodo u in L[i] //DIMENTICATO
+			foreach arco (u,v) in G
+			if( discovered[v] = false )
+				if( i % 2 == 0 )
+					color[v] = blu
+				else
+					color[v] = rosso
+				discovered[v] = true
+				Aggiungi v ad L[i+1]
+				Aggiungi l'arco (u,v) a T
+			endif
+			endforeach
+		endforeach
+		i = i + 1
+	endwhile
+	foreach arco (u,v) in T
+		if( color[u] == color[v] )
+			return true
+	return false
+
+
+
+
+

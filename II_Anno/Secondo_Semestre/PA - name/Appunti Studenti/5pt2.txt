@@ -1,0 +1,104 @@
+La coda a priorità è di fatto una collezione di coppie della forma valore-chiave. Si chiama priorità perché ogni valore ha una sua importanza che è stabilita dalla sua chiave. È una struttura per cui sono definite queste operazioni:
+	Insert
+		Prende in input una coda a priorità p, un elemento o, ed inserisce o nella coda a priorità
+	[ExtractMin]/[ExtractMax]
+		Estrae dalla coda a priorità l'entrata con chiave [minima]/[massima]. In una coda a priorità in cui si lavora con il [minimo]/[massimo] la priorità degli elementi è tanto più alta quanto più [piccola]/[grande] è la chiave, perciò si estrae il [minimo]/[massimo], perché si intende estrarre l'elemento con chiave più [piccola]/[grande]. Le chiavi devono ovviamente essere in un insieme in cui è definita una relazione di ordine totale 
+	ChangeKey
+		Prende in input una coda a priorità p, un elemento x ed una chiave k, e sostituisce la chiave di x con k.
+	IsEmpty
+		Prende in input una coda a priorità p e restituisce true se la coda a priorità è vuota
+	[FindMin]/[FindMax]
+		Prende in input una coda a priorità p e restituisce l'entrata con chiave più [piccola]/[grande], senza cancellarla (a differenza di [ExtractMin]/[ExtractMax])
+	[Delete]/[Remove]
+		Prende in input una coda a priorità p e un valore x, e rimuove dalla coda a priorità l'entrata che contiene il valore x
+
+Vediamo varie implementazioni, dalla più semplice alla più complessa
+
+L'implementazione più semplice è quella con lista ordinata, noi ora vediamo quella con lista non ordinata.
+
+Implementazione con lista non ordinata
+
+	Insert
+		Inseriamo la nuova entrata in un punto qualsiasi perché non ci importa tenere la lista ordinata in base a qualche criterio. Siccome vogliamo essere efficienti, andremo ad inserire l'elemento o all'inizio o alla fine. Tempo costante
+	[ExtractMin]/[ExtractMax]
+		Non c'è un ordine, l'entrata con chiave [minima]/[massima] la devo cercare. L'estrazione richiede tempo costante. Nel caso peggiore la troverò alla fine. Tempo lineare O(n)
+	ChangeKey
+		Richiede tempo costante solo se prevediamo un riferimento all'entrata di cui vogliamo sostituire la chiave. Abbiamo bisogno di design-pattern (come i locator)
+	IsEmpty
+		Tempo costante
+	[FindMin]/[FindMax]
+		non c'è un ordine, l'entrata con chiave [minima]/[massima] la devo cercare. Nel caso peggiore la troverò alla fine. Tempo lineare O(n)
+	[Delete]/[Remove]
+		Richiede tempo costante solo se prevediamo un riferimento all'entrata che vogliamo cancellare. Abbiamo bisogno di design-pattern (come i locator)
+
+Implementazione con lista ordinata
+
+	Insert
+		Ogni volta che inserisco un elemento devo capire in che posto inserirlo, tempo lineare O(n).
+	[ExtractMin]/[ExtractMax]
+		Tempo costante
+	ChangeKey
+		Cambiando la chiave io devo riposizionare l'elemento all'interno della sequenza, tempo lineare O(n).
+	IsEmpty
+		Tempo costante
+	[FindMin]/[FindMax]
+		Tempo costante
+	[Delete]/[Remove]
+		Richiede tempo costante solo se prevediamo un riferimento all'entrata di cui vogliamo sostituire la chiave.
+
+Ordinamento
+
+La coda a priorità può essere utilizzata per ordinare una sequenza. La cosa più semplice è scandire la sequenza s da sinistra verso destra, ogni volta che esamino un elemento lo prendo e lo inserisco in una coda a priorità. Per i che va da 1 a n (dove n è il numero di elementi della sequenza) faccio delle ExtractMin dalla coda a priorità e ad ogni ExtractMin inserisco alla fine della lista l'entrata (k,k), Poi riscandisco, tolgo dalla coda e li metto nella sequenza.
+
+Lista non ordinata
+
+Input: s_1, s_2, …, s_n
+
+Let Q be a priority queue	Tempo costante
+for(int i = 0; i < n; i++)	Il for viene eseguito n volte
+{
+	Insert(Q,s_i)		Tempo costante che, nel totale delle operazioni del for, richiede tempo lineare O(n)
+	Delete s_i from s	Tempo costante che, nel totale delle operazioni del for, richiede tempo lineare O(n)
+}
+
+for(int i = 0; i < n; i++)	Il for viene eseguito n volte
+{
+	e <- ExtractMin(Q)	Tempo lineare O(n) che, nel totale delle operazioni del for, richiede tempo lineare O(n^2)
+	append e to s.		Tempo costante che, nel totale delle operazioni del for, richiede tempo lineare O(n)
+}
+
+Quindi, O(n) + O(n^2), prevale O(n^2) e quindi il costo computazionale totale è O(n^2)
+
+Lista ordinata
+
+Input: s_1, s_2, …, s_n
+
+Let Q be a priority queue	Tempo costante
+for(int i = 0; i < n; i++)	Il for viene eseguito n volte
+{
+	Insert(Q,s_i)		Tempo lineare O(n) che, nel totale delle operazioni del for, richiede tempo lineare O(n^2)
+	Delete s_i from s	Tempo costante che, nel totale delle operazioni del for, richiede tempo lineare O(n)
+}
+
+for(int i = 0; i < n; i++)	Il for viene eseguito n volte
+{
+	e <- ExtractMin(Q)	Tempo costante che, nel totale delle operazioni del for, richiede tempo lineare O(n)
+	append e to s.		Tempo costante che, nel totale delle operazioni del for, richiede tempo lineare O(n)
+}
+
+Quindi, O(n^2) + O(n), prevale O(n^2) e quindi il costo computazionale totale è O(n^2)
+
+Definizione di heap
+
+L'heap è un albero binario (quindi ogni nodo interno ha al più due figli) in cui le chiavi presenti nei nodi (Ovviamente noi con l'albero vogliamo rappresentare una coda a priorità quindi nei nodi dell'albero ci saranno delle coppie valore-chiave).
+Per chiamarsi heap, un albero binario deve verificare la cosiddetta proprietà heap-tree order:
+	Le chiavi presenti nei nodi saranno sistemate in modo tale che la chiave presente in un nodo è minore o uguale delle chiavi dei figli.
+La seconda proprietà è strutturale:
+	Tutti i livelli dell'albero binario sono pieni tranne tutt'al più quello più basso che sarà riempito da sinistra verso destra.
+L'altezza dell'heap è fondamentale perché rappresenta una limitazione al tempo di esecuzione delle funzioni fondamentali dell'heap stesso.
+
+Andiamo a dimostrare che l'altezza è logaritmica:
+
+Dalla definizione di heap come albero binario completo fa si che su ogni livello tranne tutt'al più l'ultimo che potrebbe essere parziamente riempito, ci sono 2^i nodi. Significa che il livello di profondità i contiene 2^i nodi, perché questi livelli sono pieni, c'è almeno un nodo sull'ultimo livello. Questo ci permette di stabilire un limite inferiore al numero di nodi totali dell'albero e di conseguenza un limite superiore all'altezza dell'albero. Possiamo dire che n, il numero di nodi totale dell'albero è maggiore uguale di 1 al livello 0 più due più quattro più otto e così via fino ad arrivare al penultimo livello + almeno un nodo che si trova sull'ultimo livello In totale
+n >= [sommatoria per i che va da 0 ad h-1 di (2^i)] + 1 
+E mi scoccio di scrivere
