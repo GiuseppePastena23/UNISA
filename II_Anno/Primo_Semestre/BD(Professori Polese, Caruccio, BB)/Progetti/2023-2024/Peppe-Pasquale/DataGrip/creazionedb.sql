@@ -1,8 +1,3 @@
--- INFORMAZIONI NAMING CONVENTION
--- Tabelle: nome singolare
--- numero: n
--- pascal case + snake case con reference maiuscole es "Nome_Circuito" (per le foreign key) oppure "nCilindri_motore"
-
 -- CANCELLAMI
 DROP DATABASE IF EXISTS Campionato;
 
@@ -43,7 +38,7 @@ CREATE TABLE IF NOT EXISTS Scuderia (
 CREATE TABLE IF NOT EXISTS Gara (
     Nome VARCHAR(20) NOT NULL,
     Data DATE NOT NULL,
-    DurataH DECIMAL NOT NULL,
+    DurataH FLOAT NOT NULL,
     Tipo ENUM('asciutta', 'bagnata') NOT NULL,
     Nome_Circuito VARCHAR(20) NOT NULL,
     PRIMARY KEY (Nome),
@@ -73,7 +68,7 @@ CREATE TABLE IF NOT EXISTS Componente (
     nCilindri_motore INT,
     Tipo_motore VARCHAR(20),
     Materiale_telaio VARCHAR(20),
-    Peso_telaio DECIMAL,
+    Peso_telaio FLOAT,
     nMarce_cambio INT,
     Ragione_sociale_Costruttore VARCHAR(20) NOT NULL,
     nGara_Vettura INT NOT NULL,
@@ -99,16 +94,15 @@ CREATE TABLE IF NOT EXISTS Pilota (
     FOREIGN KEY (nGara_Vettura) REFERENCES Vettura(nGara)
 );
 
--- creazione tabella Partecipa
--- Nome_Gara PK, nGara_Vettura PK, Punti, Motivo_ritiro*, posizione
-CREATE TABLE IF NOT EXISTS Partecipa (
+-- creazione tabella Partecipazione
+-- Nome_Gara PK, nGara_Vettura PK, Punti, Posizione, Motivo_ritiro*,
+CREATE TABLE IF NOT EXISTS Partecipazione (
     Nome_Gara VARCHAR(20) NOT NULL,
     nGara_Vettura INT NOT NULL,
     Punti INT NOT NULL,
+    posizione INT NOT NULL,
     Motivo_ritiro VARCHAR(20),
-    posizione INT,
     PRIMARY KEY (Nome_Gara, nGara_Vettura),
     FOREIGN KEY (Nome_Gara) REFERENCES Gara(Nome),
     FOREIGN KEY (nGara_Vettura) REFERENCES Vettura(nGara)
 );
-
