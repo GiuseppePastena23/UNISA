@@ -1,0 +1,26 @@
+Classe Prodotto
+Crea una classe Prodotto con i campi id, nome, prezzo e quantitàDisponibile.
+Implementa un metodo toString() che restituisca una stringa rappresentante il prodotto.
+
+Classe Categoria
+Crea una classe Categoria con il campo nome e una lista di prodotti associati a quella categoria.
+Implementa un metodo per aggiungere un prodotto alla categoria.
+
+Classe Carrello
+Crea una classe Carrello con una mappa che tiene traccia dei prodotti aggiunti al carrello e delle relative quantità.
+Implementa metodi per aggiungere un prodotto al carrello, rimuoverlo e ottenere la lista dei prodotti nel carrello.
+
+Classe Utente
+Crea una classe Utente con un nome e un carrello associato.
+Implementa un metodo per aggiungere un prodotto al carrello dell'utente.
+
+Classe Negozio
+Crea una classe Negozio che contiene una lista di categorie e un elenco di utenti registrati.
+Implementa un metodo per aggiungere una categoria al negozio e per registrare un nuovo utente.
+
+Test dell'applicazione
+Nel metodo main di una classe MainNegozioOnline, crea alcune istanze di prodotti, categorie, utenti e carrelli.
+Aggiungi prodotti a diverse categorie.
+Aggiungi utenti al negozio e assegna loro un carrello.
+Fai in modo che gli utenti aggiungano prodotti ai loro carrelli.
+Stampa le informazioni sui prodotti nel carrello di ciascun utente.
