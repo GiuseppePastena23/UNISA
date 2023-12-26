@@ -86,40 +86,40 @@ INSERT INTO Componente (Costo, Tipo, Cilindrata_motore, nCilindri_motore, Tipo_m
 
 
 INSERT INTO Pilota (SSID, Nome, Cognome, DDN, Nazionalita, Tipo, Quota, nLicenze, Data_prima_licenza, nGara_Vettura) VALUES
-('54VGYIIGIUASC654', 'Lewis', 'Hamilton', '1985-01-07', 'Inglese', 'PRO', NULL, 5, NULL, 44),
-('WVB8956VDS11SD2V', 'Max', 'Verstappen', '1997-09-30', 'Olandese', 'PRO', NULL, 4, NULL, 33),
+('54VGYIIGIUASC654', 'Lewis', 'Hamilton', '1985-01-07', 'Gran Bretagna', 'PRO', NULL, 5, NULL, 44),
+('WVB8956VDS11SD2V', 'Max', 'Verstappen', '1997-09-30', 'Olanda', 'PRO', NULL, 4, NULL, 33),
 
-('TRNAXL99T13H501B', 'Mario', 'Rossi', '1999-11-13', 'Italiano', 'AM', NULL, NULL, '2022-03-01', 4),
-('PKRCHL97P16H501M', 'James', 'Brown', '1997-10-16', 'Inglese', 'AM', NULL, NULL, '2022-02-28', 55),
+('TRNAXL99T13H501B', 'Mario', 'Rossi', '1999-11-13', 'Italia', 'AM', NULL, NULL, '2022-03-01', 4),
+('PKRCHL97P16H501M', 'James', 'Brown', '1997-10-16', 'Gran Bretagna', 'AM', NULL, NULL, '2022-02-28', 55),
 
-('SCHTFX87L03C205G', 'Carlos', 'Hombre', '1987-07-03', 'Spagnolo', 'GD', 200000.00, NULL, '2022-03-10', 11),
-('BRGNNA89M28C205F', 'Luigi', 'Casati', '1989-08-28', 'Italiano', 'GD', 180000.00, NULL, '2022-03-20', 77);
+('SCHTFX87L03C205G', 'Carlos', 'Hombre', '1987-07-03', 'Spagna', 'GD', 200000.00, NULL, '2022-03-10', 11),
+('BRGNNA89M28C205F', 'Luigi', 'Casati', '1989-08-28', 'Italia', 'GD', 180000.00, NULL, '2022-03-20', 77);
 
 
-INSERT INTO Partecipazione (Nome_Gara, nGara_Vettura, Punti, Motivo_ritiro, posizione) VALUES
-('GP Italia', 44, 25, NULL, 1),
-('GP Italia', 77, 18, NULL, 2),
-('GP Italia', 55, 15, NULL, 3),
-('GP Italia', 11, 12, NULL, 4),
-('GP Italia', 33, 10, NULL, 5),
-('GP Italia', 16, 8, NULL, 6),
-('GP Italia', 4, 0, 'ritiro', NULL),
-('Q1 Italia', 44, 0, 'ritiro', NULL),
-('Q2 Italia', 77, 0, NULL, 3),
-('Q3 Italia', 55, 0, 'squalifica', NULL),
-('FP1 Italia', 11, 0, NULL, 8),
-('FP2 Italia', 33, 0, NULL, 10),
-('FP3 Italia', 16, 0, NULL, 6),
-('GP Monaco', 44, 25, NULL, 1),
-('GP Monaco', 77, 0, 'incidente', NULL),
-('GP Monaco', 11, 12, NULL, 4),
-('GP Monaco', 33, 10, NULL, 5),
-('GP Monaco', 16, 8, NULL, 6),
-('GP Monaco', 4, 0, 'ritiro', NULL),
-('GP Monaco', 55, 0, 'squalifica', NULL),
-('Q1 Monaco', 44, 0, NULL, 1),
-('Q2 Monaco', 77, 0, NULL, 3),
-('Q3 Monaco', 55, 0, 'squalifica', NULL),
-('FP1 Monaco', 11, 0, NULL, 8),
-('FP2 Monaco', 33, 0, NULL, 10),
-('FP3 Monaco', 16, 0, NULL, 6);
+INSERT INTO Partecipazione (Nome_Gara, nGara_Vettura, Punti, Motivo_ritiro, Posizione, Minuti_gareggiati) VALUES
+('GP Italia', 77, 30, NULL, 1, 60),
+('GP Italia', 44, 25, NULL, 2, 3),
+('GP Italia', 55, 15, NULL, 3, 30),
+('GP Italia', 11, 12, NULL, 4, 34),
+('GP Italia', 33, 10, NULL, 5, 5),
+('GP Italia', 16, 8, NULL, 6, 5),
+('GP Italia', 4, 0, 'ritiro', NULL, 2),
+('Q1 Italia', 44, 0, 'ritiro', NULL, 6),
+('Q2 Italia', 77, 0, NULL, 3, 5),
+('Q3 Italia', 55, 0, 'squalifica', NULL, 10),
+('FP1 Italia', 11, 0, NULL, 8, 5),
+('FP2 Italia', 33, 0, NULL, 10, 5),
+('FP3 Italia', 16, 0, NULL, 6, 5),
+('GP Monaco', 44, 25, NULL, 1, 5),
+('GP Monaco', 77, 0, 'incidente', NULL, 5),
+('GP Monaco', 11, 12, NULL, 4, 5),
+('GP Monaco', 33, 10, NULL, 5, 5),
+('GP Monaco', 16, 8, NULL, 6, 5),
+('GP Monaco', 4, 0, 'ritiro', NULL, 5),
+('GP Monaco', 55, 0, 'squalifica', NULL, 5),
+('Q1 Monaco', 44, 0, NULL, 1, 5),
+('Q2 Monaco', 77, 0, NULL, 3, 5),
+('Q3 Monaco', 55, 0, 'squalifica', NULL, 5),
+('FP1 Monaco', 11, 0, NULL, 8, 5),
+('FP2 Monaco', 33, 0, NULL, 10, 5),
+('FP3 Monaco', 16, 0, NULL, 6, 5);
