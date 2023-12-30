@@ -1,0 +1,19 @@
+Differenza tra upcasting e downcasting
+Differenza tra interfaccia, ereditarietà e abstract
+
+Discussione sulle eccezioni:
+- quali sono le eccezioni 
+- Esempi di eccezioni fatte al corso
+- Eccezioni controlloate e non controllate e  cosa cambia a livello pratico
+- Come gestire le eccezioni
+- Stream api: fare una discussione, le operazioni fondamentali, esempi di operazioni
+
+Interfacce grafica: 
+- Come si possono gestire gli eventi 
+- Che cos'è un source e un listener 
+
+Gestione eventi (brutto) -> tramite classi esterne, ogni classe implementa la classre actionlistener
+-> definire la classe listener internamente 
+-> espressione lambda
+
+Come utilizzare l'interfaccia funziale, perché è diversa, perché è utile, a cosa serve

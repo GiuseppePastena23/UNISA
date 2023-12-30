@@ -1,0 +1,439 @@
+MergeSort(a, sx, dx)
+{
+	if(sx < dx)
+	{
+		cx = (sx + dx) / 2;
+		MergeSort(a, sx, cx);
+		MergeSort(a, cx, dx);
+		Merge(a, sx, cx, dx);
+	}
+}
+
+Merge(a, sx, cx, dx)
+{
+	i = sx;
+	j = cx + 1;
+	k = 0;
+
+	while(i <= cx && j <= dx)
+	{
+		if(a[i] < a[j])
+			b[k++] = a[i++];
+		else
+			b[k++] = a[j++];
+	}
+
+	for( ; i <= cx; i++)
+		b[k++] = a[i];
+	for( ; j <= dx; j++)
+		b[k++] = a[j];
+	for( i = sx; i <= dx; i++)
+		a[i] = b[i-sx];
+}
+
+Merge: O(n)
+
+Relazione di ricorrenza:
+		{ c_0			se n <= 1
+	T(n) = 	{
+		{ 2T(n/2) + cn + c'	altrimenti
+
+--------------------------------------------------------------------------
+
+RicercaBinaria(a, sx, dx, k)
+{
+	if(sx > dx)
+		return -1;
+	cx = (sx + dx) / 2;
+	if(a[cx] == k)
+		return cx;
+	if(sx == dx)
+		return -1;
+	if(a[cx] < k)
+		return RicercaBinaria(a,cx + 1, dx, k);
+	if(a[cx] > k)
+		return RicercaBinaria(a,sx, cx - 1, k);
+}
+
+Relazione di ricorrenza:
+		{ c_0			se n <= 1 oppure k è l'elemento centrale
+	T(n) <=	{
+		{ T(n/2) + c		altrimenti
+
+-------------------------------------------------------------------------
+
+QuickSort(a, sx, dx)
+{
+	if(sx < dx)
+	{
+		px = pivot nell'intervallo [sx, dx];
+		indiceFinalePivot = Distribuzione(a, sx, px, dx);
+		QuickSort(a, sx, indiceFinalePivot - 1);
+		QuickSort(a, indiceFinalePivot + 1, dx);
+	}
+}
+
+Distribuzione(a, sx, px, dx)
+{
+	if(px!= dx)
+		Scambia(px, dx);
+	i = sx;
+	j = dx - 1;
+	
+	while(i <= j)
+	{
+		while((i <= j) && (a[i] <= a[dx]))
+			i++;
+		while((i <= j) && (a[j] >= a[dx]))
+			j--;
+		if(i < j)
+			Scambia(i++, j--);
+	}
+	if(i != dx)
+		Scambia(i, dx);
+	return i;
+}
+
+Distribuzione: O(n)
+
+Scambia(i, j)
+{
+	tmp = a[i];
+	a[i] = a[j];
+	a[j] = tmp;
+}
+
+Scambia: O(1)
+
+Relazione di ricorrenza:
+				r = rango dell'elemento pivot
+
+		{ c_0				se n <= 1
+	T(n) <=	{
+		{ T(r - 1) + T(n - r) + cn	altrimenti
+-------------------------------------------------------------------------------
+
+QuickSelect(a, sx, r, dx)
+{
+	if(sx == dx)
+		return a[sx];
+
+	px = pivot nell'intervallo [sx, dx];
+	indiceFinalePivot = Distribuzione(a, sx, px, dx);
+	if(r - 1 == indiceFinalePivot)
+		return a[indiceFinalePivot];
+	else
+		if(r - 1 < indiceFinalePivot)
+			return QuickSelect(a, sx, r, indiceFinalePivot - 1);
+		else
+			return QuickSelect(a, indiceFinalePivot + 1, r, dx);
+}
+
+Distribuzione(a, sx, px, dx)
+{
+	if(px!= dx)
+		Scambia(px, dx);
+	i = sx;
+	j = dx - 1;
+	
+	while(i <= j)
+	{
+		while((i <= j) && (a[i] <= a[dx]))
+			i++;
+		while((i <= j) && (a[j] >= a[dx]))
+			j--;
+		if(i < j)
+			Scambia(i++, j--);
+	}
+	if(i != dx)
+		Scambia(i, dx);
+	return i;
+}
+
+Distribuzione: O(n)
+
+Scambia(i, j)
+{
+	tmp = a[i];
+	a[i] = a[j];
+	a[j] = tmp;
+}
+
+Scambia: O(1)
+
+Relazione di ricorrenza:
+				r_p = rango dell'elemento pivot
+
+		{ c_0n					se n <= 1
+	T(n) <=	{
+		{ max{T(r_p - 1) + T(n - r_p)} + cn	altrimenti
+
+--------------------------------------------------------------------------------
+
+Nota: Algoritmo di Karatsuba = Algoritmo per la moltiplicazione veloce di interi
+Nota: v_((a+b)(c+d)) l'ho chiamato v_sum
+
+Karatsuba(n1, n2)
+{
+	if( ( n1 < base ) || ( n2 < base ) )
+		return n1 * n2;
+
+	size = min(getSize(n1), getSize(n2));
+	half = size / 2;
+
+	a = n1 / base^half;
+	b = n1 % base^half;
+	
+	c = n2 / base^half;
+	d = n2 % base^half;
+	
+	v_ac = karatsuba(a, c);
+	v_sum = Karatsuba(a + b, c + d);
+	v_bd = karatsuba(b, d);
+
+	return ( v_ac * base^(half * 2) ) + ( ( v_sum - v_bd - v_ac ) * base^(half) ) + v_bd;
+}
+
+Relazione di ricorrenza:
+		{ c_0		se n <= 1
+	T(n) <= {
+		{ 3T(n/2) + cn	altrimenti
+
+-------------------------------------------------------------------------------
+
+Nota: Algoritmo di Kedame = Algoritmo per la sottosequenza di somma massima di un array di numeri
+
+maxSubArraySum(a, sx, dx)
+{
+	if(sx == dx)
+		return a[sx];
+
+	cx = (sx + dx) / 2;
+
+	left = maxSubArraySum(a, sx, cx);
+	right = maxSubArraySum(a, cx + 1, dx);
+
+	combined = Combine(a, low, cx, dx);
+
+	return max(left, right, comb);
+}
+
+Combine(a, sx, cx, dx)
+{
+	sum = 0;
+	max_right = -inf;
+	max_left = -inf;
+	
+	for(i = cx; i >= sx; i--)
+	{
+		sum += a[i];
+		if(sum > max_left)
+			max_left = sum;
+	}
+
+	sum = 0;
+
+	for(i = cx + 1; i < dx, i++)
+	{
+		sum += a[i];
+		if(sum > max_right)
+			max_right = sum;
+	}
+
+	return max_left + max_right;
+}
+
+Combine: O(n)
+
+Relazione di ricorrenza:
+		{ c_0			se n = 1
+	T(n) <=	{
+		{ 2T(n/2) + cn		altrimenti
+
+----------------------------------------------------------------------------
+
+Nota: Decomponibile = divide et impera per sottoalberi radicati nei figli di un nodo
+
+Decomponibile(u)
+{
+	if(u == NULL)
+		return valore_del_caso_base;
+
+	foreach figlio v di u
+		risultatiFigli[i++] = Decomponibile(v);
+
+	return Ricombina(risultatiFigli);
+}
+
+Decomponibile(u)
+{
+	if(u == NULL)
+		return valore_del_caso_base;
+	
+	return Ricombina(Decomponibile(u.sx), Decomponibile(u.dx));
+}
+
+Decomponibile: O(n)
+
+--------------------------------------------------------------------------------
+
+Altezza(u)
+{
+	if(u == null)
+		return -1;
+	
+	return max( Altezza(u.sx), Altezza(u.dx) ) + 1; 
+}
+
+Altezza: O(n)
+
+--------------------------------------------------------------------------------
+
+Dimensione(u)
+{
+	if(u == null)
+		return 0;
+
+	return ( Dimensione(u.sx) + Dimensione(u.dx) + 1 );
+}
+
+Dimensione: O(n)
+
+--------------------------------------------------------------------------------
+
+Preorder(u)
+{
+	if(u == null)
+		return;
+	elabora(u);
+	Preorder(u.sx);
+	Preorder(u.dx);
+}
+
+Preorder: O(n * costo_di_elabora)
+
+--------------------------------------------------------------------------------
+
+Inorder(u)
+{
+	if(u == null)
+		return;
+	Inorder(u.sx);
+	elabora(u);
+	Inorder(u.dx);
+}
+
+Inorder: O(n * costo_di_elabora)
+
+--------------------------------------------------------------------------------
+
+Postorder(u)
+{
+	if(u == null)
+		return;
+	Postorder(u.sx);
+	Postorder(u.dx);
+	elabora(u);
+}
+
+Postorder: O(n * costo_di_elabora)
+
+--------------------------------------------------------------------------------
+
+Nota: Valuta = Valutazione dell'espressione aritmetica rappresentata da un albero binario
+
+Valuta(u)
+{
+	if(u==null)
+		return null;
+
+	if(u.sx == null && u.dx==null)
+		return u.dato;
+
+	return Calcola(u.dato, Valuta(u.sx), Valuta(u.dx));
+}
+
+Valuta: O(n) (ammesso che il tempo di Calcola sia costante)
+
+---------------------------------------------------------------------------------
+
+Nota: CompletamenteBilanciato = Algoritmo per verificare se un albero binario è completamente bilanciato
+
+CompletamenteBilanciato(u)
+{
+	if(u == NULL)
+		return <true, -1>;
+
+	<bilSX, altSX> = CompletamenteBilanciato(u.sx);
+	<bilDX, altDX> = CompletamenteBilanciato(u.dx);
+
+	bil = (bilSX && bilDX) && (altSX == altDX);
+	altezza = max(altSX, altDX) + 1;
+	
+	return <bil, altezza>;
+}
+
+CompletamenteBilanciato: O(n)
+
+---------------------------------------------------------------------------------
+
+Nota: Profondità = Algoritmo per calcolare la profondità di un nodo u
+
+Iterativa:
+Profondità(u)
+{
+	p = 0;
+	while(u.padre != NULL)
+	{
+		p++;
+		u = u.padre;
+	}
+
+	return u;
+}
+
+Ricorsiva:
+Profondità(u)
+{
+	if(u.padre == NULL)
+		return 0;
+
+	return Profondità(u.padre) + 1;
+}
+
+Profondità: O(n)
+
+---------------------------------------------------------------------------------
+
+Nota: Profondità = Algoritmo per calcolare la profondità di tutti i nodi 
+
+Profondità(u, p)
+{
+	if(u != NULL)
+	{
+		print la profondità del nodo u è p;
+		Profondità(u.sx, p + 1);
+		Profondità(u.dx, p + 1);
+	}
+}
+
+Profondità: O(n)
+
+---------------------------------------------------------------------------------
+
+Nota: Cardine = Algoritmo per trovare i nodi cardine (quindi un nodo con profondità(u) == altezza(T(u)))
+
+Cardine(u, p)
+{
+	if(u == NULL)
+		return -1;
+
+	altezza = max(Cardine(u.sx, p + 1), Cardine(u.dx, p + 1)) + 1;
+
+	if(p == altezza)
+		print u.dato;
+	
+	return altezza;
+}
+
+Cardine: O(n)

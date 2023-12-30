@@ -1,5 +1,0 @@
-LibroScolastico,Scienze della terra,Zanichelli,300,1;2;3;4,Uni,Universita,CD1
-LibroScolastico,Basi di dati,Atzeni,700,1;2;3;4,Uni,Universita,AtzeniCD
-Volume,Cospirazioni,Contrada,540,1;2;3;4,Treccani,Editore
-LibroScolastico,Cossimani per noi,Trebbiacani,123,1;2;3;5;7,Terza,Primaria,CD1
-Volume,Che ci faccio qui,Daniele,456,1;2;3;4,Mainente,Rossella

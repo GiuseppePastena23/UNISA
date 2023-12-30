@@ -1,0 +1,403 @@
+Interval scheduling pesato
+
+Notazioni:
+p(j) è il più grande indice i tale che i sia compatibile con j
+OPT(j) = valore della soluzione ottima costituita dalle j richieste con i j tempi di fine più piccoli
+
+Input: n job, dove il job j è caratterizzato da:
+	un tempo di inizio s_j
+	un tempo di fine f_j
+	un peso v_j
+
+Quando si considera il valore OPT per un generico job j i casi sono due:
+	Che il job j rientri all'interno della soluzione ottima
+		In questo caso bisogna aggiungere ai valori già computati precedentemente il peso v_j, e si deve computare il resto della soluzione partendo dal primo job compatibile con j, quindi p(j).
+	Che il job j non rientri all'interno della soluzione ottima
+		Quindi la soluzione ottima sarà costituita dal valore di OPT calcolato per i j - 1 job.
+
+
+	 { 0					if j = 0
+OPT(j) = {
+	 { max{ v_j + OPT( P(j) ), OPT(j - 1) }	if j > 0
+
+ordina i processi in base al loro tempo di fine
+Calcola p_1, p_2, ..., p_n
+
+for i = 0 to n
+	M[i] = 0
+endfor
+
+Compute-Opt(j)
+{
+	for i = 0 to n
+		if( j == 0 )
+			return 0;
+		if(M[i] is empty)
+			M[i] = max(v_j + Compute-Opt(p_j), Compute-Opt(i - 1));
+	endfor
+
+	return M[n];
+
+Se invece lo voglio iterativo
+
+ordina i processi in base al loro tempo di fine
+Calcola p_1, p_2, ..., p_n
+
+Compute-Opt
+{
+	M[0] = 0
+	for j = 1 to n
+		M[j] = max(v_j + M[p_j], M[j-1]);
+}
+
+
+Se invece del valore io voglio la soluzione
+Run Compute-Opt(n)
+Run Find-Solution(n)
+
+Find-Solution(j)
+{
+	if(j == 0)
+		output nothing;
+	else
+		if(v_j + M[p_j] > M[j-1])
+			output j;
+			Find-Solution(p_j);
+		else
+			Find-Solution(j-1);
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Notazione:
+OPT(j) costo minimo della penalità per i punti p_1, p_2, ..., p_j
+e(i,j) minimo errore per l'insieme di punti p_i+1, p_i+2, ..., p_j
+
+Input:
+	Un insieme P di n punti nel piano. il j-esimo punto è caratterizzato da
+	ascissa x_j
+	ordinata y_j
+
+Obiettivo: Partizionare P in un certo numero m di sottoinsiemi P_1, P_2, ..., P_m in modo tale che:
+	ciascun P_i è costituito da punti contigui lungo l'asse delle ascisse
+	la sequenza di linee L_1, L_2, ...,L-m ottime per i rispettivi P_i minimizzi la somma di:
+		Somma E degli m errori minimi per ogni segmento (ottenuto dalla linea di quel segmento)
+		Il numero m di linee pesate per una certa costante C>0
+
+[L'ultimo segmento potrebbe partire da qualsiasi indice i compreso tra 1 e j. Chiamiamo i l'indice (che non conosciamo) da cui parte l'ultimo segmento della partizione ottima che sto cercando. Il valore della soluzione ottima in questo caso è costituito da e(i, j), più C moltiplicato per 1 perché devo moltiplicare per questo ultimo segmento, e a questo valore devo aggiungere il valore della soluzione ottima fino al punto i - 1.]
+	 { 0						se j = 0
+Opt(j) = {
+	 { min{ e(i,j) + C + Opt(i - 1) }		altrimenti
+
+
+Find-Segments(j)
+{
+	if(j == 0)
+		output nothing
+	else
+		find an i that minimizes e(i, j) + C + M[i-1]
+		output the segment {p_i, p_i+1, ..., p_j}
+		Find-Segments(i-1)
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Subset sums
+Notazione:
+	Opt(i,w) è il valore della soluzione ottima per i job 1, 2, ..., i con limite w sul tempo di utilizzo del processore
+
+Si possono verificare due casi:
+	OPT include il job i
+		Quindi la soluzione ottima è costituita da OPT(i-1,w-w_i) + w_i
+	OPT non include il job i
+		Quindi la soluzione ottima è costituita da OPT(i-1,w)
+
+	 { 0						if j = 0
+OPT(j) = { OPT(j-1, w)					if w_j > w
+	 { max{ OPT(j-1,w-w_j) + w_j, OPT(j-1,w) }	altrimenti
+
+Input: n, w_1, w_2, ..., w_n, W
+
+	for w = 0 to W
+		M[0,w] = 0
+	
+	for i = 1 to n
+		for w = 0 to W
+			if(w_i > w)
+				M[i,w] = M[i-1, w];
+			else
+				M[i,w] = max{ M[i-1,w], M[i-1,w-w_i] + w_i };
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Problema dello zaino
+Input:
+	n oggetti, dove il j-esimo oggetto è caratterizzato da:
+		peso w_j
+		valore v_j
+	W, peso massimo che può portare lo zaino
+
+Obiettivo: Selezionare un sottoinsieme degli oggetti in input in modo tale che il valore degli oggetti selezionati sia il massimo e il peso non ecceda la soglia W. Il sottinsieme selezionato deve avere peso totale <= W e la somma dei valori selezionati deve essere la più grande possibile
+
+Si ragiona come per subset sums, stesso modo, e l'algoritmo è lo stesso, solo che non si somma il peso w_j ma il valore v_j
+
+	 { 0						if j = 0
+OPT(j) = { OPT(j-1, w)					if w_j > w
+	 { max{ OPT(j-1,w-w_j) + v_j, OPT(j-1,w) }	altrimenti
+
+Input: n, w_1, w_2, ..., w_n, W
+
+	for w = 0 to W
+		M[0,w] = 0
+	
+	for i = 1 to n
+		for w = 0 to W
+			if(w_i > w)
+				M[i,w] = M[i-1, w];
+			else
+				M[i,w] = max{ M[i-1,w], M[i-1,w-w_i] + v_i };
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Allineamento di sequenze
+
+Preliminare:
+	delta = penalità del gap
+	alfa = penalità del mismatch
+
+Input: due sequenze, la prima x_1, x_2, ..., x_m. la seconda y_1, y_2, ..., y_n.
+
+Definizione:
+	Un matching consiste nell'acoppiare un simbolo della prima sequenza con al più un simbolo della seconda sequenza in modo tale che ciascun simbolo appaia in al più un accoppiamento. (dico al più perché ci potrebbero essere dei gap per i quali un simbolo di una sequenza potrebbe non essere associato ad un simbolo dell'altra sequenza)
+	
+Vogliamo che l'allineamento sia un matching, quindi si ha un insieme di coppie dove il primo simbolo appartiene alla prima sequenza e il secondo simbolo appartiene alla seconda sequenza, tale che ciascun simbolo appaia in al più un accoppiamento.
+
+	Immaginiamo di avere due coppie del matching, (x_i,y_j) e (x_i',y_j'). Queste due coppie si incrociano se i < i' ma j > j'
+
+	Un allineamento è un matching tra due sequenze che non contiene incroci.
+
+Obiettivo: Trovare l'allineamento per cui quelle due stringhe risultano quanto più simili possibile (rispetto a quel delta e quell'alfa detto prima).
+
+Parto dalla fine nel cercare la mia soluzione ottima, dagli ultimi due caratteri.
+	Se questi sono accoppiati tra di loro, alfa è 0, quindi il costo della solzuone sarà uguale al costo della soluzione per i rimanenti elementi della prima e della seconda stringa.
+	Se questi due caratteri invece sono diversi, il costo della soluzione sarà dato dall'alfa associato a quell'accoppiamento più il costo della soluzione ottima per i rimanenti elementi della prima e della seconda stringa.
+		bisogna poi prevedere il caso in cui x_n non sia accoppiato con niente ed y_m non sia accoppiato con niente, e che quindi ci siano dei gap (è dimostrato che se non si accoppiano, c'è un gap)
+	Se una delle due stringhe è vuota, si inseriscono gap tanti quante sono i caratteri dell'altra stringa da matchare
+
+	   { j(delta)						se i = 0
+	   {	 {alfa_(x_i,y_j) + OPT(i-1,j-1)					//Caso in cui sono accoppiati. Se matchando alpha è 0
+OPT(i,j) = { min {delta + OPT(i-1,j)				altrimenti	//Caso in cui non sono accoppiati e può essere che x_i non sia accoppiato, e quindi il costo sarà dato dal gap dovuto al mancato accoppiamento (quindi delta) + OPT(i-1,j)
+	   {	 {delta + OPT(i,j-1)						//Caso in cui non sono accoppiati e può essere che y_j non sia accoppiato, e quindi il costo sarà dato dal gap dovuto al mancato accoppiamento (quindi delta) + OPT(i,j-1)
+	   { i(delta)						se j = 0
+
+i: l'ultimo sinbolo della stringa x
+j: l'ultimo sinbolo della stringa y
+Ci interessa ovviamente OPT(m,n)
+
+Algoritmo. (Utilizzo una matrice perché il valore di OPT dipende da due parametri
+Setto tutta la prima riga e tutta la prima colonna al valore del gap perché corrispondono alle situazioni in cui una delle due stringhe è vuota
+
+Sequence-Alignment(m,n,x_1x_2...x_m,y_1y_2...y_n,delta,alpha)
+{
+	for i = 0 to m
+		M[i,0] = i(delta)
+	for j = 0 to n
+		M[0,j] = j(delta)
+
+	for i = 1 to m
+		for j = 1 to n
+			M[i,j] = min(alpha[x_i,y_j] + M[i-1, j-1], delta + M[i-1,j], delta + M[i, j-1]);
+	return M[m,n];
+}
+
+Tempo Theta(mn), il tempo è giusto, ma lo spazio no, se m = n = 100.000, 10 miliardi di microsecondi vanno bene, ma 10GB di spazio sprecati no.
+	Nella pratica si usa una variazione di questo algoritmo.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Problema dei cammini minimi
+	(considerando anche archi negativi, non come con dijkstra)
+
+Il problema che andiamo a risolvere è trovare il percorso minimo tra una certa sorgente e una certa destinazione, però di fatto l'algoritmo troverà i percorsi minimi da qualsiasi sorgente alla destinazione t.
+
+Devo capire come ridurre il problema, per andare da s a t, ad un problema più piccolo.
+Parto dall'inizio, e mi rendo conto che ho tante possibilità quanti sono gli archi uscenti da s.
+
+Definisco OPT(i,v) la lunghezza del percorso più corto per andare da v a t in al più i archi.
+Questo percorso come è fatto? Sicuramente comprende un arco che va da v ad un altro vertice e ci possono essere varie scelte.
+Supponiamo che tra tutti i nodi, l'arco congiunga v a w. Il resto della soluzione è composta dal costo dell'arco (v,w) + OPT(i-1, w).
+Ovviamente il nodo w può essere scelto tra deg(v) valori. Mi calcolo quindi il minimo costo tra tutti questi archi, e mi prendo il minimo 
+
+	   { 0							se v = t
+OPT(i,v) = { inf						se i = 0 && v != t
+	   { min_(v,w)appart. E { OPT(i-1,w) + c_(v,w) }	altrimenti
+
+Bellman-Ford(G,t)
+{
+	foreach node v in V
+		M[0,v] = inf
+	
+	for i = 0 to n-1
+		M[i,t] = 0
+
+	for i = 1 to n-1
+		foreach node v in V
+			M[i,v] = inf
+			foreach edge(v,w) in E
+				M[i,v] = min{ M[i-1,w], M[i-1,w] + c_(v,w) };
+}
+
+Tempo Theta (n*m), spazio theta(n^2)
+
+Si osserva che computare il valore di OPT considerando anche l'indice i non serve per cui decidiamo di mantenere per ogni vertice la quantità M[v] che rappresenta il percorso migliore, computato fino a quel momento, per v.
+
+Bellman-Ford(G, s, t)
+{
+	foreach nodo v in V
+		M[v] = inf;
+		next[v] = NULL
+	
+	M[t] = 0
+	for i = 1 to n-1
+	{
+		foreach nodo v in V
+		{
+			if(M[v] è cambiato all'iterazione precedente)
+			{
+				foreach arco (v,w) in E
+				{
+					if(M[v] > M[w] + c_(v,w))
+					{
+						M[v] = M[w] + c_(v,w);
+						next[v] = w;
+					}
+				}
+			}
+			se M[v] è cambiato nell'iterazione i, stop
+		}
+	}
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Minimum coin change problem
+
+
+Voglio cambiare una banconota con il numero più basso di monete
+Input:
+	Un insieme di monete C di n diversi valori v_1, v_2, ..., v_n (ordinati in ordine crescente)
+	Una banconota di valore V
+
+Come definisco l'OPT?
+Sicuramente un valore sarà il valore della banconota che voglio cambiare, e l'altro sarà il valore massimo della moneta che sto considerando.
+
+Ciò che ci interessa alla fine è OPT(n,V)
+
+Se v_i è più grande del valore che devo cambiare, il valore di OPT = OPT(i-1,V)
+Se v_i è <= di V, allora la moneta i-esima è nella soluzione almeno una volta. Il valore della soluzione in questo caso sarà 1 + OPT(i,V-v_i)
+
+	   { 0						se v = 0
+OPT(i,v) = { OPT(i-1,v)					se v_i > v
+	   { min{ OPT(i-1,V), OPT(i,v-v_i) + 1 }	altrimenti
+
+MinCoinChage(d, n, V)
+{
+	for i = 1 to n
+		M[i,0] = 0	//se l'importo da cambiare è 0
+	for v = 1 to n
+		M[1,v] = v	//Se si possono usare solo monete da un euro
+
+	for i = 1 to n
+		for v = 1 to V
+			if(v < v_i)
+				M[i,v] = M[i-1,v]
+			else
+				M[i,v] = min( M[i-1,V], OPT[i,v-v_i] + 1 )
+	return M[n,V]
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Coin change problem
+Input:
+	Un insieme di monete C di n diversi valori v_1, v_2, ..., v_n
+	Una banconota di valore V
+Sia N(i,v) il numero di modi in cui possiamo cambiare v con monete di valore v_1, v_2, ..., v_i
+
+Trovare in quanti modi possiamo usare le monete in C per cambiare la banconota
+
+Se v_i è nell'insieme delle monete utilizzate per fare il cambio
+	Dobbiamo sommare il numero di soluzioni che includono v_i al numero di soluzioni che non includono v_i
+		N(i,v) = N(i,v-v_i) + N(i-1,v)
+Se v_i non è nell'insieme
+	Le soluzioni possibili sono quelle che non includono v_i
+		N(i,v) = N(i-1,v)
+	 { 0					se v = 0
+N(i,v) = { N(i-1,v)				se v_i > v
+	 { N(i,v-v_i) + N(i-1,v)		altrimenti
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Data una sequenza di caratteri x formata da x_1, x_2, ..., x_m, una sottosequenza è un insieme formato dai caratteri non necessariamente consecutivi di x in posizione k_1, k_2, ..., k_t dove t <= m
+
+Input: due sequenze, x_1, x_2, ..., x_m. y_1, y_2, ..., y_n
+
+Obiettivo: trovare la lunghezza della sottosequenza più lunga
+
+OPT(i,j) è quindi la lunghezza della sottosequenza più lunga comune a x_1, x_2, ..., x_m e ad y_1, y_2, ..., y_n
+
+I casi sono 3:
+Se x_i = y_i allora la sottosequenza comune termina con quel carattere i-esimo (x_i) e il valore di OPT è computato per OPT(i-1,j-1) + 1
+Se x_i != y_i allora la sottosequenza comune termina con un carattere diverso da x_i e il valore di OPT è dato da OPT(i, j-1)
+Se x_i != y_i allora la sottosequenza comune termina con un carattere diverso da y_i e il valore di OPT è dato da OPT(i-1, j)
+
+	   { 0					se i=0 || j = 0
+OPT(i,j) = { OPT(i-1,j-1) + 1			se x_i == y_j
+	   { max{ OPT(i-1,j), OPT(i,j-1) }	altrimenti
+
+ComputaLunghezzaLCS(X,Y)
+{
+	m = length(X);
+	n = length(Y);
+	
+	for i = 0 to m
+		M[i,0] = 0
+	for j = 1 to n
+		M[0,j] = 0
+		
+	for i = 1 to m
+		for j = 0 to n
+			if(x_i = y_j)
+				M[i,j] = 1 + M[i-1,j-1]
+			else
+				M[i,j] = max(M[i-1,j], M[i,j-1])
+}
+
+Se vogliamo invece ricostruire la sottosequenza,
+ComputaLunghezzaLCS(X,Y)
+{
+	m = length(X);
+	n = length(Y);
+	
+	for i = 0 to m
+		M[i,0] = 0
+	for j = 1 to n
+		M[0,j] = 0
+		
+	for i = 1 to m
+		for j = 0 to n
+			if(x_i = y_j)
+				M[i,j] = 1 + M[i-1,j-1]
+				b[i,j] = freccia che punta in alto a sinistra;
+			else
+				if(M[i-1,j] > M[i,j-1])
+					M[i,j] = M[i-1,j];
+					b[i,j] = freccia che punta in su;
+				else
+					M[i,j] = M[i,j-1];
+					b[i,j] = freccia che punta a sinistra;
+}
+
+Per stampare poi questa sottosequenza chiamo Stampa-LCS(b, X, m, n)
+
+Stampa-LCS(b,X,i,j)
+{
+	if( i==0 || j == 0 )
+		return;
+
+	if(b[i,j] == freccia che punta in alto a sinistra)
+		stampaLCS(b,X,i-1,j-1)
+		print(x_i)
+	else
+		if(b[i,j] == freccia che punta in alto)
+			Stampa-LCS(b,X,i-1,j);
+		else
+			Stampa-LCS(b,X,i,j-1);
+}
+
+

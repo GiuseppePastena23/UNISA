@@ -1,0 +1,29 @@
+Massimo flusso
+
+Ford-Fulkerson(G, s, t, c)
+{
+	foreach arco e in E
+		f(e) = 0
+	Sia G_f un grafo residuale
+	
+	while(esiste un cammino aumentante P in G_f)
+	{
+		f = Augment(f, c, P)
+		aggiorna G_f
+	}
+	
+	return f;
+}
+
+Augment(f, c, P)
+{
+	b = bottleneck(P, f);
+
+	foreach arco e in P
+		if(e appartiene ad E)
+			in G: f(e) = f(e) + b;
+		else
+			in G: f(e^R) = f(e^R) - b;
+
+	return f;
+}
