@@ -1,62 +1,12 @@
+CREATE DATABASE campionato;
+USE campionato;
+
 CREATE TABLE Circuito
 (
   ID VARCHAR(50) NOT NULL,
   Nome VARCHAR(50) NOT NULL,
   Paese VARCHAR(50) NOT NULL,
   PRIMARY KEY (ID)
-);
-
-CREATE TABLE Gara
-(
-  Data DATE NOT NULL,
-  Circuito VARCHAR(50) NOT NULL,
-  Durata INT NOT NULL,
-  Tipo ENUM('asciutta', 'bagnata') NOT NULL,
-  Nome VARCHAR(50) NOT NULL,
-  PRIMARY KEY(Data),
-  FOREIGN KEY (Circuito) REFERENCES Circuito(ID)
-);
-
-CREATE TABLE Gareggiare
-(
-  DataGara DATE NOT NULL,
-  NomeSquadra VARCHAR(50) NOT NULL,
-  Punteggio INT NOT NULL,
-  Squalifica VARCHAR(50),
-  PRIMARY KEY (Gara, Squadra),
-  FOREIGN KEY (DataGara) REFERENCES Gara(Data),
-  FOREIGN KEY (NomeSquadra) REFERENCES Squadra(Nome)
-);
-
-CREATE TABLE Squadra
-(
-  Nome VARCHAR(50) NOT NULL,
-  PunteggioFinale INT NOT NULL,
-  Veicolo VARCHAR(50) NOT NULL,
-  PRIMARY KEY (Nome),
-  FOREIGN KEY (Veicolo) REFERENCES Vettura(ID)
-);
-
-CREATE TABLE Vettura
-(
-  ID VARCHAR(50) NOT NULL,
-  NomeScuderia VARCHAR(50) NOT NULL,
-  NGara INT NOT NULL,
-  Modello VARCHAR(50) NOT NULL,
-  PRIMARY KEY(ID),
-  FOREIGN KEY (NomeScuderia) REFERENCES Scuderia(Nome)
-);
-
-CREATE TABLE Pilota
-(
-  Nome VARCHAR(50) NOT NULL,
-  Cognome VARCHAR(50) NOT NULL,
-  SSID VARCHAR(50) NOT NULL,
-  Datnas DATE NOT NULL,
-  Nazionalita VARCHAR(50) NOT NULL,
-  Squadra VARCHAR(50) NOT NULL,
-  PRIMARY KEY (SSID),
-  FOREIGN KEY (Squadra) REFERENCES Squadra(Nome)
 );
 
 CREATE TABLE Scuderia
@@ -74,18 +24,71 @@ CREATE TABLE Costruttore
   PRIMARY KEY (Ragionesociale)
 );
 
+CREATE TABLE Gara
+(
+  Giorno DATE NOT NULL,
+  NomeCircuito VARCHAR(50) NOT NULL,
+  Durata INT NOT NULL,
+  Tipo ENUM('asciutta', 'bagnata') NOT NULL,
+  Nome VARCHAR(50) NOT NULL,
+  PRIMARY KEY(Giorno),
+  FOREIGN KEY (NomeCircuito) REFERENCES Circuito(ID)
+);
+
+CREATE TABLE Vettura
+(
+  ID VARCHAR(50) NOT NULL,
+  NomeScuderia VARCHAR(50) NOT NULL,
+  NGara INT NOT NULL,
+  Modello VARCHAR(50) NOT NULL,
+  PRIMARY KEY(ID),
+  FOREIGN KEY (NomeScuderia) REFERENCES Scuderia(Nome)
+);
+
+CREATE TABLE Squadra
+(
+  Nome VARCHAR(50) NOT NULL,
+  PunteggioFinale INT NOT NULL,
+  NomeVeicolo VARCHAR(50) NOT NULL,
+  PRIMARY KEY (Nome),
+  FOREIGN KEY (NomeVeicolo) REFERENCES Vettura(ID)
+);
+
+CREATE TABLE Gareggiare
+(
+  DataGara DATE NOT NULL,
+  NomeSquadra VARCHAR(50) NOT NULL,
+  Punteggio INT NOT NULL,
+  Squalifica VARCHAR(50) DEFAULT NULL,
+  PRIMARY KEY (DataGara, NomeSquadra),
+  FOREIGN KEY (DataGara) REFERENCES Gara(Giorno),
+  FOREIGN KEY (NomeSquadra) REFERENCES Squadra(Nome)
+);
+
+CREATE TABLE Pilota
+(
+  Nome VARCHAR(50) NOT NULL,
+  Cognome VARCHAR(50) NOT NULL,
+  SSID VARCHAR(50) NOT NULL,
+  Datnas DATE NOT NULL,
+  Nazionalita VARCHAR(50) NOT NULL,
+  NomeSquadra VARCHAR(50) NOT NULL,
+  PRIMARY KEY (SSID),
+  FOREIGN KEY (NomeSquadra) REFERENCES Squadra(Nome)
+);
+
 CREATE TABLE Componenti
 (
   ID VARCHAR(50) NOT NULL,
   Tipo ENUM('cambio', 'telaio', 'motore') NOT NULL,
   Costo DECIMAL NOT NULL,
   Datainstallazione DATE NOT NULL,
-  Scuderia VARCHAR(50) NOT NULL,
-  Vettura VARCHAR(50) NOT NULL,
-  Costruttore VARCHAR(50) NOT NULL,
-  FOREIGN KEY (Scuderia) REFERENCES Scuderia(Nome),
-  FOREIGN KEY (Vettura) REFERENCES Vettura(ID),
-  FOREIGN KEY (Costruttore) REFERENCES Costruttore(Ragionesociale),
+  NomeScuderia VARCHAR(50) NOT NULL,
+  NomeVettura VARCHAR(50) NOT NULL,
+  NomeCostruttore VARCHAR(50) NOT NULL,
+  FOREIGN KEY (NomeScuderia) REFERENCES Scuderia(Nome),
+  FOREIGN KEY (NomeVettura) REFERENCES Vettura(ID),
+  FOREIGN KEY (NomeCostruttore) REFERENCES Costruttore(Ragionesociale),
   PRIMARY KEY (ID),
   Materiale VARCHAR(50),
   Peso INT DEFAULT NULL,
