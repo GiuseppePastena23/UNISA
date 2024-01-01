@@ -1,6 +1,6 @@
 package Progetto.ClassiQuery;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Gara
 {
@@ -10,13 +10,13 @@ public class Gara
         bagnata;
     }
 
-    private LocalDate giorno;
+    private Date giorno;
     private String nomeCircuito;
     private int durata;
     private TipoGara tipo;
     private String nome;
 
-    public Gara(LocalDate giorno, String nomeCircuito, int durata, TipoGara tipo, String nome) {
+    public Gara(Date giorno, String nomeCircuito, int durata, TipoGara tipo, String nome) {
         this.giorno = giorno;
         this.nomeCircuito = nomeCircuito;
         this.durata = durata;
@@ -24,11 +24,11 @@ public class Gara
         this.nome = nome;
     }
 
-    public LocalDate getGiorno() {
+    public Date getGiorno() {
         return giorno;
     }
 
-    public void setGiorno(LocalDate giorno) {
+    public void setGiorno(Date giorno) {
         this.giorno = giorno;
     }
 

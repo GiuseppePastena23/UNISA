@@ -1,6 +1,6 @@
 package Progetto.ClassiQuery;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Componenti 
 {
@@ -20,7 +20,7 @@ public class Componenti
     private String id;
     private TipoComponente tipo;
     private Double costo;
-    private LocalDate dataInstallazione;
+    private Date dataInstallazione;
     private String nomeScuderia;
     private String nomeVettura;
     private String nomeCostruttore;
@@ -32,7 +32,7 @@ public class Componenti
     private Integer numeroCilindri;
 
     public Componenti(){};
-    public Componenti(String id, TipoComponente tipo, double costo, LocalDate dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, String materiale, Integer peso, Integer nMarce, Integer cilindrata, Tipocilindrata tipoCilindrata, Integer numeroCilindri) {
+    public Componenti(String id, TipoComponente tipo, double costo, Date dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, String materiale, Integer peso, Integer nMarce, Integer cilindrata, Tipocilindrata tipoCilindrata, Integer numeroCilindri) {
         this.id = id;
         this.tipo = tipo;
         this.costo = costo;
@@ -59,19 +59,19 @@ public class Componenti
         }
     }
 
-    public Componenti newCambio(String id, TipoComponente tipo, double costo, LocalDate dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, int nMarce)
+    public Componenti newCambio(String id, TipoComponente tipo, double costo, Date dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, int nMarce)
     {   
         Componenti cambio = new Componenti(id, tipo, costo, dataInstallazione, nomeScuderia, nomeVettura, nomeCostruttore, null, null, nMarce, null, null, null);
         return cambio;
     }
 
-    public Componenti newTelaio(String id, TipoComponente tipo, double costo, LocalDate dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, String materiale, int peso)
+    public Componenti newTelaio(String id, TipoComponente tipo, double costo, Date dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, String materiale, int peso)
     {   
         Componenti telaio = new Componenti(id, tipo, costo, dataInstallazione, nomeScuderia, nomeVettura, nomeCostruttore, materiale, peso, null, null, null, null);
         return telaio;
     }
 
-    public Componenti newMotore(String id, TipoComponente tipo, double costo, LocalDate dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, int cilindrata, Tipocilindrata tipocilindrata, int numeroCilindri)
+    public Componenti newMotore(String id, TipoComponente tipo, double costo, Date dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, int cilindrata, Tipocilindrata tipocilindrata, int numeroCilindri)
     {   
         Componenti motore = new Componenti(id, tipo, costo, dataInstallazione, nomeScuderia, nomeVettura, nomeCostruttore, null, null, null, cilindrata, tipocilindrata, numeroCilindri);
         return motore;
@@ -101,11 +101,11 @@ public class Componenti
         this.costo = costo;
     }
 
-    public LocalDate getDataInstallazione() {
+    public Date getDataInstallazione() {
         return dataInstallazione;
     }
 
-    public void setDataInstallazione(LocalDate dataInstallazione) {
+    public void setDataInstallazione(Date dataInstallazione) {
         this.dataInstallazione = dataInstallazione;
     }
 

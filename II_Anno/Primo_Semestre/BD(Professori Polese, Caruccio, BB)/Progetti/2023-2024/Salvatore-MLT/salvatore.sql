@@ -79,6 +79,8 @@ CREATE TABLE Pilota
   Datnas DATE NOT NULL,
   Nazionalita VARCHAR(50) NOT NULL,
   NomeSquadra VARCHAR(50) NOT NULL,
+  PrimaLicenza DATE DEFAULT NULL,
+  NLicenze INT DEFAULT NULL,
   PRIMARY KEY (SSID),
   FOREIGN KEY (NomeSquadra) REFERENCES Squadra(Nome)
 );
@@ -102,4 +104,15 @@ CREATE TABLE Componenti
   Cilindrata INT DEFAULT NULL,
   Tipocilindrata ENUM ('tipo1', 'tipo2') DEFAULT NULL,
   Numerocilindri INT DEFAULT NULL
+);
+
+CREATE TABLE Finanziamenti
+(
+	NomeFinanziatore VARCHAR(50) NOT NULL,
+    NomeScuderia VARCHAR(50) NOT NULL,
+    ValoreFinanziamento INT NOT NULL,
+	PRIMARY KEY(NomeFinanziatore),
+    PRIMARY KEY(NomeScuderia),
+    FOREIGN KEY (NomeScuderia) REFERENCES Scuderia(Nome),
+    FOREIGN KEY (NomeFinanziatore) REFERENCES Pilota(SSID)
 );

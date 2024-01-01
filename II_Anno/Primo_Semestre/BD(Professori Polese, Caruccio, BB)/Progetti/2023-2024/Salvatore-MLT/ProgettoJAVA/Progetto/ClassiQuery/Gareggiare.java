@@ -1,27 +1,27 @@
 package Progetto.ClassiQuery;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Gareggiare 
 {
 
-    private LocalDate dataGara;
+    private Date dataGara;
     private String nomeSquadra;
     private int punteggio;
     private String squalifica;
     
-            public Gareggiare(LocalDate dataGara, String nomeSquadra, int punteggio, String squalifica) {
+            public Gareggiare(Date dataGara, String nomeSquadra, int punteggio, String squalifica) {
                 this.dataGara = dataGara;
                 this.nomeSquadra = nomeSquadra;
                 this.punteggio = punteggio;
                 this.squalifica = squalifica;
             }
         
-            public LocalDate getDataGara() {
+            public Date getDataGara() {
                 return dataGara;
             }
         
-            public void setDataGara(LocalDate dataGara) {
+            public void setDataGara(Date dataGara) {
                 this.dataGara = dataGara;
             }
         

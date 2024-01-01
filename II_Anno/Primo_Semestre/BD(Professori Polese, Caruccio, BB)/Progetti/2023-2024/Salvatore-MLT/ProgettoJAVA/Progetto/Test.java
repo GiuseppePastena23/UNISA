@@ -3,7 +3,7 @@ package Progetto;
 import Progetto.ClassiQuery.*;
 import Progetto.ClassiQuery.Componenti.TipoComponente; //java devi morire
 import Progetto.ClassiQuery.Componenti.Tipocilindrata;
-import java.time.LocalDate;
+import java.sql.Date;
 
 import java.sql.*;
 
@@ -176,18 +176,65 @@ public class Test
         {
             System.err.println("Errore INSERT: " + e.getMessage());
         }
-
     }
+
+    //OP3
+    public static void OP3(Pilota P, Squadra E)
+    {
+        try
+        {
+            connectToDatabase(); //tentivo connessione base dati
+        } 
+        catch (SQLException ex) //in caso di errore
+        {
+            System.err.println("Error connecting to database: " + ex.getMessage());
+        }
+        
+        try
+        {   
+            //Creazione query
+            String Pilota = "INSERT INTO Pilota (Nome, Cognome, SSID, Datnas, Nazionalita, NomeSquadra, PrimaLicenza, NLicenze) VALUES (?, ?, ?, ? ,? ,?, ?, ?)";
+
+            // Inserire i dati della scuderia
+
+            //crezione statement
+            PreparedStatement istruzionePilota = connessione.prepareStatement(Pilota);
+            //setting vari valori
+            istruzionePilota.setString(1, P.getNome());
+            istruzionePilota.setString(2, P.getCognome());
+            istruzionePilota.setString(3, P.getSsid());
+            istruzionePilota.setDate(4, P.getDatnas());
+            istruzionePilota.setString(5, P.getNazionalita());
+            istruzionePilota.setString(6, E.getNome());
+            istruzionePilota.setDate(7, P.getPrimaLicenza());
+            istruzionePilota.setInt(8, P.getNLicenze());
+            //eseguo update
+            istruzionePilota.executeUpdate();
+
+            //stampo messaggio di conferma
+            System.out.println("QUERY inserita con successo\n");
+
+            // Chiudere la connessione
+            connessione.close();
+        }
+        catch(SQLException e)
+        {
+            System.err.println("Errore INSERT: " + e.getMessage());
+        }
+    }
+    
 
     public static void main(String[] args)
     {
         //OP1("Mercedes", "Italia");
         Vettura v = new Vettura("10", "Mercedes", 10, "Mercedes X30");
-
-        Componenti cambio = new Componenti().newCambio("C1234567890", TipoComponente.cambio, 34567.89, LocalDate.of(2023, 7, 22), "McLaren", "MCL36", "McLaren Racing", 7);
-        Componenti motore = new Componenti().newMotore("M1234567890", TipoComponente.motore, 12345.67, LocalDate.of(2023, 7, 20), "Ferrari", "SF22-D", "Ferrari", 1600, Tipocilindrata.tipo1, 4);
-        Componenti telaio = new Componenti().newTelaio("T1234567890", TipoComponente.telaio, 23456.78, LocalDate.of(2023, 7, 21), "Red Bull", "RB18", "Red Bull Racing", "Carbonio", 750);
+        
+        Componenti cambio = new Componenti().newCambio("C1234567890", TipoComponente.cambio, 34567.89, Date.valueOf("2023-7-22"), "McLaren", "MCL36", "McLaren Racing", 7);
+        Componenti motore = new Componenti().newMotore("M1234567890", TipoComponente.motore, 12345.67, Date.valueOf("2023-7-20"), "Ferrari", "SF22-D", "Ferrari", 1600, Tipocilindrata.tipo1, 4);
+        Componenti telaio = new Componenti().newTelaio("T1234567890", TipoComponente.telaio, 23456.78, Date.valueOf("2023-7-21"), "Red Bull", "RB18", "Red Bull Racing", "Carbonio", 750);
 
         OP2(v, cambio, telaio, motore);
+        
+        Pilota P = new Pilota("Mario", "Rossi", "125", Date.valueOf("2003-12-12"), "Italiano", Date.valueOf("2004-12-12"), 20);
     }
 }

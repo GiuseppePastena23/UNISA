@@ -1,17 +1,19 @@
 package Progetto.ClassiQuery;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Pilota 
 {
     private String nome;
     private String cognome;
     private String ssid;
-    private LocalDate datnas;
+    private Date datnas;
     private String nazionalita;
     private String nomesquadra;
+    private Date PrimaLicenza;
+    private int NLicenze;
 
-    public Pilota(String nome, String cognome, String ssid, LocalDate datnas, String nazionalita, String nomesquadra)
+    public Pilota(String nome, String cognome, String ssid, Date datnas, String nazionalita, String nomesquadra, Date primaLicenza, int nLicenze)
     {
         this.nome = nome;
         this.cognome = cognome;
@@ -19,6 +21,20 @@ public class Pilota
         this.datnas = datnas;
         this.nazionalita = nazionalita;
         this.nomesquadra = nomesquadra;
+        PrimaLicenza = primaLicenza;
+        NLicenze = nLicenze;
+    }
+
+    public Pilota(String nome, String cognome, String ssid, Date datnas, String nazionalita, Date primaLicenza, int nLicenze)
+    {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.ssid = ssid;
+        this.datnas = datnas;
+        this.nazionalita = nazionalita;
+        this.nomesquadra = nomesquadra;
+        PrimaLicenza = primaLicenza;
+        NLicenze = nLicenze;
     }
     
     public String getNome() {
@@ -45,11 +61,11 @@ public class Pilota
         this.ssid = ssid;
     }
     
-    public LocalDate getDatnas() {
+    public Date getDatnas() {
         return datnas;
     }
     
-    public void setDatnas(LocalDate datnas) {
+    public void setDatnas(Date datnas) {
         this.datnas = datnas;
     }
     
@@ -69,6 +85,26 @@ public class Pilota
         this.nomesquadra = nomesquadra;
     }
 
+    public Date getPrimaLicenza()
+    {
+        return PrimaLicenza;
+    }
+
+    public void setPrimaLicenza(Date licenza)
+    {
+        PrimaLicenza = licenza;
+    }
+
+    public int getNLicenze()
+    {
+        return NLicenze;
+    }
+
+    public void setNLicenze(int nLicenze)
+    {
+        NLicenze = nLicenze;
+    }
+
     @Override
     public String toString() 
     {
@@ -81,6 +117,8 @@ public class Pilota
             ", datnas=" + datnas +
             ", nazionalita='" + nazionalita + '\'' +
             ", nomesquadra='" + nomesquadra + '\'' +
+            ", Prima licenza='" + PrimaLicenza + '\'' +
+            ", NLicenze='" + NLicenze + '\'' +
             '}'
         );
     }
