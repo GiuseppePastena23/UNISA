@@ -1,6 +1,12 @@
 CREATE DATABASE campionato;
 USE campionato;
 
+CREATE USER 'pacman34'@'localhost' IDENTIFIED BY 'Sasa1212x';
+SELECT * FROM mysql.user WHERE user='pacman34';
+GRANT ALL PRIVILEGES ON `campionato`.* TO 'pacman34'@'localhost';
+FLUSH PRIVILEGES;
+
+
 CREATE TABLE Circuito
 (
   ID VARCHAR(50) NOT NULL,
