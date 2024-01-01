@@ -233,8 +233,8 @@ public class Test
         try
         {   
             //Creazione query
-            String Finanziamento1 = "UPDATE NFinanziamenti = NFinanziamenti+1 FROM Pilota WHERE SSID =" + GD.getSsid();
-            String Finanziamento2 = "UPDATE SommaFinanziamenti = SommaFinanziamenti" +Finanziamento+  "FROM Pilota WHERE SSID = " + GD.getSsid();
+            String Finanziamento1 = "UPDATE Pilota SET NFinanziamenti = NFinanziamenti + 1 WHERE SSID = " + GD.getSsid();
+            String Finanziamento2 = "UPDATE Pilota SET SommaFinanziamenti = SommaFinanziamenti+" +Finanziamento+  " WHERE SSID = " + GD.getSsid();
 
              // Inserire Finanziamento (aumentiamo NFinanziamento di 1 e La somma del valore indicato)
             PreparedStatement F1 = connessione.prepareStatement(Finanziamento1);
@@ -259,7 +259,7 @@ public class Test
     }
 
     //OP5 (iscrizione vettura a una gara)
-    public static void OP5(Squadra S, Gara G)
+    public static void OP5(Squadra S, Gara G) //teoricamente il vincolo di integrità è garantito dal fatto che sia NomeGara che NomeSquadra sono primary key dunque non ripetibili.
     {
         try
         {
@@ -282,7 +282,7 @@ public class Test
             //setting vari valori
 
             istruzioneGareggiare.setDate(1, G.getGiorno());
-            istruzioneGareggiare.setString(2, S.getNomeVeicolo()); //la query richiede un veicolo. ma ogni squadra ha per l'appunto un veicolo.
+            istruzioneGareggiare.setString(2, S.getNome()); //la query richiede un veicolo. ma ogni squadra ha per l'appunto un veicolo.
             istruzioneGareggiare.setNull(3, 1);
             istruzioneGareggiare.setNull(4, 1);
             
@@ -316,12 +316,11 @@ public class Test
         try
         {   
             //Creazione query
-            String Risultati = "INSERT INTO Gareggiare (DataGara, NomeSquadra, Punteggio, Squalifica) VALUES (?, ?, ?, ?)";
-
+            String update = "UPDATE Gareggiare SET Punteggio = "+ Punteggio +" WHERE DataGara = '"+ G.getGiorno() + "' AND NomeSquadra = '" + S.getNome() + "'";
             // Inserire i dati della gara
 
             //crezione statement
-            PreparedStatement istruzioneRisultati = connessione.prepareStatement(Risultati);
+            PreparedStatement istruzioneRisultati = connessione.prepareStatement(update);
             
             //controllo che la vettura abbia effettivamente partecipato alla gara (E che questa esista)
             // Creo statement
@@ -345,12 +344,13 @@ public class Test
             if(!(dataGara.equals(G.getGiorno()) && nomeSquadra.equals(S.getNome())))
             {   
                 System.out.println("Questa vettura non ha partecipato a questo gara\n");
+                connessione.close();
                 return;
             }
             //else continue
 
             //inserimento Punteggio
-            istruzioneRisultati.setInt(3, Punteggio);
+            
 
             //eseguo update
             istruzioneRisultati.executeUpdate();
@@ -367,7 +367,7 @@ public class Test
         }
     }
 
-    public static void OP6singola(Gara G, Squadra S, String Squalifica) //versione squalifica
+    public static void OP6singola(Gara G, Squadra S, String squalifica) //versione Punteggio
     {
         try
         {
@@ -381,12 +381,11 @@ public class Test
         try
         {   
             //Creazione query
-            String Risultati = "INSERT INTO Gareggiare (DataGara, NomeSquadra, Punteggio, Squalifica) VALUES (?, ?, ?, ?)";
-
+            String update = "UPDATE Gareggiare SET Squalifica = '"+ squalifica +"' WHERE DataGara = '"+ G.getGiorno() + "' AND NomeSquadra = '" + S.getNome() + "'";
             // Inserire i dati della gara
 
             //crezione statement
-            PreparedStatement istruzioneRisultati = connessione.prepareStatement(Risultati);
+            PreparedStatement istruzioneRisultati = connessione.prepareStatement(update);
             
             //controllo che la vettura abbia effettivamente partecipato alla gara (E che questa esista)
             // Creo statement
@@ -410,14 +409,13 @@ public class Test
             if(!(dataGara.equals(G.getGiorno()) && nomeSquadra.equals(S.getNome())))
             {   
                 System.out.println("Questa vettura non ha partecipato a questo gara\n");
+                connessione.close();
                 return;
             }
             //else continue
+            
 
-            //inserimento Punteggio
-            istruzioneRisultati.setString(4, Squalifica);
-
-            //eseguo update
+            //eseguo update (inserisco)
             istruzioneRisultati.executeUpdate();
 
             //stampo messaggio di conferma
@@ -432,6 +430,60 @@ public class Test
         }
     }
 
+    //OP7 Controllo possibilità installazione componente
+    public static void OP7(Vettura V, Componenti P)
+    {
+        try
+        {
+            connectToDatabase(); //tentivo connessione base dati
+        } 
+        catch (SQLException ex) //in caso di errore
+        {
+            System.err.println("Error connecting to database: " + ex.getMessage());
+        }
+        
+        try
+        {   
+            //Creazione query
+            String Vettura = "SELECT * FROM Vettura";
+            Statement LetturaVettura = connessione.createStatement();
+            ResultSet resultSet = LetturaVettura.executeQuery(Vettura);
+
+            String ComponenteVettura = null;
+
+            // Recupero dati
+            while (resultSet.next()) 
+            {
+                ComponenteVettura = resultSet.getString("");
+            }
+
+            /*if(tipo.equals(P.getTipoComponente()))
+            {
+                System.out.println("Il componente è compatibile\n");
+            }
+            else
+            {
+                System.out.println("il componente non è compatibile\n");
+            }
+
+            // Inserire i dati della scuderia
+
+            istruzioneScuderia.executeUpdate();*/
+
+            //stampo messaggio di conferma
+            System.out.println("La vettura può montare questo componente\n");
+
+            // Chiudere la connessione
+            connessione.close();
+        }
+        catch(SQLException e)
+        {
+            System.err.println("Errore INSERT: " + e.getMessage());
+        }
+    }
+
+
+
     public static void main(String[] args)
     {
         //OP1("Mercedes", "Italia");
@@ -441,23 +493,23 @@ public class Test
         Componenti motore = new Componenti().newMotore("M1234567890", TipoComponente.motore, 12345.67, Date.valueOf("2023-7-20"), "Ferrari", "SF22-D", "Ferrari", 1600, Tipocilindrata.tipo1, 4);
         Componenti telaio = new Componenti().newTelaio("T1234567890", TipoComponente.telaio, 23456.78, Date.valueOf("2023-7-21"), "Red Bull", "RB18", "Red Bull Racing", "Carbonio", 750);
 
-        //OP2(v, cambio, telaio, motore);
+        OP2(v, cambio, telaio, motore);
         
         Pilota AM = new Pilota("Mario", "Rossi", "125", Date.valueOf("2003-12-12"), "Italiano", Date.valueOf("2004-12-12"));
         Pilota PRO = new Pilota("Luigi", "Verdi", "126", Date.valueOf("2003-12-12"), "Italiano", 20);
         Pilota GD = new Pilota("Stefano", "Bianchi", "127", Date.valueOf("2004-02-23"), "Italiano", Date.valueOf("2020-12-23"), 10, 300000.30);
     
-        /*Squadra S = new Squadra("Ferrari", 224, "1");
+        Squadra S = new Squadra("Ferrari", 224, "1");
 
-        OP3(AM, S);
-        OP3(PRO, S);
-        OP3(GD, S);*/
-        OP4(GD, 200000.03);
-        /*Gara gara = new Gara(Date.valueOf("2023-7-23"), "Autodromo Nazionale Monza", 200, TipoGara.asciutta, "GaraTest");
+        //OP3(AM, S);
+        //OP3(PRO, S);
+        //OP3(GD, S);
+        //OP4(GD, 200);
+        Gara gara = new Gara(Date.valueOf("2023-04-14"), "Autodromo Nazionale Monza", 200, TipoGara.asciutta, "GaraTest");
 
-        OP5(S, gara);
+        //OP5(S, gara);
 
         //OP6singola(gara, S, 100);
-        */
+        OP6singola(gara, S, "Palle");
     }
 }
