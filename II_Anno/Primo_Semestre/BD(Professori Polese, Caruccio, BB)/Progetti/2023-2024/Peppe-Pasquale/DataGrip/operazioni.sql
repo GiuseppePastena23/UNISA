@@ -1,20 +1,45 @@
-USE Campionato;
-
 -- OP1
 -- Registrazione di una scuderia
 INSERT INTO Scuderia (Nome, Paese) VALUES
 (?, ?);
 
+
 -- OP2
 -- Inserimento dei dati di un’autovettura, compresi i componenti di cui è composta
+
+-- 1) creazione della vettura
+INSERT INTO Vettura (nGara, Modello, Data_acquisto, Prezzo, Nome_Scuderia) VALUES
+(?, ?, ?, ?, ?);
+-- 3) cotrollo che la vettura non abbia già un componente di quel tipo
+SELECT Tipo, nGara_Vettura FROM Componente WHERE nGara_Vettura = ? and Tipo = ?
+-- 3) creazione componente
+INSERT INTO Componente (Costo, Tipo, Cilindrata_motore, nCilindri_motore, Tipo_motore, Materiale_telaio, Peso_telaio, nMarce_cambio, Ragione_sociale_Costruttore, nGara_Vettura) VALUES
+(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+-- 4 aumento i componenti forniti dal costruttore
+UPDATE Costruttore SET Numero_componenti_forniti = Numero_componenti_forniti + 1 WHERE Ragione_sociale = ?;
+
 
 
 -- OP3
 -- Aggiunta di un nuovo pilota ad un equipaggio
 -- controllare che non sia tutto composto da GD
 
+-- 1) aggiungo il pilota
+INSERT INTO Pilota (SSID, Nome, Cognome, DDN, Nazionalita, Tipo, Quota, nLicenze, Data_prima_licenza, nGara_Vettura)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+-- 2) controllo che non sia tutto composto da GD
+SELECT Pilota.Cognome, Pilota.Nome, Pilota.Tipo, Pilota.nGara_Vettura
+FROM Pilota
+         INNER JOIN Vettura ON Vettura.nGara = Pilota.nGara_Vettura
+WHERE (Tipo = 'PRO' OR Tipo = 'AM') AND nGara_Vettura = ?;
+
+
+
 -- OP4
 -- Registrazione di un finanziamento per una scuderia
+-- aumenta il campo quota della tabella pilota
+UPDATE Pilota SET Quota = Quota + ? WHERE SSID = ? AND Tipo = 'GD';
 
 
 -- OP5 - OP6
@@ -25,21 +50,29 @@ INSERT INTO Partecipazione (Nome_Gara, nGara_Vettura, Punti, Posizione, Minuti_g
 
 -- OP7
 -- Verifica della possibilità di montare un componente su una vettura
-SELECT * FROM Componente, Vettura WHERE Tipo = ? AND Componente.nGara_Vettura = ?;
+SELECT Tipo, nGara_Vettura FROM Componente
+WHERE Tipo = ? AND Componente.nGara_Vettura = ?;
+
 -- se questa query ritorna qualcosa, allora il componente è già montato su una vettura e non può essere montato
 
 
 -- OP8
 -- Per ciascuna scuderia, stampare la somma totale dei finanziamenti ricevuti
-SELECT Scuderia.Nome, SUM(Pilota.Quota) AS Totale_finanziamenti_ric FROM Scuderia, Pilota, Vettura
-WHERE Pilota.nGara_Vettura = Vettura.nGara AND Vettura.Nome_Scuderia = Scuderia.Nome GROUP BY Scuderia.Nome;
+SELECT Scuderia.Nome, SUM(Pilota.Quota) AS Totale_finanziamenti_ric
+FROM Scuderia
+INNER JOIN Vettura ON Vettura.Nome_Scuderia = Scuderia.Nome
+INNER JOIN Pilota ON Pilota.nGara_Vettura = Vettura.nGara
+GROUP BY Scuderia.Nome
+ORDER BY Totale_finanziamenti_ric DESC;
 
 
 -- OP9
 -- Stampa annuale delle scuderie che hanno partecipato al campionato compreso il numero di finanziamenti
-SELECT Scuderia.Nome, SUM(Pilota.Quota) AS Totale_finanziamenti_ric FROM Scuderia, Pilota, Vettura, Partecipazione
-WHERE Pilota.nGara_Vettura = Vettura.nGara AND Vettura.Nome_Scuderia = Scuderia.Nome
-AND Partecipazione.nGara_Vettura = Vettura.nGara
+SELECT Scuderia.Nome, COUNT(DISTINCT Pilota.Quota) AS Numero_finanziamenti_ric
+FROM Scuderia
+INNER JOIN Vettura ON Vettura.Nome_Scuderia = Scuderia.Nome
+INNER JOIN Pilota ON Pilota.nGara_Vettura = Vettura.nGara
+INNER JOIN Partecipazione ON Partecipazione.nGara_Vettura = Vettura.nGara
 GROUP BY Scuderia.Nome;
 
 
