@@ -12,8 +12,10 @@ public class Pilota
     private String nomesquadra;
     private Date PrimaLicenza;
     private int NLicenze;
+    private int NFinanziamenti;
+    private double SommaFinanziamenti;
 
-    public Pilota(String nome, String cognome, String ssid, Date datnas, String nazionalita, String nomesquadra, Date primaLicenza, int nLicenze)
+    public Pilota(String nome, String cognome, String ssid, Date datnas, String nazionalita, String nomesquadra, Date primaLicenza, int nLicenze, int nFinanziamenti, double SommaFinanziamenti)
     {
         this.nome = nome;
         this.cognome = cognome;
@@ -23,19 +25,40 @@ public class Pilota
         this.nomesquadra = nomesquadra;
         PrimaLicenza = primaLicenza;
         NLicenze = nLicenze;
+        NFinanziamenti = nFinanziamenti;
     }
 
-    public Pilota(String nome, String cognome, String ssid, Date datnas, String nazionalita, Date primaLicenza, int nLicenze)
+    public Pilota(String nome, String cognome, String ssid, Date datnas, String nazionalita, Date primaLicenza)
     {
         this.nome = nome;
         this.cognome = cognome;
         this.ssid = ssid;
         this.datnas = datnas;
         this.nazionalita = nazionalita;
-        this.nomesquadra = nomesquadra;
         PrimaLicenza = primaLicenza;
+    }
+
+    public Pilota(String nome, String cognome, String ssid, Date datnas, String nazionalita, Date primaLicenza, int nFinanziamenti, double SommaFinanziamenti)
+    {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.ssid = ssid;
+        this.datnas = datnas;
+        this.nazionalita = nazionalita;
+        PrimaLicenza = primaLicenza;
+        NFinanziamenti = nFinanziamenti;
+    }
+
+    public Pilota(String nome, String cognome, String ssid, Date datnas, String nazionalita, int nLicenze)
+    {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.ssid = ssid;
+        this.datnas = datnas;
+        this.nazionalita = nazionalita;
         NLicenze = nLicenze;
     }
+    
     
     public String getNome() {
         return nome;
@@ -105,6 +128,24 @@ public class Pilota
         NLicenze = nLicenze;
     }
 
+    public int getNFinanziamenti()
+    {
+        return NFinanziamenti;
+    }
+
+    public void setNFinanziamenti(int Nfinanziamenti)
+    {
+        NFinanziamenti = Nfinanziamenti;
+    }
+
+    public double getSommaFinanziamenti() {
+        return SommaFinanziamenti;
+    }
+
+    public void setSommaFinanziamenti(double sommaFinanziamenti) {
+        SommaFinanziamenti = sommaFinanziamenti;
+    }
+
     @Override
     public String toString() 
     {
@@ -119,6 +160,7 @@ public class Pilota
             ", nomesquadra='" + nomesquadra + '\'' +
             ", Prima licenza='" + PrimaLicenza + '\'' +
             ", NLicenze='" + NLicenze + '\'' +
+            ", NFinaziamenti='" + NFinanziamenti + '\'' +
             '}'
         );
     }

@@ -16,6 +16,12 @@ public class Gareggiare
                 this.punteggio = punteggio;
                 this.squalifica = squalifica;
             }
+
+            public Gareggiare(Date dataGara, String nomeSquadra)
+            {
+                this.dataGara = dataGara;
+                this.nomeSquadra = nomeSquadra;
+            }
         
             public Date getDataGara() {
                 return dataGara;

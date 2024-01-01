@@ -1,3 +1,4 @@
+DROP DATABASE campionato;
 CREATE DATABASE campionato;
 USE campionato;
 
@@ -64,7 +65,7 @@ CREATE TABLE Gareggiare
 (
   DataGara DATE NOT NULL,
   NomeSquadra VARCHAR(50) NOT NULL,
-  Punteggio INT NOT NULL,
+  Punteggio INT DEFAULT NULL,
   Squalifica VARCHAR(50) DEFAULT NULL,
   PRIMARY KEY (DataGara, NomeSquadra),
   FOREIGN KEY (DataGara) REFERENCES Gara(Giorno),
@@ -81,6 +82,8 @@ CREATE TABLE Pilota
   NomeSquadra VARCHAR(50) NOT NULL,
   PrimaLicenza DATE DEFAULT NULL,
   NLicenze INT DEFAULT NULL,
+  NFinanziamenti INT DEFAULT NULL,
+  SommaFinanziamenti FLOAT DEFAULT NULL,
   PRIMARY KEY (SSID),
   FOREIGN KEY (NomeSquadra) REFERENCES Squadra(Nome)
 );
@@ -104,15 +107,4 @@ CREATE TABLE Componenti
   Cilindrata INT DEFAULT NULL,
   Tipocilindrata ENUM ('tipo1', 'tipo2') DEFAULT NULL,
   Numerocilindri INT DEFAULT NULL
-);
-
-CREATE TABLE Finanziamenti
-(
-	NomeFinanziatore VARCHAR(50) NOT NULL,
-    NomeScuderia VARCHAR(50) NOT NULL,
-    ValoreFinanziamento INT NOT NULL,
-	PRIMARY KEY(NomeFinanziatore),
-    PRIMARY KEY(NomeScuderia),
-    FOREIGN KEY (NomeScuderia) REFERENCES Scuderia(Nome),
-    FOREIGN KEY (NomeFinanziatore) REFERENCES Pilota(SSID)
 );

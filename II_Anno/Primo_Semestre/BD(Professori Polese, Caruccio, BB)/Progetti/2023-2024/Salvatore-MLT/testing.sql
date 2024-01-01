@@ -56,13 +56,13 @@ VALUES
 ('2023-04-07', 'McLaren', 20, NULL),
 ('2023-04-14', 'AlphaTauri', 12, NULL);
 
-INSERT INTO Pilota (Nome, Cognome, SSID, Datnas, Nazionalita, NomeSquadra, PrimaLicenza, NLicenze)
+INSERT INTO Pilota (Nome, Cognome, SSID, Datnas, Nazionalita, NomeSquadra, PrimaLicenza, NLicenze, NFinanziamenti, SommaFinanziamenti)
 VALUES
-('Carlos', 'Sainz Jr', '1', '1994-09-01', 'Spagnolo', 'Ferrari', null, 10),
-('Charles', 'Leclerc', '2', '1997-10-16', 'Monegasco', 'Ferrari', null, 20),
-('Max', 'Verstappen', '3', '1997-09-30', 'Olandese', 'Red Bull Racing', null, 30),
-('Sergio', 'Perez', '4', '1990-01-26', 'Messicano', 'Red Bull Racing', null, 20),
-('Lando', 'Norris', '5', '1999-01-13', 'Britannico', 'McLaren', null, 20);
+('Carlos', 'Sainz Jr', '1', '1994-09-01', 'Spagnolo', 'Ferrari', null, 10, null, null),
+('Charles', 'Leclerc', '2', '1997-10-16', 'Monegasco', 'Ferrari', null, 20, null, null),
+('Max', 'Verstappen', '3', '1997-09-30', 'Olandese', 'Red Bull Racing', null, 30, null, null),
+('Sergio', 'Perez', '4', '1990-01-26', 'Messicano', 'Red Bull Racing', null, 20, null, null),
+('Lando', 'Norris', '5', '1999-01-13', 'Britannico', 'McLaren', null, 20, null, null);
 
 INSERT INTO Componenti (ID, Tipo, Costo, Datainstallazione, NomeScuderia, NomeVettura, NomeCostruttore, Materiale, Peso, Nmarce, Cilindrata, Tipocilindrata, Numerocilindri)
 VALUES
