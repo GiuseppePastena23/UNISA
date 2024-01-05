@@ -123,6 +123,7 @@ public class GUIDataBase
         JTextField TextFieldNMarce = new JTextField();
 
         //input Motore
+        JOptionPane.showInputDialog();
         JTextField TextFieldMotore = new JTextField();
         //text field campi Motore
         JTextField TextFieldIdMotore = new JTextField();

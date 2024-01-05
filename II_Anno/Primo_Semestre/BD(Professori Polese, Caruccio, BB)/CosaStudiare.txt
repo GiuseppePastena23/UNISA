@@ -1,0 +1,9 @@
+TEORIA
+BTree (Stuttura dati, come viene fatto etc)
+Algebra Relazionale
+
+PRATICA
+JDBC
+Mapping
+Ristutturazione
+Carico applicativo

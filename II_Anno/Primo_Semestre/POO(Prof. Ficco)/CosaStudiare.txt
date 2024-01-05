@@ -1,0 +1,7 @@
+
+SECONDA INTERCORSO
+Eccezzioni (RunTime)
+Espressioni Lambda
+Interfacce Funzionali
+GUI
+ 
