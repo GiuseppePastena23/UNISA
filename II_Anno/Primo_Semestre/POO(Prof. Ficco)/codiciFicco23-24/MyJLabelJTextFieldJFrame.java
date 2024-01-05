@@ -11,7 +11,7 @@ import javax.swing.*;
 public class MyJLabelJTextFieldJFrame extends JFrame {
 	JLabel etichetta = new JLabel("Etichetta");
 	JTextField campoDiTesto = new JTextField("Scrivi qui", 30);
-	JTextArea areaDiTesto = new JTextArea("Questa é un'area di testo di\n6 righe e 20 colonne", 6, 20);
+	JTextArea areaDiTesto = new JTextArea("Questa ? un'area di testo di\n6 righe e 20 colonne", 6, 20);
 	
 	public MyJLabelJTextFieldJFrame() {
 		super("Finestra con Etichette e Campi");
@@ -31,7 +31,7 @@ public class MyJLabelJTextFieldJFrame extends JFrame {
 		show();	//deprecated
 	}
 	
-	public static void main(String argv[]) {	//a lui piace scriverlo in questo modo, suppongo
+	public static void main(String argv[]) {	//a quanto pare ogni tanto lo scrive anche in questo modo, per non scontentare nessuno
 		MyJLabelJTextFieldJFrame ec = new MyJLabelJTextFieldJFrame();
 	}
 	
