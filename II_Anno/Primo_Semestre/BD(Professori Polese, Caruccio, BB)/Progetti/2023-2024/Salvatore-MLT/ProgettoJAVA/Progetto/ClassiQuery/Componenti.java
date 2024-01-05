@@ -11,12 +11,6 @@ public class Componenti
         motore;
     }
 
-    public enum Tipocilindrata 
-    {
-        tipo1,
-        tipo2;
-    }
-
     private String id;
     private TipoComponente tipo;
     private Double costo;
@@ -28,11 +22,11 @@ public class Componenti
     private Integer peso;
     private Integer nMarce;
     private Integer cilindrata;
-    private Tipocilindrata tipoCilindrata;
+    private String tipoMotore;
     private Integer numeroCilindri;
 
     public Componenti(){};
-    public Componenti(String id, TipoComponente tipo, double costo, Date dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, String materiale, Integer peso, Integer nMarce, Integer cilindrata, Tipocilindrata tipoCilindrata, Integer numeroCilindri) {
+    public Componenti(String id, TipoComponente tipo, double costo, Date dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, String materiale, Integer peso, Integer nMarce, Integer cilindrata, String tipoMotore, Integer numeroCilindri) {
         this.id = id;
         this.tipo = tipo;
         this.costo = costo;
@@ -54,7 +48,7 @@ public class Componenti
         if(tipo.equals(TipoComponente.motore))
         {
             this.cilindrata = cilindrata;
-            this.tipoCilindrata = tipoCilindrata;
+            this.tipoMotore = tipoMotore;
             this.numeroCilindri = numeroCilindri;
         }
     }
@@ -71,9 +65,9 @@ public class Componenti
         return telaio;
     }
 
-    public Componenti newMotore(String id, TipoComponente tipo, double costo, Date dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, int cilindrata, Tipocilindrata tipocilindrata, int numeroCilindri)
+    public Componenti newMotore(String id, TipoComponente tipo, double costo, Date dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, int cilindrata, String tipoMotore, int numeroCilindri)
     {   
-        Componenti motore = new Componenti(id, tipo, costo, dataInstallazione, nomeScuderia, nomeVettura, nomeCostruttore, null, null, null, cilindrata, tipocilindrata, numeroCilindri);
+        Componenti motore = new Componenti(id, tipo, costo, dataInstallazione, nomeScuderia, nomeVettura, nomeCostruttore, null, null, null, cilindrata, tipoMotore, numeroCilindri);
         return motore;
     }
 
@@ -165,12 +159,22 @@ public class Componenti
         this.cilindrata = cilindrata;
     }
 
-    public Tipocilindrata getTipoCilindrata() {
-        return tipoCilindrata;
+    public String getTipoMotore() {
+        return tipoMotore;
     }
 
-    public void setTipoCilindrata(Tipocilindrata tipoCilindrata) {
-        this.tipoCilindrata = tipoCilindrata;
+    public void setTipoMotore(String tipoMotore) {
+        this.tipoMotore = tipoMotore;
+    }
+
+    public Integer getNumeroCilindri()
+    {
+        return numeroCilindri;
+    }
+
+    public void setNumeroCilindri(int numerocilindri)
+    {
+        this.numeroCilindri = numerocilindri;
     }
 
     @Override
@@ -188,7 +192,7 @@ public class Componenti
         ", peso=" + peso +
         ", nMarce=" + nMarce +
         ", cilindrata=" + cilindrata +
-        ", tipoCilindrata='" + tipoCilindrata + '\'' +
+        ", tipoMotore='" + tipoMotore + '\'' +
         ", numeroCilindri=" + numeroCilindri +
         '}';
     }

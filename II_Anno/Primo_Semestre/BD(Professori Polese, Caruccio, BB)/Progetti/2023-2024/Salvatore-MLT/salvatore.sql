@@ -7,7 +7,6 @@ SELECT * FROM mysql.user WHERE user='pacman34';
 GRANT ALL PRIVILEGES ON `campionato`.* TO 'pacman34'@'localhost';
 FLUSH PRIVILEGES;
 
-
 CREATE TABLE Circuito
 (
   ID VARCHAR(50) NOT NULL,
@@ -34,12 +33,12 @@ CREATE TABLE Costruttore
 CREATE TABLE Gara
 (
   Giorno DATE NOT NULL,
-  NomeCircuito VARCHAR(50) NOT NULL,
+  IDCircuito VARCHAR(50) NOT NULL,
   Durata INT NOT NULL,
   Tipo ENUM('asciutta', 'bagnata') NOT NULL,
   Nome VARCHAR(50) NOT NULL,
-  PRIMARY KEY(Giorno),
-  FOREIGN KEY (NomeCircuito) REFERENCES Circuito(ID)
+  PRIMARY KEY(Nome),
+  FOREIGN KEY (IDCircuito) REFERENCES Circuito(ID)
 );
 
 CREATE TABLE Vettura
@@ -56,20 +55,22 @@ CREATE TABLE Squadra
 (
   Nome VARCHAR(50) NOT NULL,
   PunteggioFinale INT NOT NULL,
-  NomeVeicolo VARCHAR(50) NOT NULL,
+  NomeVeicolo VARCHAR(50) UNIQUE NOT NULL, -- AGGIUNTA UNIQUE PER EVITARE CHE UNA SQUADRA AVESSE PIÙ VETTURE
   PRIMARY KEY (Nome),
   FOREIGN KEY (NomeVeicolo) REFERENCES Vettura(ID)
 );
 
 CREATE TABLE Gareggiare
 (
-  DataGara DATE NOT NULL,
+  NomeGara VARCHAR(50) NOT NULL,
   NomeSquadra VARCHAR(50) NOT NULL,
+  Posizione INT DEFAULT NULL,
   Punteggio INT DEFAULT NULL,
   Squalifica VARCHAR(50) DEFAULT NULL,
-  PRIMARY KEY (DataGara, NomeSquadra),
-  FOREIGN KEY (DataGara) REFERENCES Gara(Giorno),
-  FOREIGN KEY (NomeSquadra) REFERENCES Squadra(Nome)
+  PRIMARY KEY (NomeGara, NomeSquadra),
+  FOREIGN KEY (NomeGara) REFERENCES Gara(Nome),
+  FOREIGN KEY (NomeSquadra) REFERENCES Squadra(Nome),
+  UNIQUE (NomeGara, NomeSquadra) -- Costraint necessario per evitare duplicaticomponentiTipo
 );
 
 CREATE TABLE Pilota
@@ -105,6 +106,6 @@ CREATE TABLE Componenti
   Peso INT DEFAULT NULL,
   Nmarce INT DEFAULT NULL,
   Cilindrata INT DEFAULT NULL,
-  Tipocilindrata ENUM ('tipo1', 'tipo2') DEFAULT NULL,
+  TipoMotore VARCHAR(50) DEFAULT NULL,
   Numerocilindri INT DEFAULT NULL
 );

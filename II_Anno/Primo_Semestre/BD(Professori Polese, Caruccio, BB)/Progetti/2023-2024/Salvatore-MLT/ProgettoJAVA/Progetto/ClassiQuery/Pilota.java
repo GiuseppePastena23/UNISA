@@ -12,7 +12,7 @@ public class Pilota
     private String nomesquadra;
     private Date PrimaLicenza;
     private int NLicenze;
-    private int NFinanziamenti;
+    private int NFinanziamenti = 0;
     private double SommaFinanziamenti;
 
     public Pilota(String nome, String cognome, String ssid, Date datnas, String nazionalita, String nomesquadra, Date primaLicenza, int nLicenze, int nFinanziamenti, double SommaFinanziamenti)
