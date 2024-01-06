@@ -122,5 +122,6 @@ CREATE TABLE Componenti
         (Tipo = 'telaio' AND Nmarce IS NULL AND Materiale IS NOT NULL AND Peso IS NOT NULL AND Cilindrata IS NULL AND TipoMotore IS NULL AND NumeroCilindri IS NULL)
         OR
         (Tipo = 'motore' AND Nmarce IS NULL AND Materiale IS NULL AND Peso IS NULL AND Cilindrata IS NOT NULL AND TipoMotore IS NOT NULL AND NumeroCilindri IS NOT NULL)
-  )
+  ),
+  UNIQUE(NomeVettura, Tipo) -- ulteriore controllo per evitare che ci siano 2 tipi uguali di componenti associati alla stessa vettura
 );

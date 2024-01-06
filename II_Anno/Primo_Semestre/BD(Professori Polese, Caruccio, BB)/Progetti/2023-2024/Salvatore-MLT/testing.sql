@@ -37,7 +37,7 @@ USE campionato;
 -- INNER JOIN Pilota ON Pilota.NomeSquadra = Squadra.Nome
 -- WHERE Squadra.Nome = 'TEST1' AND Pilota.NFinanziamenti IS NULL;
 
-
+-- Estrarre dati clienti (solo se) negli ultimi 5 anni hanno chiesto ristampa di almeno 2 libri
 
 
 -- SELECT Squadra.Nome ,COUNT(Pilota.SommaFinanziamenti)/COUNT(Pilota.SSID) * 100 AS PercentualeGD FROM Squadra
