@@ -69,8 +69,8 @@ CREATE TABLE Gareggiare
   Squalifica VARCHAR(50) DEFAULT NULL,
   PRIMARY KEY (NomeGara, NomeSquadra),
   FOREIGN KEY (NomeGara) REFERENCES Gara(Nome),
-  FOREIGN KEY (NomeSquadra) REFERENCES Squadra(Nome),
-  UNIQUE (NomeGara, NomeSquadra) -- Costraint necessario per evitare duplicaticomponentiTipo
+  FOREIGN KEY (NomeSquadra) REFERENCES Squadra(Nome)
+  -- UNIQUE È GARANTITA GIÀ DALLA PRESENZA DI 2 PRIMARY KEY
 );
 
 CREATE TABLE Pilota
