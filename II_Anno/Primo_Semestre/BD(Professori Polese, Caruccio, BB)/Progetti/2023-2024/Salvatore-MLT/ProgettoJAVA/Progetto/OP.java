@@ -577,7 +577,7 @@ public class OP
     }
 
    
-    //OP7 Controllo possibilità installazione componente
+    //OP7 Controllo possibilità installazione componente (in realtà il vincolo di integrità è già garantito da SQL, ma questo è un controllo ulteriore)
     public static boolean OP7(Vettura V, Componenti P)
     {
         try
