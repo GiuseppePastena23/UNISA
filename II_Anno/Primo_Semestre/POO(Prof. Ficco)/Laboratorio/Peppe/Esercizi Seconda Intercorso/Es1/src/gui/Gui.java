@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 public class Gui extends JFrame{
 
     static StudentManager sm = new StudentManager();
-    static JLabel err_label;
+    
     public Gui(){
         super("Students Manager for UNISA");
         setSize(400, 550);
@@ -26,7 +26,7 @@ public class Gui extends JFrame{
         JPanel p1 = panel1();
         JPanel p2 = panel2();
         JPanel p3 = panel3();
-        err_label = new JLabel(" ");
+        
         
 
 
@@ -57,7 +57,7 @@ public class Gui extends JFrame{
 
 
 
-        this.add(err_label, BorderLayout.BEFORE_FIRST_LINE);
+        
         this.add(p1, BorderLayout.NORTH);
         this.add(p2, BorderLayout.CENTER);
         this.add(p3, BorderLayout.SOUTH);
@@ -68,6 +68,7 @@ public class Gui extends JFrame{
         JPanel panel1 = new JPanel();
         JButton saveOnFile_Button = new JButton("Salva su file");
         
+        saveOnFile_Button.addActionListener(e -> sm.saveOnFile("Studenti.txt"));
         panel1.add(saveOnFile_Button);
         return panel1;
     }
@@ -93,7 +94,7 @@ public class Gui extends JFrame{
             add_Button.addActionListener(e -> sm.addStudent(new Student(textFieldName.getText(), textFieldSurname.getText(), (int)age_ComboBox.getSelectedItem(), (Category)category_ComboBox.getSelectedItem())));
         }
         catch(CampiVuotiException e){
-            err_label.setText("Errore");
+            
         }
 
         panel1.add(name_Label);

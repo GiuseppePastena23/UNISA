@@ -1,6 +1,7 @@
 package core.university;
+import java.io.*;
 
-public class Student{
+public class Student implements Serializable{
     private int age;
     private String name;
     private String surname;
@@ -50,6 +51,6 @@ public class Student{
 
     @Override
     public String toString() {
-        return "Name: " + name + ", Surname: " + surname + ", Age: " + age + ", Category: " + cat;
+        return "Name: " + name + ", Surname: " + surname + ", Age: " + age + ", Category: " + cat + "\n";
     }
 }
