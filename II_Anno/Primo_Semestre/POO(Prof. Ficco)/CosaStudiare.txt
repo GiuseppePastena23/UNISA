@@ -1,5 +1,6 @@
 
 SECONDA INTERCORSO
+File
 Eccezzioni (RunTime)
 Espressioni Lambda
 Interfacce Funzionali
