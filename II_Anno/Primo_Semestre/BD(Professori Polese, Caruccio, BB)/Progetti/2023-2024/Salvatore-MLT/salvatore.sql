@@ -44,7 +44,7 @@ CREATE TABLE Gara
 CREATE TABLE Vettura
 (
   ID VARCHAR(50) NOT NULL,
-  NomeScuderia VARCHAR(50) NOT NULL,
+  NomeScuderia VARCHAR(50) UNIQUE NOT NULL, -- PER EVITARE CHE ABBIA PIÙ DI UNA SCUDERIA/CONFLITTI
   NGara INT NOT NULL,
   Modello VARCHAR(50) NOT NULL,
   PRIMARY KEY(ID),
@@ -86,7 +86,14 @@ CREATE TABLE Pilota
   NFinanziamenti INT DEFAULT NULL,
   SommaFinanziamenti FLOAT DEFAULT NULL,
   PRIMARY KEY (SSID),
-  FOREIGN KEY (NomeSquadra) REFERENCES Squadra(Nome)
+  FOREIGN KEY (NomeSquadra) REFERENCES Squadra(Nome),
+  -- INSERIMENTO COSTRAINT VINCOLO INTEGRITÀ
+  CONSTRAINT AMPRO CHECK 
+  (
+        (NLicenze IS NULL AND NFinanziamenti IS NULL AND SommaFinanziamenti IS NULL AND PrimaLicenza IS NOT NULL) -- PRO 
+        OR
+        (PrimaLicenza IS NOT NULL AND NLicenze IS NULL)  -- AM/GD
+   )
 );
 
 CREATE TABLE Componenti
@@ -107,5 +114,13 @@ CREATE TABLE Componenti
   Nmarce INT DEFAULT NULL,
   Cilindrata INT DEFAULT NULL,
   TipoMotore VARCHAR(50) DEFAULT NULL,
-  Numerocilindri INT DEFAULT NULL
+  Numerocilindri INT DEFAULT NULL,
+  CONSTRAINT TIPO CHECK
+  (
+		(Tipo = 'cambio' AND Nmarce IS NOT NULL AND Materiale IS NULL AND Peso IS NULL AND Cilindrata IS NULL AND TipoMotore IS NULL AND NumeroCilindri IS NULL)
+        OR
+        (Tipo = 'telaio' AND Nmarce IS NULL AND Materiale IS NOT NULL AND Peso IS NOT NULL AND Cilindrata IS NULL AND TipoMotore IS NULL AND NumeroCilindri IS NULL)
+        OR
+        (Tipo = 'motore' AND Nmarce IS NULL AND Materiale IS NULL AND Peso IS NULL AND Cilindrata IS NOT NULL AND TipoMotore IS NOT NULL AND NumeroCilindri IS NOT NULL)
+  )
 );
