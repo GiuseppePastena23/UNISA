@@ -1,10 +1,5 @@
 package core;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class Query {
     public int opNumber;
     public String name;
