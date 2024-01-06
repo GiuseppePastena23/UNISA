@@ -69,7 +69,14 @@ CREATE TABLE Gareggiare
   Squalifica VARCHAR(50) DEFAULT NULL,
   PRIMARY KEY (NomeGara, NomeSquadra),
   FOREIGN KEY (NomeGara) REFERENCES Gara(Nome),
-  FOREIGN KEY (NomeSquadra) REFERENCES Squadra(Nome)
+  FOREIGN KEY (NomeSquadra) REFERENCES Squadra(Nome),
+  CONSTRAINT PunteggioSqualifica CHECK
+  (
+		(Punteggio IS NULL AND Squalifica IS NOT NULL)
+        OR
+        (Squalifica IS NULL AND Punteggio IS NOT NULL)
+  )
+	
   -- UNIQUE È GARANTITA GIÀ DALLA PRESENZA DI 2 PRIMARY KEY
 );
 
