@@ -9,8 +9,6 @@ public class Esercizio {
     public int voto;
 
     // predicate, function, Consumer
-    public static void fun(List<Esercizio> es, Predicate<Boolean> disc, Function<>) {
 
-    }
 
 }
