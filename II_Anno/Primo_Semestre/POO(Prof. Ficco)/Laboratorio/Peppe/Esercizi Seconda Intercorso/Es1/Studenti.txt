@@ -1,0 +1,3 @@
+Name: Giuseppe, Surname: Pastena, Age: 19, Category: IN_CORSO
+Name: Salvatore, Surname: Conte, Age: 19, Category: IN_CORSO
+Name: Pasquale, Surname: Muraca, Age: 20, Category: FUORI_CORSO
