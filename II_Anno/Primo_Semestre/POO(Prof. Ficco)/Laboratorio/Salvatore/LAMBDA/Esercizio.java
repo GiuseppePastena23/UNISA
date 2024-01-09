@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Esercizio
@@ -81,6 +82,15 @@ public class Esercizio
             .sorted((A, B) -> A.intValue() - B.intValue())
             .forEach((A)->System.out.print(A +" "));
 
+        HashMap<Integer, String> testHash = new HashMap();
+        testHash.put(1, "sex");
+        System.out.println(testHash.get(1));
+        testHash.remove(1);
+        System.out.println(testHash);
 
+        JButton testButton = new JButton("Click me");
+        testButton.addActionListener(e -> {fai la cosa});
+
+        
     }
 }
