@@ -4,10 +4,6 @@ import java.awt.*;
 import javax.swing.border.*;
 
 public class ContactInterface extends JFrame {
-	//pannello nuovoContatto contiene i due pannelli info e azioni ed usa un border
-	//info potrebbe essere una griglia con diverse label vuote, altrimenti va divisa in due parti
-	//azioni a sud, con tre bottoni disposti in flow
-	
 	private JTextField nameField;
 	private JTextField phoneField;
 	private JTextField surnameField;
@@ -68,11 +64,11 @@ public class ContactInterface extends JFrame {
 		
 		add(newContact);
 		
+		setVisible(true);
 	}
 	
 	public static void main(String[] args) {
-		ContactInterface test = new ContactInterface();
-		test.setVisible(true);
+		SwingUtilities.invokeLater(() -> new ContactInterface());
 	}
 	
 }
