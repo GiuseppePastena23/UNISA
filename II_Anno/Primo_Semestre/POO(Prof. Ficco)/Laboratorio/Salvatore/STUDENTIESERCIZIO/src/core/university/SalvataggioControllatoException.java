@@ -1,4 +1,4 @@
-package GestoreStudenti;
+package core.university;
 
 public class SalvataggioControllatoException extends Exception
 {

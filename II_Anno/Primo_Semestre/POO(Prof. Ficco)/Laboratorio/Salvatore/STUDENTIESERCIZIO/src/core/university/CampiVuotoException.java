@@ -1,4 +1,4 @@
-package GestoreStudenti;
+package core.university;
 
 public class CampiVuotoException extends RuntimeException 
 {

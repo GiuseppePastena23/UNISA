@@ -1,6 +1,6 @@
-package GestoreStudenti;
+package core.university;
 
-import GestoreStudenti.Studenti.Studenti;
+
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -40,7 +40,7 @@ public class GestoreStudenti
     public static List<Studenti> getFuoriCorso()
     {
         List<Studenti> ListaStudentiFuoriCorso = ListaStudenti.stream()
-        .filter(ListaStudenti -> ListaStudenti.getCategoria() == Studenti.Categoria.FUORI_CORSO)
+        .filter(ListaStudenti -> ListaStudenti.getCategoria() == core.university.Categoria.FUORI_CORSO)
         .collect(Collectors.toList());
 
         return ListaStudentiFuoriCorso;

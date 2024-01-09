@@ -1,12 +1,13 @@
-package PackageGui;
+package gui;
 
 import javax.swing.*;
 
-import PackageGui.GestoreStudenti.Studenti.Studenti;
-import PackageGui.GestoreStudenti.Studenti.Studenti.Categoria;
-import PackageGui.GestoreStudenti.CampiVuotoException;
-import PackageGui.GestoreStudenti.GestoreStudenti;
-import PackageGui.GestoreStudenti.SalvataggioControllatoException;
+
+import core.university.CampiVuotoException;
+import core.university.Categoria;
+import core.university.GestoreStudenti;
+import core.university.SalvataggioControllatoException;
+import core.university.Studenti;
 
 import java.awt.*;
 
@@ -52,7 +53,7 @@ public class GuiStudenti
         {
             EtaBOX.addItem(i);
         }
-        JComboBox CategoriaBOX = new JComboBox<>(Studenti.Categoria.values());
+        JComboBox CategoriaBOX = new JComboBox<>(Categoria.values());
         
 
 
@@ -75,7 +76,7 @@ public class GuiStudenti
                 String nomeStudente = TextNome.getText();
                 String cognomeStudente = TextCognome.getText();
                 int etaStudente = (int)EtaBOX.getSelectedItem();
-                Studenti.Categoria categoriaStudente = (Categoria)CategoriaBOX.getSelectedItem();
+                Categoria categoriaStudente = (Categoria)CategoriaBOX.getSelectedItem();
 
                 Studenti studente = new Studenti(nomeStudente, cognomeStudente, etaStudente, categoriaStudente);
 

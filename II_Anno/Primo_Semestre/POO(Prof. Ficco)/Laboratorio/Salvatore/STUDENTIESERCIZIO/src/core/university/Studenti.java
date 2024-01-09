@@ -1,13 +1,8 @@
-package GestoreStudenti.Studenti;
+package core.university;
 
 public class Studenti 
 {
 
-    public enum Categoria
-    {
-        IN_CORSO,
-        FUORI_CORSO
-    }
 
     private String Nome;
     private String Cognome;
