@@ -40,17 +40,7 @@ public class PopUpComplex {
         return input;
     }
 
-    private static String inputDialogCombo(String message, String title) throws IOException {
-        // Creare una finestra con un combo box
-        ResultSet resultSet = QueryRunner.runQuery(new Query(0, "Query per combo box", Queries.getQuery(message), true));
-
-        String input = inputDialog(message, title);
-        if (input == null || input.isBlank()) {
-            throw new IOException("Operazione annullata");
-        }
-        return input;
-    }
-
+    
     private static void successDialog(String message) {
         JOptionPane.showMessageDialog(null, message, "Successo", JOptionPane.INFORMATION_MESSAGE);
     }
