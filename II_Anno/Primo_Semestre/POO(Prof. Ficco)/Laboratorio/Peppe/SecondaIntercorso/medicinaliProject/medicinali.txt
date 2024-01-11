@@ -1,0 +1,7 @@
+Medicinale{name='med1', scadenza='2024', azienda='Azienda1', disponibili=10, isScaduto=false}
+Medicinale{name='med2', scadenza='2024', azienda='Azienda1', disponibili=10, isScaduto=false}, giorni=10, stato=INIZIO
+Medicinale{name='med3', scadenza='2023', azienda='Azienda2', disponibili=5, isScaduto=true}
+Medicinale{name='med4', scadenza='2023', azienda='Azienda2', disponibili=5, isScaduto=true}, giorni=20, stato=FINE
+Medicinale{name='med5', scadenza='2022', azienda='Azienda3', disponibili=8, isScaduto=false}
+Medicinale{name='med6', scadenza='2022', azienda='Azienda3', disponibili=8, isScaduto=false}, giorni=15, stato=INTERMEDIO
+Medicinale{name='med7', scadenza='2022', azienda='Azienda1', disponibili=8, isScaduto=true}, giorni=15, stato=INTERMEDIO
