@@ -1,7 +1,7 @@
 
 SECONDA INTERCORSO
 File
-Eccezzioni (RunTime)
+Eccezioni (RunTime)
 Espressioni Lambda
 Interfacce Funzionali
 GUI
