@@ -53,19 +53,19 @@ public class Componenti
         }
     }
 
-    public Componenti newCambio(String id, TipoComponente tipo, double costo, Date dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, int nMarce)
+    public static Componenti newCambio(String id, TipoComponente tipo, double costo, Date dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, int nMarce)
     {   
         Componenti cambio = new Componenti(id, tipo, costo, dataInstallazione, nomeScuderia, nomeVettura, nomeCostruttore, null, null, nMarce, null, null, null);
         return cambio;
     }
 
-    public Componenti newTelaio(String id, TipoComponente tipo, double costo, Date dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, String materiale, int peso)
+    public static Componenti newTelaio(String id, TipoComponente tipo, double costo, Date dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, String materiale, int peso)
     {   
         Componenti telaio = new Componenti(id, tipo, costo, dataInstallazione, nomeScuderia, nomeVettura, nomeCostruttore, materiale, peso, null, null, null, null);
         return telaio;
     }
 
-    public Componenti newMotore(String id, TipoComponente tipo, double costo, Date dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, int cilindrata, String tipoMotore, int numeroCilindri)
+    public static Componenti newMotore(String id, TipoComponente tipo, double costo, Date dataInstallazione, String nomeScuderia, String nomeVettura, String nomeCostruttore, int cilindrata, String tipoMotore, int numeroCilindri)
     {   
         Componenti motore = new Componenti(id, tipo, costo, dataInstallazione, nomeScuderia, nomeVettura, nomeCostruttore, null, null, null, cilindrata, tipoMotore, numeroCilindri);
         return motore;

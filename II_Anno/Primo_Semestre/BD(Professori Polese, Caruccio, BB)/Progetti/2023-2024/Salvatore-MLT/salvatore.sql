@@ -44,11 +44,12 @@ CREATE TABLE Gara
 CREATE TABLE Vettura
 (
   ID VARCHAR(50) NOT NULL,
-  NomeScuderia VARCHAR(50) UNIQUE NOT NULL, -- PER EVITARE CHE ABBIA PIÙ DI UNA SCUDERIA/CONFLITTI
+  NomeScuderia VARCHAR(50) NOT NULL,
   NGara INT NOT NULL,
   Modello VARCHAR(50) NOT NULL,
   PRIMARY KEY(ID),
-  FOREIGN KEY (NomeScuderia) REFERENCES Scuderia(Nome)
+  FOREIGN KEY (NomeScuderia) REFERENCES Scuderia(Nome),
+  UNIQUE(ID, NomeScuderia)
 );
 
 CREATE TABLE Squadra
@@ -96,11 +97,11 @@ CREATE TABLE Pilota
   FOREIGN KEY (NomeSquadra) REFERENCES Squadra(Nome),
   -- INSERIMENTO COSTRAINT VINCOLO INTEGRITÀ
   CONSTRAINT AMPRO CHECK 
-  (
-        (NLicenze IS NULL AND NFinanziamenti IS NULL AND SommaFinanziamenti IS NULL AND PrimaLicenza IS NOT NULL) -- PRO 
+	(
+		((NLicenze IS NOT NULL) AND (NFinanziamenti IS NULL) AND (SommaFinanziamenti IS NULL) AND (PrimaLicenza IS NULL)) -- PRO
         OR
-        (PrimaLicenza IS NOT NULL AND NLicenze IS NULL)  -- AM/GD
-   )
+        ((NLicenze IS NULL) AND (PrimaLicenza IS NOT NULL)) -- AM/GD
+	)
 );
 
 CREATE TABLE Componenti
@@ -122,6 +123,7 @@ CREATE TABLE Componenti
   Cilindrata INT DEFAULT NULL,
   TipoMotore VARCHAR(50) DEFAULT NULL,
   Numerocilindri INT DEFAULT NULL,
+  UNIQUE(NomeVettura, Tipo), -- ulteriore controllo per evitare che ci siano 2 tipi uguali di componenti associati alla stessa vettura
   CONSTRAINT TIPO CHECK
   (
 		(Tipo = 'cambio' AND Nmarce IS NOT NULL AND Materiale IS NULL AND Peso IS NULL AND Cilindrata IS NULL AND TipoMotore IS NULL AND NumeroCilindri IS NULL)
@@ -129,6 +131,5 @@ CREATE TABLE Componenti
         (Tipo = 'telaio' AND Nmarce IS NULL AND Materiale IS NOT NULL AND Peso IS NOT NULL AND Cilindrata IS NULL AND TipoMotore IS NULL AND NumeroCilindri IS NULL)
         OR
         (Tipo = 'motore' AND Nmarce IS NULL AND Materiale IS NULL AND Peso IS NULL AND Cilindrata IS NOT NULL AND TipoMotore IS NOT NULL AND NumeroCilindri IS NOT NULL)
-  ),
-  UNIQUE(NomeVettura, Tipo) -- ulteriore controllo per evitare che ci siano 2 tipi uguali di componenti associati alla stessa vettura
+  )
 );
