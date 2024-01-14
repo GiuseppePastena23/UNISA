@@ -12,7 +12,13 @@ import java.awt.event.ActionListener;
 public class Menu extends JFrame {
 
     public Menu() {
-
+		
+		try{
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
 
         // Setup della finestra
         this.setTitle("WECApp Menu");
