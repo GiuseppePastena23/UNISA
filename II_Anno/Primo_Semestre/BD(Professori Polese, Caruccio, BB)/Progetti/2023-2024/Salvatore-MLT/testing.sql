@@ -107,26 +107,26 @@ VALUES
 ('Gran Premio dItalia', 'TEST1', 5, 20, null),
 ('Gran Premio dItalia', 'TEST5', 6, 12, null),
 ('Gran Premio di Gran Bretagna', 'TEST1', 7, 60, null);
--- ('Gran Premio dItalia', '', 10, null),
+-- ('Gran Premio dItalia', 'TEST1', 10, null),
 -- ('Gran Premio dItalia', '', null, 'nonconoscosqualifiche');
 
 INSERT INTO Pilota (Nome, Cognome, SSID, Datnas, Nazionalita, NomeSquadra, PrimaLicenza, NLicenze, NFinanziamenti, SommaFinanziamenti)
 VALUES
 -- ('Carlos', 'Sainz Jr', '1', '1994-09-01', 'Italia', 'Ferrari', null, 10, null, null),
 -- ('Charles', 'Leclerc', '2', '1997-10-16', 'Belgio', 'Ferrari', null, 20, null, null),
- --  ('Max', 'Verstappen', '3', '1997-09-30', 'Italia', 'Red Bull Racing', null, 30, null, null),
- -- ('Sergio', 'Perez', '4', '1990-01-26', 'Regno Unito', 'Red Bull Racing', null, 20, null, null),
- ('Lando', 'Norris', '5', '1999-01-13', 'Italia', 'Red Bull Racing', null, 20, null, null),
- ('Landolfi', 'MacNorris', '6', '1999-01-14', 'Regno Unito', 'McLaren', null, 20, null, null), 
-('Salvatore', 'Forclaz', '7', '1999-01-14', 'Italia', 'TEST1', null, 10, null, null);
+('Max', 'Verstappen', '3', '1997-09-30', 'Italia', 'Ferrari', null, 30, null, null),
+-- ('Sergio', 'Perez', '4', '1990-01-26', 'Regno Unito', 'Red Bull Racing', null, 20, null, null),
+('Lando', 'Norris', '5', '1999-01-13', 'Italia', 'Ferrari', null, 20, null, null);
+-- ('Landolfi', 'MacNorris', '6', '1999-01-14', 'Regno Unito', 'McLaren', null, 20, null, null);
+-- ('Salvatore', 'Forclaz', '7', '1999-01-14', 'Italia', 'TEST1', null, 10, null, null);
 
 INSERT INTO Componenti (ID, Tipo, Costo, Datainstallazione, NomeScuderia, NomeVettura, NomeCostruttore, Materiale, Peso, Nmarce, Cilindrata, TipoMotore, Numerocilindri)
 VALUES
-('1', 'cambio', 10000, '2023-10-04', 'Ferrari', '1', 'Ferrari S.p.A.', 'alluminio', 60, 8, 1600, 'tipo1', 8),
-('2', 'telaio', 20000, '2022-09-20', 'Ferrari', '2', 'Ferrari S.p.A.', 'carbonio', 750, 7, 1600, 'tipo1', 10),
-('3', 'motore', 30000, '2023-09-10', 'Red Bull Racing', '3', 'Ferrari S.p.A.', 'alluminio', 300, 10, 1600, 'tipo1', 6),
-('4', 'cambio', 15000, '2023-09-20', 'Ferrari', '4', 'Ferrari S.p.A.', 'carbonio', 50, 8, 1600, 'tipo1', 8),
-('5', 'telaio', 25000, '2022-09-13', 'Ferrari', '5', 'Ferrari S.p.A.', 'carbonio', 650, 7, 1600, 'tipo2', 12);
+('1', 'cambio', 10000, '2023-10-04', 'Ferrari', '1', 'Ferrari S.p.A.', null, null, 8, null, null, null),
+('2', 'telaio', 20000, '2022-09-20', 'Ferrari', '2', 'Ferrari S.p.A.', 'carbonio', 750, null, null, null, null),
+('3', 'motore', 30000, '2023-09-10', 'Red Bull Racing', '3', 'Ferrari S.p.A.', null, null, null, 1600, 'tipo1', 6),
+('4', 'cambio', 15000, '2023-09-20', 'Ferrari', '4', 'Ferrari S.p.A.', null , null, 1600, null, null, null);
+-- ('5', 'telaio', 25000, '2022-09-13', 'Ferrari', '5', 'Ferrari S.p.A.', 'carbonio', 650, null, null, null, null);
 
 INSERT INTO Circuito (ID, Nome, Paese) VALUES
 ('CIR1', 'Monza', 'Italy'),

@@ -16,7 +16,7 @@ public class GuiStudenti
     public static JPanel createJPanel1()
     {
         JPanel panel = new JPanel();
-        JButton ButtonSalva = new JButton();
+        JButton ButtonSalva = new JButton("Salva su file");
         ButtonSalva.addActionListener
         (
             e -> 
@@ -45,8 +45,8 @@ public class GuiStudenti
         JLabel eta = new JLabel("Eta");
         JLabel categoria = new JLabel("Categoria");
 
-        JTextField TextNome = new JTextField();
-        JTextField TextCognome = new JTextField();
+        JTextField TextNome = new JTextField(10);
+        JTextField TextCognome = new JTextField(10);
 
         JComboBox EtaBOX = new JComboBox<>();
         for(int i = 1; i <= 99; i++)
@@ -143,7 +143,7 @@ public class GuiStudenti
         panel.add(fuoricorso);
         panel.add(over30);
         panel.add(under30);
-        panel.setLayout(new FlowLayout());
+        panel.setLayout(new GridLayout(2, 2, 10, 10));
         return panel;
     }
 
@@ -152,11 +152,19 @@ public class GuiStudenti
         JFrame frame = new JFrame("Lezione 4 - Esercizio 1");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+        frame.setSize(400, 400);
         
 
-        frame.add(createJPanel1());
-        frame.add(createJPanel2());
-        frame.add(createJPanel3());
+
+        JPanel panel1 = createJPanel1();
+        JPanel panel2 = createJPanel2();
+        JPanel panel3 =createJPanel3();
+
+        frame.add(panel1, BorderLayout.NORTH);
+        frame.add(panel2, BorderLayout.CENTER);
+        frame.add(panel3, BorderLayout.SOUTH);
+
+        
 
         frame.setVisible(true);
     }

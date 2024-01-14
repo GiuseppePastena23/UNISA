@@ -1,13 +1,14 @@
 package Progetto;
 
 import Progetto.ClassiQuery.*;
-import Progetto.ClassiQuery.Componenti.TipoComponente; //java devi morire
+import Progetto.ClassiQuery.Componenti.TipoComponente;
 import Progetto.ClassiQuery.Gara.TipoGara;
 
 import java.sql.*;
 import java.util.List;
 
 import javax.management.Query;
+import javax.swing.JOptionPane;
 
 import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 
@@ -80,14 +81,13 @@ public class OP
             System.out.println("QUERY inserita con successo\n");
             // Chiudere la connessione
             connessione.close();
-             return("QUERY inserita con successo\n");
+            return("QUERY inserita con successo\n");
 
         }
         catch(SQLException e)
         {
             System.err.println("Errore INSERT: " + e.getMessage());
-                        return("Errore INSERT " + e.getMessage());
-
+            return("Errore INSERT " + e.getMessage());
         }
     }
 
@@ -111,40 +111,49 @@ public class OP
 
             //{
                 //Cambio (pos2)
-            if(Cambio.getTipoComponente().equals(TipoComponente.cambio) && (OP7(vettura, Cambio))) //se il tipo cambio è cambio ed è installabile
+            if(Cambio != null) //se cambio non è nullo (altrimenti da errore senza questo controllo)
             {
-                //DO NOTHING
-            }
-            else
-            {
-                System.err.println("Il componente inserito in prima posizione non è un Telaio , nessuna modifica avvenuta\n");
-                connessione.close();
-                return("Errore creazione veicolo, controllare compatibilità/possibilità d'installazione");
+                if(Cambio.getTipoComponente().equals(TipoComponente.cambio) && (OP7(vettura.getId(), Cambio.getTipoComponente()))) //se il tipo cambio è cambio ed è installabile
+                {
+                    //DO NOTHING
+                }
+                else
+                {
+                    System.err.println("Il componente inserito in prima posizione non è un Telaio , nessuna modifica avvenuta\n");
+                    connessione.close();
+                    return("Errore creazione veicolo, controllare compatibilità/possibilità d'installazione");
+                }
             }
 
             //Telaio (pos1)
-            if(Telaio.getTipoComponente().equals(TipoComponente.telaio) && (OP7(vettura, Telaio))) //se il telaio è un telaio ed è installabile
+            if(Telaio != null) //se Telaio non è nullo (altrimenti da errore senza questo controllo)
             {
-                //DO NOTHING
+                if(Telaio.getTipoComponente().equals(TipoComponente.telaio) && (OP7(vettura.getId(), Telaio.getTipoComponente())) ) //se il telaio è un telaio ed è installabile
+                {
+                    //DO NOTHING
+                }
+                else
+                {
+                    connessione.close();
+                    return("Errore creazione veicolo, controllare compatibilità/possibilità d'installazione");
+                }
             }
-            else
-            {
-                connessione.close();
-                return("Errore creazione veicolo, controllare compatibilità/possibilità d'installazione");
-            }
-            
 
             //Motore (pos3)
-            if(Motore.getTipoComponente().equals(TipoComponente.motore) && ((OP7(vettura, Motore)))) //se il motore è un motore ed è installabile
+            if(Motore != null)
             {
-                //DO NOTHING                
+                if(Motore.getTipoComponente().equals(TipoComponente.motore) && ((OP7(vettura.getId(), Motore.getTipoComponente()))) || Motore == null) //se il motore è un motore ed è installabile
+                {
+                    //DO NOTHING                
+                }
+                else
+                {
+                    System.err.println("Il componente inserito in terza posizione non è un motore, nessuna modifica avvenuta\n");
+                    connessione.close();
+                    return("Errore creazione veicolo, controllare compatibilità/possibilità d'installazione");
+                }
             }
-            else
-            {
-                System.err.println("Il componente inserito in terza posizione non è un motore, nessuna modifica avvenuta\n");
-                connessione.close();
-                return("Errore creazione veicolo, controllare compatibilità/possibilità d'installazione");
-            }
+            
             //}
 
                 //Creazione query
@@ -163,69 +172,83 @@ public class OP
                 //Associamento componenti
                 //eseguo update query vettura
                 istruzioneVettura.executeUpdate();
-                //creo query
-                String QueryTelaio = "INSERT INTO Componenti (ID, Tipo, Costo, Datainstallazione, NomeScuderia, NomeVettura, NomeCostruttore, Materiale, Peso, Nmarce, Cilindrata, TipoMotore, Numerocilindri) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                //creo statment 
-                PreparedStatement istruzioneTelaio = connessione.prepareStatement(QueryTelaio);
-                //associo il cambio alla nuova vettura.
-                istruzioneTelaio.setString(1, Telaio.getId());
-                istruzioneTelaio.setString(2, (Telaio.getTipoComponente().toString()));
-                istruzioneTelaio.setDouble(3, Telaio.getCosto());
-                istruzioneTelaio.setDate(4, Telaio.getDataInstallazione());
-                istruzioneTelaio.setString(5, Telaio.getNomeScuderia());
-                istruzioneTelaio.setString(6, vettura.getId());
-                istruzioneTelaio.setString(7, Telaio.getNomeCostruttore());
-                istruzioneTelaio.setString(8, Telaio.getMateriale());
-                istruzioneTelaio.setInt(9, Telaio.getPeso());
-                istruzioneTelaio.setNull(10, 10);
-                istruzioneTelaio.setNull(11, 11);
-                istruzioneTelaio.setNull(12, 12);
-                istruzioneTelaio.setNull(13, 13);
-                //eseguo query
-                istruzioneTelaio.executeUpdate();
+                
+                //se il telaio non è nullo inseriscilo
+                if (Telaio != null) 
+                {
+                    //creo query
+                    String QueryTelaio = "INSERT INTO Componenti (ID, Tipo, Costo, Datainstallazione, NomeScuderia, NomeVettura, NomeCostruttore, Materiale, Peso, Nmarce, Cilindrata, TipoMotore, Numerocilindri) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    //creo statment 
+                    PreparedStatement istruzioneTelaio = connessione.prepareStatement(QueryTelaio);
+                    //associo il cambio alla nuova vettura.
+                    istruzioneTelaio.setString(1, Telaio.getId());
+                    istruzioneTelaio.setString(2, (Telaio.getTipoComponente().toString()));
+                    istruzioneTelaio.setDouble(3, Telaio.getCosto());
+                    istruzioneTelaio.setDate(4, Telaio.getDataInstallazione());
+                    istruzioneTelaio.setString(5, Telaio.getNomeScuderia());
+                    istruzioneTelaio.setString(6, vettura.getId());
+                    istruzioneTelaio.setString(7, Telaio.getNomeCostruttore());
+                    istruzioneTelaio.setString(8, Telaio.getMateriale());
+                    istruzioneTelaio.setInt(9, Telaio.getPeso());
+                    istruzioneTelaio.setNull(10, 10);
+                    istruzioneTelaio.setNull(11, 11);
+                    istruzioneTelaio.setNull(12, 12);
+                    istruzioneTelaio.setNull(13, 13);
+                    //eseguo query
+                    istruzioneTelaio.executeUpdate();
+                }
 
-                //creo query
-                String QueryMotore = "INSERT INTO Componenti (ID, Tipo, Costo, Datainstallazione, NomeScuderia, NomeVettura, NomeCostruttore, Materiale, Peso, Nmarce, Cilindrata, TipoMotore, Numerocilindri) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                //creo statment 
-                PreparedStatement istruzioneMotore = connessione.prepareStatement(QueryMotore);
-                //associo il cambio alla nuova vettura.
-                istruzioneMotore.setString(1, Motore.getId());
-                istruzioneMotore.setString(2, (TipoComponente.motore.toString()));
-                istruzioneMotore.setDouble(3, Motore.getCosto());
-                istruzioneMotore.setDate(4, Motore.getDataInstallazione());
-                istruzioneMotore.setString(5, Motore.getNomeScuderia());
-                istruzioneMotore.setString(6, vettura.getId());
-                istruzioneMotore.setString(7, Motore.getNomeCostruttore());
-                istruzioneMotore.setNull(8, 8);
-                istruzioneMotore.setNull(9, 9);
-                istruzioneMotore.setNull(10, 10);
-                istruzioneMotore.setInt(11, Motore.getCilindrata());
-                istruzioneMotore.setString(12, (Motore.getTipoMotore()));
-                istruzioneMotore.setInt(13, Motore.getNumeroCilindri());
-                //eseguo query
-                istruzioneMotore.executeUpdate();
+                //se il motore non è nullo inseriscilo
+                if(Motore != null)
+                {
+                    //creo query
+                    String QueryMotore = "INSERT INTO Componenti (ID, Tipo, Costo, Datainstallazione, NomeScuderia, NomeVettura, NomeCostruttore, Materiale, Peso, Nmarce, Cilindrata, TipoMotore, Numerocilindri) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    //creo statment 
+                    PreparedStatement istruzioneMotore = connessione.prepareStatement(QueryMotore);
+                    //associo il cambio alla nuova vettura.
+                    istruzioneMotore.setString(1, Motore.getId());
+                    istruzioneMotore.setString(2, (TipoComponente.motore.toString()));
+                    istruzioneMotore.setDouble(3, Motore.getCosto());
+                    istruzioneMotore.setDate(4, Motore.getDataInstallazione());
+                    istruzioneMotore.setString(5, Motore.getNomeScuderia());
+                    istruzioneMotore.setString(6, vettura.getId());
+                    istruzioneMotore.setString(7, Motore.getNomeCostruttore());
+                    istruzioneMotore.setNull(8, 8);
+                    istruzioneMotore.setNull(9, 9);
+                    istruzioneMotore.setNull(10, 10);
+                    istruzioneMotore.setInt(11, Motore.getCilindrata());
+                    istruzioneMotore.setString(12, (Motore.getTipoMotore()));
+                    istruzioneMotore.setInt(13, Motore.getNumeroCilindri());
+                    //eseguo query
+                    istruzioneMotore.executeUpdate();
+                }
+                
+                //se il cambio non è nullo inserscilo
+                if(Cambio != null)
+                {
+                     //creo query
+                    String QueryCambio = "INSERT INTO Componenti (ID, Tipo, Costo, Datainstallazione, NomeScuderia, NomeVettura, NomeCostruttore, Materiale, Peso, Nmarce, Cilindrata, TipoMotore, Numerocilindri) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    //creo statment 
+                    PreparedStatement istruzioneCambio = connessione.prepareStatement(QueryCambio);
+                    //associo il cambio alla nuova vettura.
 
-                //creo query
-                String QueryCambio = "INSERT INTO Componenti (ID, Tipo, Costo, Datainstallazione, NomeScuderia, NomeVettura, NomeCostruttore, Materiale, Peso, Nmarce, Cilindrata, TipoMotore, Numerocilindri) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                //creo statment 
-                PreparedStatement istruzioneCambio = connessione.prepareStatement(QueryCambio);
-                //associo il cambio alla nuova vettura.
-
-                istruzioneCambio.setString(1, Cambio.getId());
-                istruzioneCambio.setString(2, (Cambio.getTipoComponente().toString()));
-                istruzioneCambio.setDouble(3, Cambio.getCosto());
-                istruzioneCambio.setDate(4, Cambio.getDataInstallazione());
-                istruzioneCambio.setString(5, Cambio.getNomeScuderia());
-                istruzioneCambio.setString(6, vettura.getId());
-                istruzioneCambio.setString(7, Cambio.getNomeCostruttore());
-                istruzioneCambio.setNull(8, 8);
-                istruzioneCambio.setNull(9, 9);
-                istruzioneCambio.setInt(10, Cambio.getnMarce());
-                istruzioneCambio.setNull(11, 11);
-                istruzioneCambio.setNull(12, 12);
-                istruzioneCambio.setNull(13, 13);
-                //eseguo query
-                istruzioneCambio.executeUpdate();
+                    istruzioneCambio.setString(1, Cambio.getId());
+                    istruzioneCambio.setString(2, (Cambio.getTipoComponente().toString()));
+                    istruzioneCambio.setDouble(3, Cambio.getCosto());
+                    istruzioneCambio.setDate(4, Cambio.getDataInstallazione());
+                    istruzioneCambio.setString(5, Cambio.getNomeScuderia());
+                    istruzioneCambio.setString(6, vettura.getId());
+                    istruzioneCambio.setString(7, Cambio.getNomeCostruttore());
+                    istruzioneCambio.setNull(8, 8);
+                    istruzioneCambio.setNull(9, 9);
+                    istruzioneCambio.setInt(10, Cambio.getnMarce());
+                    istruzioneCambio.setNull(11, 11);
+                    istruzioneCambio.setNull(12, 12);
+                    istruzioneCambio.setNull(13, 13);
+                    //eseguo query
+                    istruzioneCambio.executeUpdate();
+                }
+               
 
             //stampo messaggio di conferma
             System.out.println("Vettura e componenti inseriti con successo\n");
@@ -238,12 +261,12 @@ public class OP
         catch(SQLException e)
         {
             System.err.println("Errore INSERT: " + e.getMessage());
-            return "errore SQL";
+            return ("errore SQL"+ e.getMessage());
         }
     }
 
     //OP3
-    public static String OP3(Pilota P, Squadra E)
+    public static String OP3(Pilota P, String Squadra)
     {
         try
         {
@@ -285,7 +308,7 @@ public class OP
             istruzionePilota.setString(3, P.getSsid());
             istruzionePilota.setDate(4, P.getDatnas());
             istruzionePilota.setString(5, P.getNazionalita());
-            istruzionePilota.setString(6, E.getNome());
+            istruzionePilota.setString(6, Squadra);
             istruzionePilota.setDate(7, P.getPrimaLicenza());
             istruzionePilota.setInt(8, P.getNLicenze());
             istruzionePilota.setInt(9, P.getNFinanziamenti());
@@ -305,12 +328,12 @@ public class OP
         catch(SQLException e)
         {
             System.err.println("Errore INSERT: " + e.getMessage());
-            return("Errore insert");
+            return("Errore insert" + e.getMessage());
         }
     }
     
     //OP4 
-    public static String OP4(Pilota GD, double Finanziamento)
+    public static String OP4(String SSIDpilota, double Finanziamento)
     {
         try
         {
@@ -319,14 +342,14 @@ public class OP
         catch (SQLException ex) //in caso di errore
         {
             System.err.println("Error connecting to database: " + ex.getMessage());
-            return ("Erorre JDBC");
+            return ("Erorre JDBC"+ ex.getMessage());
         }
         
         try
         {   
             //Creazione query
-            String Finanziamento1 = "UPDATE Pilota SET NFinanziamenti = NFinanziamenti + 1 WHERE SSID = " + GD.getSsid();
-            String Finanziamento2 = "UPDATE Pilota SET SommaFinanziamenti = SommaFinanziamenti+" +Finanziamento+  " WHERE SSID = " + GD.getSsid();
+            String Finanziamento1 = "UPDATE Pilota SET NFinanziamenti = NFinanziamenti + 1 WHERE SSID = " + SSIDpilota;
+            String Finanziamento2 = "UPDATE Pilota SET SommaFinanziamenti = SommaFinanziamenti+" +Finanziamento+  " WHERE SSID = " + SSIDpilota;
 
              // Inserire Finanziamento (aumentiamo NFinanziamento di 1 e La somma del valore indicato)
             PreparedStatement F1 = connessione.prepareStatement(Finanziamento1);
@@ -336,7 +359,7 @@ public class OP
             F1.executeUpdate();
             F2.executeUpdate();
 
-            System.out.println("Finanziamento somma pari: " +Finanziamento+ "\nDa parte di: " + GD + "\n");
+            System.out.println("Finanziamento somma pari: " +Finanziamento+ "\nDa parte di: " + SSIDpilota + "\n");
 
             //stampo messaggio di conferma
             System.out.println("QUERY inserita con successo\n");
@@ -349,12 +372,12 @@ public class OP
         catch(SQLException e)
         {
             System.err.println("Errore INSERT: " + e.getMessage());
-            return("Errore insert");
+            return("Errore insert"+ e.getMessage());
         }
     }
 
     //OP5 (iscrizione vettura a una gara)
-    public static String OP5(Squadra S, Gara G) //teoricamente il vincolo di integrità è garantito dal fatto che sia NomeGara che NomeSquadra sono primary key dunque non ripetibili.
+    public static String OP5(Squadra S, String NomeGara) //teoricamente il vincolo di integrità è garantito dal fatto che sia NomeGara che NomeSquadra sono primary key dunque non ripetibili.
     {
         try
         {
@@ -363,7 +386,7 @@ public class OP
         catch (SQLException ex) //in caso di errore
         {
             System.err.println("Error connecting to database: " + ex.getMessage());
-            return("Errore JDBC");
+            return("Errore JDBC"+ ex.getMessage());
         }
         
         try
@@ -377,7 +400,7 @@ public class OP
             PreparedStatement istruzioneGareggiare = connessione.prepareStatement(Gareggiare);
             //setting vari valori
 
-            istruzioneGareggiare.setString(1, G.getNome());
+            istruzioneGareggiare.setString(1, NomeGara);
             istruzioneGareggiare.setString(2, S.getNome()); //la query richiede un veicolo. ma ogni squadra ha per l'appunto un veicolo.
             istruzioneGareggiare.setNull(3, 1);
             istruzioneGareggiare.setNull(4, 1);
@@ -392,12 +415,12 @@ public class OP
             // Chiudere la connessione
             connessione.close();
 
-            return("Squadra " + S.getNome() + "gareggia in " + G.getNome());
+            return("Squadra " + S.getNome() + "gareggia in " + NomeGara);
         }
         catch(SQLException e)
         {
             System.err.println("Errore INSERT: " + e.getMessage());
-            return("Errore insertimento Squadra/Gara");
+            return("Errore insertimento Squadra/Gara" + e.getMessage());
         }
     }
 
@@ -414,7 +437,7 @@ public class OP
         catch (SQLException ex) //in caso di errore
         {
             System.err.println("Error connecting to database: " + ex.getMessage());
-            return("Errore JDBC");
+            return("Errore JDBC" + ex.getMessage());
         }
         
         try
@@ -461,12 +484,12 @@ public class OP
 
             // Chiudere la connessione
             connessione.close();
-            return ""+Punteggio;
+            return "Punteggio = "+Punteggio + "inserito con successo";
         }
         catch(SQLException e)
         {
-            System.err.println("Errore INSERT: " + e.getMessage());
-            return "Errore INSERT";
+            System.err.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -480,8 +503,8 @@ public class OP
         catch (SQLException ex) //in caso di errore
         {
             System.err.println("Error connecting to database: " + ex.getMessage());
+            return("Errore JDBC" + ex.getMessage());        
         }
-        
         try
         {   
             //controllo che la vettura abbia effettivamente partecipato alla gara (E che questa esista)
@@ -508,7 +531,7 @@ public class OP
             {   
                 System.out.println("Questa Squadra non ha partecipato a questo gara\n");
                 connessione.close();
-                return "-1";
+                return (NomeSquadra + "non ha partecipato a questa gara");
             }
             //else continue
 
@@ -526,17 +549,51 @@ public class OP
 
             // Chiudere la connessione
             connessione.close();
-            return Squalifica + "\nInserita con successo\n";
+            return Squalifica + " Inserita con successo\n";
         }
         catch(SQLException e)
         {
             System.err.println("Errore INSERT: " + e.getMessage());
-            return "-2";
+            return e.getMessage();
         }
     }
 
+        //VerifiedStringToInt
+        public static int VSTI(String s)
+        {
+            if(s == null)
+            {
+                return 0;
+            }
+            //else
+            return Integer.parseInt(s);
+        }
+
+        public static double VSTD(String s)
+        {
+            if(s == null)
+            {
+                return 0;
+            }
+            //else
+            return Double.parseDouble(s);
+        }
+        //funzione di supporto per OP6
+        private static boolean isInteger(String input)
+        {
+            try 
+            {
+                VSTI(input);
+                return true;
+            } 
+            catch (NumberFormatException e) 
+            {
+                return false;
+            }
+        }
+
     //aggiunge punteggio ad ogni vettura che partecipa ad una data Gara
-    public static void OP6(String NomeGara)
+    public static String OP6(String NomeGara, String PunteggioSqualifica)
     {   try
         {
             connectToDatabase(); //tentivo connessione base dati
@@ -544,6 +601,7 @@ public class OP
         catch (SQLException ex) //in caso di errore
         {
             System.err.println("Error connecting to database: " + ex.getMessage());
+            return(ex.getMessage());
         }
 
         try
@@ -565,20 +623,28 @@ public class OP
             
             for(String Squadra : Squadre)
             {
-                System.out.println(NomeGara);
-                OP6singola(NomeGara, Squadra, "'TEST_VALUE'"); //DA INSERIRE USERINPUT IN NULL IN GUI (SIA INT CHE STRING)
+                if(isInteger(PunteggioSqualifica))
+                {
+                    OP6singola(NomeGara, Squadra, VSTI(PunteggioSqualifica)); //DA INSERIRE USERINPUT IN NULL IN GUI (SIA INT CHE STRING)
+                }
+                else 
+                {
+                    OP6singola(NomeGara, Squadra, PunteggioSqualifica);
+                }
             }
             connessione.close();
+            return("Punteggi/Squalifiche aggiunti/e con successo");
         }
         catch(SQLException e)
         {
-            System.err.println("Errore SELECT " + e.getMessage());
+            System.err.println(e.getMessage());
+            return(e.getMessage());
         } 
     }
 
    
     //OP7 Controllo possibilità installazione componente (in realtà il vincolo di integrità è già garantito da SQL, ma questo è un controllo ulteriore)
-    public static boolean OP7(Vettura V, Componenti P)
+    public static boolean OP7(String IDVettura, Componenti.TipoComponente TipoComponente)
     {
         try
         {
@@ -587,12 +653,54 @@ public class OP
         catch (SQLException ex) //in caso di errore
         {
             System.err.println("Error connecting to database: " + ex.getMessage());
+            return false;
         }
         
         try
         {   
             //Creazione query
-            String QueryRicercaComponente = "SELECT * FROM Componenti WHERE NomeVettura = '" +  V.getId() + "' AND Tipo = '" + P.getTipoComponente() +"'";
+            String QueryRicercaComponente = "SELECT * FROM Componenti WHERE NomeVettura = '" + IDVettura + "' AND Tipo = '" + TipoComponente +"'";
+            Statement RicercaComponente = connessione.createStatement();
+            ResultSet ComponenteTrovato = RicercaComponente.executeQuery(QueryRicercaComponente);
+
+            if(ComponenteTrovato.next())
+            {
+                // Chiudere la connessione
+                connessione.close();
+                //il componente è già montato. in quanto il risultato non è NULL
+                return false;
+            }
+            else
+            {
+                // Chiudere la connessione
+                connessione.close();
+                //il componente non è montato. (risultato null)
+                return true;
+            }
+        }
+        catch(SQLException e)
+        {
+            System.err.println("Errore INSERT: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean OP7(String IDVettura, String TipoComponente)
+    {
+        try
+        {
+            connectToDatabase(); //tentivo connessione base dati
+        } 
+        catch (SQLException ex) //in caso di errore
+        {
+            System.err.println("Error connecting to database: " + ex.getMessage());
+            return false;
+        }
+        
+        try
+        {   
+            //Creazione query
+            String QueryRicercaComponente = "SELECT * FROM Componenti WHERE NomeVettura = '" + IDVettura + "' AND Tipo = '" + TipoComponente +"'";
             Statement RicercaComponente = connessione.createStatement();
             ResultSet ComponenteTrovato = RicercaComponente.executeQuery(QueryRicercaComponente);
 
@@ -628,6 +736,9 @@ public class OP
         catch (SQLException ex) //in caso di errore
         {
             System.err.println("Error connecting to database: " + ex.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add("Error connecting to database: " + ex.getMessage());
+            return(errorMessage);
         }
         
         try
@@ -657,8 +768,10 @@ public class OP
         }
         catch(SQLException e)
         {
-            System.err.println("Errore INSERT: " + e.getMessage());
-            return null;
+            System.err.println(e.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add(e.getMessage());
+            return(errorMessage);
         }
     }
 
@@ -672,8 +785,10 @@ public class OP
         catch (SQLException ex) //in caso di errore
         {
             System.err.println("Error connecting to database: " + ex.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add("Error connecting to database: " + ex.getMessage());
+            return(errorMessage);        
         }
-        
         try
         {   
             //restituisco una stringa con result set con il risultato della query
@@ -701,8 +816,10 @@ public class OP
         }
         catch(SQLException e)
         {
-            System.err.println("Errore INSERT: " + e.getMessage());
-            return null;
+            System.err.println(e.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add(e.getMessage());
+            return(errorMessage);
         }
     }
 
@@ -716,6 +833,9 @@ public class OP
         catch (SQLException ex) //in caso di errore
         {
             System.err.println("Error connecting to database: " + ex.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add("Error connecting to database: " + ex.getMessage());
+            return(errorMessage);               
         }
         
         try
@@ -749,8 +869,10 @@ public class OP
         }
         catch(SQLException e)
         {
-            System.err.println("Errore INSERT: " + e.getMessage());
-            return null;
+            System.err.println(e.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add(e.getMessage());
+            return(errorMessage);
         }
     }
 
@@ -764,6 +886,9 @@ public class OP
         catch (SQLException ex) //in caso di errore
         {
             System.err.println("Error connecting to database: " + ex.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add("Error connecting to database: " + ex.getMessage());
+            return(errorMessage);           
         }
         
         try
@@ -793,8 +918,10 @@ public class OP
         }
         catch(SQLException e)
         {
-            System.err.println("Errore INSERT: " + e.getMessage());
-            return null;
+            System.err.println(e.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add(e.getMessage());
+            return(errorMessage);
         }
     }
 
@@ -808,6 +935,9 @@ public class OP
         catch (SQLException ex) //in caso di errore
         {
             System.err.println("Error connecting to database: " + ex.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add("Error connecting to database: " + ex.getMessage());
+            return(errorMessage);            
         }
         
         try
@@ -837,8 +967,10 @@ public class OP
         }
         catch(SQLException e)
         {
-            System.err.println("Errore INSERT: " + e.getMessage());
-            return null;
+            System.err.println(e.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add(e.getMessage());
+            return(errorMessage);
         }
     }
 
@@ -851,7 +983,9 @@ public class OP
         catch (SQLException ex) //in caso di errore
         {
             System.err.println("Error connecting to database: " + ex.getMessage());
-        }
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add("Error connecting to database: " + ex.getMessage());
+            return(errorMessage);           }
         
         try
         {   
@@ -880,8 +1014,10 @@ public class OP
         }
         catch(SQLException e)
         {
-            System.err.println("Errore INSERT: " + e.getMessage());
-            return null;
+            System.err.println(e.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add(e.getMessage());
+            return(errorMessage);
         }
     }
 
@@ -894,6 +1030,9 @@ public class OP
         catch (SQLException ex) //in caso di errore
         {
             System.err.println("Error connecting to database: " + ex.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add("Error connecting to database: " + ex.getMessage());
+            return(errorMessage);   
         }
         
         try
@@ -926,8 +1065,10 @@ public class OP
         }
         catch(SQLException e)
         {
-            System.err.println("Errore INSERT: " + e.getMessage());
-            return null;
+            System.err.println(e.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add(e.getMessage());
+            return(errorMessage);
         }
     }
 
@@ -941,8 +1082,11 @@ public class OP
         catch (SQLException ex) //in caso di errore
         {
             System.err.println("Error connecting to database: " + ex.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add("Error connecting to database: " + ex.getMessage());
+            return(errorMessage);   
         }
-        
+    
         try
         {   
             //restituisco una stringa con result set con il risultato della query
@@ -973,72 +1117,10 @@ public class OP
         }
         catch(SQLException e)
         {
-            System.err.println("Errore INSERT: " + e.getMessage());
-            return null;
+            System.err.println(e.getMessage());
+            List<String> errorMessage = new ArrayList<>();
+            errorMessage.add(e.getMessage());
+            return(errorMessage);
         }
-    }
-
-
-    
-
-
-
-    public static void main(String[] args)
-    {
-        /*
-        //OP1("Mercedes", "Italia");
-        Vettura v = new Vettura("2037", "Ferrari", 10, "Mercedes X30");
-        
-        Componenti cambio = new Componenti().newCambio("TEST1", TipoComponente.cambio, 34567.89, Date.valueOf("2023-7-22"), "Ferrari", "MCL36", "Mercedes-Benz AG", 7);
-        Componenti motore = new Componenti().newMotore("TEST2", TipoComponente.motore, 12345.67, Date.valueOf("2023-7-20"), "Ferrari", "SF22-D", "Mercedes-Benz AG", 1600, "tipo1", 4);
-        Componenti telaio = new Componenti().newTelaio("TEST3", TipoComponente.telaio, 23456.78, Date.valueOf("2023-7-21"), "Ferrari", "RB18", "Mercedes-Benz AG", "Carbonio", 750);
-
-        //OP2(v, cambio, telaio, motore);
-        
-        Pilota AM = new Pilota("Mario", "Rossi", "125", Date.valueOf("2003-12-12"), "Italia", Date.valueOf("2004-12-12"));
-        Pilota PRO = new Pilota("Luigi", "Verdi", "126", Date.valueOf("2003-12-12"), "Italia", 20);
-        Pilota GD = new Pilota("Stefano", "Bianchi", "127", Date.valueOf("2004-02-23"), "Italia", Date.valueOf("2020-12-23"), 10, 300000.30);
-    
-        Squadra S = new Squadra("Ferrari", 224, "1");
-
-        //OP3(AM, S);
-        //OP3(PRO, S);
-        //OP3(GD, S);
-        //OP4(GD, 200);
-        Gara gara = new Gara(Date.valueOf("2023-04-14"), "Autodromo Nazionale Monza", 200, TipoGara.asciutta, "Gran Premio dItalia");
-
-        //O
-        
-        
-        
-        //OP5(S, gara);
-
-        //OP6singola(gara, S, 100);
-        //OP6singola(gara, S, "Palle");
-        if(OP7(v,cambio) == true)
-        {
-            System.out.println("SESSO\n");
-        }
-        else
-        {
-            System.out.println("SESSO2\n");
-        };
-
-       // OP6("Gran Premio dItalia");
-
-        List <String> TestString = new ArrayList<>();
-        /*TestString = OP8();
-        System.out.println(TestString);*/
-
-        //System.out.println(OP9());
-
-        //System.out.println(OP10());
-        //System.out.println(OP11());
-        //System.out.println(OP12());
-        //System.out.println(OP13());
-        //System.out.println(OP14());
-        //System.out.println(OP15());
-        //System.out.println(ControlloGD());
-        
     }
 }

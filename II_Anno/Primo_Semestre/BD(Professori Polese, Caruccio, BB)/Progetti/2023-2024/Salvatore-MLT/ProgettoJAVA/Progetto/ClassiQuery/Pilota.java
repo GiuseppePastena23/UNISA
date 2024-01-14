@@ -15,6 +15,7 @@ public class Pilota
     private int NFinanziamenti = 0;
     private double SommaFinanziamenti;
 
+    // NON UTILIZZATO
     public Pilota(String nome, String cognome, String ssid, Date datnas, String nazionalita, String nomesquadra, Date primaLicenza, int nLicenze, int nFinanziamenti, double SommaFinanziamenti)
     {
         this.nome = nome;
@@ -28,6 +29,7 @@ public class Pilota
         NFinanziamenti = nFinanziamenti;
     }
 
+    //AM
     public Pilota(String nome, String cognome, String ssid, Date datnas, String nazionalita, Date primaLicenza)
     {
         this.nome = nome;
@@ -38,6 +40,7 @@ public class Pilota
         PrimaLicenza = primaLicenza;
     }
 
+    //GD
     public Pilota(String nome, String cognome, String ssid, Date datnas, String nazionalita, Date primaLicenza, int nFinanziamenti, double SommaFinanziamenti)
     {
         this.nome = nome;
@@ -49,6 +52,7 @@ public class Pilota
         NFinanziamenti = nFinanziamenti;
     }
 
+    //PRO
     public Pilota(String nome, String cognome, String ssid, Date datnas, String nazionalita, int nLicenze)
     {
         this.nome = nome;
