@@ -44,7 +44,7 @@ public class Campionato {
 
     public void printSquadreByScudetti(){
         squadre.stream()
-               .sorted((s,s1)-> s.getScudetti() - s1.getScudetti())
-               .forEachOrdered(System.out::println);
+               .sorted((s,s1)-> s1.getScudetti() - s.getScudetti())
+               .forEach(System.out::println);
     }
 }
