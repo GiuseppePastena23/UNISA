@@ -8,7 +8,7 @@ public class Gui extends JFrame{
     
     public Gui(){
         ManagerLavoratori lavoratori = new ManagerLavoratori();
-       
+        
         // Creazione delle istanze di Lavoratore
         
 
@@ -19,7 +19,7 @@ public class Gui extends JFrame{
         JButton button1 = new JButton("Stampa Lavoratori");
         button1.addActionListener(e -> {lavoratori.saveLavoratori("file.txt");});
         JButton button2 = new JButton("Leggi Lavoratori");
-        button1.addActionListener(e -> {lavoratori.readLavoratori("file.txt");});
+        button2.addActionListener(e -> {lavoratori.readLavoratori("file.txt");});
         JButton button3 = new JButton("Stampa su terminale");
         button3.addActionListener(e -> {lavoratori.stampaLavoratoriTerminale();});
 
@@ -27,7 +27,7 @@ public class Gui extends JFrame{
         JTextField textField = new JTextField();
 
         // Aggiunta dei componenti alla finestra
-        setLayout(new GridLayout(3, 1));
+        setLayout(new GridLayout(1, 3, 2, 2));
         add(button1);
         add(button2);
         add(button3);
@@ -35,6 +35,7 @@ public class Gui extends JFrame{
         add(textField);
 
         setVisible(true);
+        
     }
 
     public static void main(String[] args) {
