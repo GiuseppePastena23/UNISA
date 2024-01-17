@@ -41,7 +41,7 @@ public class Manager {
         } catch(Exception e) {e.printStackTrace();}
     }
 
-    // Me son scordato il resto della traccia:
+    //Non ricordo il resto.
     public double metodo_e(){
         long num = listaUffici.stream().flatMap(u -> u.getListaimpiegati().stream().filter(i -> i instanceof Dipendente && i.sesso == Sesso.FEMMINA)).count(); //Errore: ho impostato ad int invece che long;
         double stipendi = listaUffici.stream().flatMap(u -> u.getListaimpiegati().stream().filter(i -> i instanceof Dipendente && i.sesso == Sesso.FEMMINA)).mapToDouble(Lavoratore::getStipendio).sum(); //Si poteva fare direttamente con .average()   //Errore,non ho fatto la mapToInt.
