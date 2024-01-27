@@ -18,7 +18,9 @@ public class Campionato {
     }
 
     public void squadraSubscription(Squadra s) throws SquadraRegisteredException {
-        if(squadre.contains(s)){
+        //if(squadre.stream().anyMatch(s1 -> s1.getNome().equals(s.getNome())))
+        if(squadre.stream().filter(e -> e.getNome().equals(s.getNome())).count() > 0)
+        {
             throw new SquadraRegisteredException("Squadra gia' registrata");
         }
         squadre.add(s);
@@ -46,5 +48,17 @@ public class Campionato {
         squadre.stream()
                .sorted((s,s1)-> s1.getScudetti() - s.getScudetti())
                .forEach(System.out::println);
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setSquadre(List<Squadra> squadre) {
+        this.squadre = squadre;
     }
 }

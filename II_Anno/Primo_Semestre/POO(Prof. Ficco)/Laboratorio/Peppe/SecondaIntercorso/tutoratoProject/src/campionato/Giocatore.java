@@ -30,4 +30,10 @@ public class Giocatore{
         return age;
     }
 
+    @Override
+    public String toString() {
+        return "Giocatore [nome=" + nome + ", nMaglia=" + nMaglia + ", age=" + age + "]";
+    }
+
+    
 }

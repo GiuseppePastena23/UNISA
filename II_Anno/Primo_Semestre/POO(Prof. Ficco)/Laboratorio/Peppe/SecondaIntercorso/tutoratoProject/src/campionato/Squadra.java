@@ -22,8 +22,6 @@ public class Squadra {
         giocatori.add(g);
     }
 
-    
-
     public void getPlayerByNumber(int n){
         giocatori.stream().filter(g -> (g.getNMaglia() == n)).forEach(System.out::println);
     }
@@ -51,5 +49,16 @@ public class Squadra {
     public void setScudetti(int scudetti) {
         this.scudetti = scudetti;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Squadra{" +
+                "nome='" + nome + '\'' +
+                ", giocatori=" + giocatori +
+                ", scudetti=" + scudetti +
+                '}';
+    }
 }
+    
+    
+
