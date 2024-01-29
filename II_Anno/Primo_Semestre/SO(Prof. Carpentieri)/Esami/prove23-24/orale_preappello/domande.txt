@@ -1,0 +1,4 @@
+algoritmo del fornaio come domanda scritta uguale per tutti
++ esercizio pratico aggiuntivo per chi non ha passato la parte di laboratorio
++ domande ulteriori in caso non si accetti il voto proposto e lo si voglia migliorare
+  - tali domande riguardavano quasi esclusivamente gli algoritmi trattati durante la prima parte del corso
