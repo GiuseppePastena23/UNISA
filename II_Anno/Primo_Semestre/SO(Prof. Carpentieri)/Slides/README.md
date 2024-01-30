@@ -1,0 +1,1 @@
+Le slide di Carpentieri del 2022-23 sono pressappoco identiche a quelle del 2023-24 e lo stesso si applica al wrapup.
