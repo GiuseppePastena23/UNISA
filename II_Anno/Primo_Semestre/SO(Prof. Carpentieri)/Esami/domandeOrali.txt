@@ -1,0 +1,123 @@
+ESERCIZIO SCRITTO SO 
+
+Scrivere in C un programma che implementi la seguente situazione:
+Un processo P scrive i primi 30 numeri di Fibonacci e poi termina.
+In presenza di un control c immesso da tastiera, P dovrà chiedere all’utente se deve continuare la sua esecuzione o terminare e regolarsi di conseguenza.
+
+Codice:
+
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <string.h>
+
+void chiedi(int sig) {
+char c[2];
+printf("\nRicevuto segnale di interruzione, inserire c per continuare oppure s per stoppare\n");
+scanf("%s",c);
+if(*c == 'c') {
+signal(SIGINT,chiedi);
+} else {
+printf("Processo terminato da tastiera\n");
+exit(1);
+}
+}
+
+int fib(int n) {
+sleep(0.04);
+if(n <= 1) {
+return n;
+} else {
+return (fib(n-1)+fib(n-2));
+}
+}
+
+int main() {
+printf("Il segnale SIGINT corrisponde a %d\n", SIGINT);
+signal(SIGINT,chiedi);
+for(int i = 0; i <= 30; i++) {
+printf("fib %d:%d\n",i,fib(i));
+}
+}
+
+---------------------------------------------------
+
+Funzionamento system call LSEEK 
+Cos’è il puntatore alla posizione corrente
+Deadlock
+Impossibilità di prelazione
+
+---------------------------------------------------
+
+Deadlock
+Grafo di allocazione risorse
+
+---------------------------------------------------
+
+Differenza tra schedulazione preemptive e non preemptive
+Dispatcher
+
+---------------------------------------------------
+
+Comunicazione tra processi e sistema a scambio di messaggi
+
+---------------------------------------------------
+
+Canali e code di messaggi
+Differenza tra schedulazione preemptive e non preemptive
+syscall lseek
+
+---------------------------------------------------
+
+Schedulazione preemptive e non preemptive
+Scheduling per priorità
+
+---------------------------------------------------
+
+Schedulazione del disco
+Diagramma di transizione di stato dei processi
+
+---------------------------------------------------
+
+Schedulazione del disco
+Descrittore di processo
+Differenza tra processo e programma
+
+---------------------------------------------------
+
+Schedulazione del disco?
+
+---------------------------------------------------
+
+Allocazione contigua
+Stati di un processo
+
+---------------------------------------------------
+
+Realizzazione della tabella delle pagine
+
+---------------------------------------------------
+
+Realizzazione della tabella delle pagine
+
+---------------------------------------------------
+
+Realizzazione delle directory
+Allocazione contigua
+
+---------------------------------------------------
+
+Allocazione concatenata?
+
+---------------------------------------------------
+
+Allocazione indicizzata
+Deadlock
+
+---------------------------------------------------
+
+Realizzazione della tabella delle pagine
+Tabella gerarchica e invertita
+
+---------------------------------------------------
