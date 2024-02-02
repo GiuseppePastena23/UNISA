@@ -1,0 +1,1 @@
+Alcuni dei codici sono esempi non funzionanti con l'unico scopo di mostrare la sintassi ed un possibile utilizzo.
