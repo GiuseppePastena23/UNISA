@@ -1,0 +1,4 @@
+Pacco [codicePacco=0, descrizione=Pista automobili, dataArrivo=21/11/2022, tipologia=2]
+Pacco [codicePacco=1, descrizione=Costruzioni Lego, dataArrivo=20/11/2022, tipologia=0]
+Pacco [codicePacco=2, descrizione=Castello da giardino, dataArrivo=24/11/2022, tipologia=2]
+Pacco [codicePacco=3, descrizione=PlayStation, dataArrivo=22/11/2022, tipologia=1]

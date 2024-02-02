@@ -1,8 +1,0 @@
-
-SECONDA INTERCORSO
-File
-Eccezioni (RunTime)
-Espressioni Lambda
-Interfacce Funzionali
-GUI
- 

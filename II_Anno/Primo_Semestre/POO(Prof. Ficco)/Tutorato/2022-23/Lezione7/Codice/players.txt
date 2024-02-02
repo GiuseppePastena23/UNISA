@@ -1,0 +1,8 @@
+Lottatore [Player [puntiVita=200, attacco=400, difesa=50, numUccisioni=0]]
+Lottatore [Player [puntiVita=200, attacco=600, difesa=50, numUccisioni=0]]
+Lottatore [Player [puntiVita=200, attacco=400, difesa=100, numUccisioni=0]]
+Mago [livMagia=50, Player [puntiVita=100, attacco=50, difesa=100, numUccisioni=0]]
+Mago [livMagia=50, Player [puntiVita=100, attacco=50, difesa=50, numUccisioni=0]]
+Mago [livMagia=50, Player [puntiVita=100, attacco=50, difesa=150, numUccisioni=0]]
+LottatoreVolante [Lottatore [Player [puntiVita=200, attacco=800, difesa=100, numUccisioni=0]]]
+LottatoreVolante [Lottatore [Player [puntiVita=200, attacco=400, difesa=100, numUccisioni=0]]]

@@ -1,0 +1,4 @@
+Camion [lunRim=2.0, peso=0.0, limVel=100, pesoMax=8000.0]
+Camion [lunRim=1.5, peso=0.0, limVel=130, pesoMax=5001.0]
+Macchina [matricola=3, targa=T30003T, numMarce=5]
+Macchina [matricola=4, targa=T40004T, numMarce=5]

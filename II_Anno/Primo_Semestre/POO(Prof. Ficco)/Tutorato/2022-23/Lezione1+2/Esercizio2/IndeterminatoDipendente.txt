@@ -1,0 +1,8 @@
+marco
+rossi
+1
+1200.50
+carlo
+bianchi
+2
+1350.22

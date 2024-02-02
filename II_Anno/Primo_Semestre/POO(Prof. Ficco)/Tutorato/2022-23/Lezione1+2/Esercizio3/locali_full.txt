@@ -1,0 +1,2 @@
+Pizzeria [menu={Diavola=6, Mais=5} Locale [nome=Pizziamo, indirizzo=Corso Europa, numPosti=0]]
+Paninoteca [numPaniniDisp=0, numBirreDisp=20 Locale [nome=Pub&Beer, indirizzo=Via del grano n. 22, numPosti=0]]

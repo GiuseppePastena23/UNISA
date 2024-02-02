@@ -1,0 +1,4 @@
+Soldato [Charlie,5]
+SoldatoScelto [Cecchino,5,Soldato [Alpha,10]]
+SoldatoScelto [Pilota terrestre,10,Soldato [Beta,11]]
+Soldato [Markov,1]

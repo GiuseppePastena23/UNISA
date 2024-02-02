@@ -1,0 +1,8 @@
+marco
+rossi
+1
+1200.5
+carlo
+bianchi
+2
+1350.219970703125
