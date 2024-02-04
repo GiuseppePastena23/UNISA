@@ -1,24 +1,22 @@
 package GestioneAutomobili;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-public class GestioneAutomobili 
-{
-    public static void main(String[] args)
-    {
+
+public class GestioneAutomobili {
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int sc, km, i;
         String targa, modello, colore, testo;
         ArrayList<Automobili> a = new ArrayList <> ();
-        do
-        {
+        do {
             System.out.println("0) Uscita");
             System.out.println("1) Aggiungi Auto");
             System.out.println("2) Stampa Auto");
             System.out.println("3) Aggiorna kilometri");
             System.out.println("---------------------------");
             sc=in.nextInt();
-            switch(sc)
-            {
+            switch(sc) {
                 case 0:
                     System.out.println("Uscita");
                 break;
@@ -47,6 +45,6 @@ public class GestioneAutomobili
                     }
                 break;
             }
-        }while(sc!=0);
+        } while(sc!=0);
     }
 }

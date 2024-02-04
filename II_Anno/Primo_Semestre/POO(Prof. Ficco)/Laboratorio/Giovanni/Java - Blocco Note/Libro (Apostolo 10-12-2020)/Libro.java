@@ -1,5 +1,5 @@
 package biblioteca;
-public class libro
+public class Libro
 {
 	private int codice; 
 	private String titolo;
