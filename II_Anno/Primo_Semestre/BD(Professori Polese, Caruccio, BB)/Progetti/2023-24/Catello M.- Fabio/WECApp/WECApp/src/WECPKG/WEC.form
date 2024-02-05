@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="WECPKG.WEC">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="10" y="5" width="535" height="442"/>
+    </constraints>
+    <properties/>
+    <border type="none" title=""/>
+    <children>
+      <grid id="1d991" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <tabbedpane id="443fe" binding="tabbedPane1" default-binding="true">
+            <constraints border-constraint="Center"/>
+            <properties/>
+            <border type="none"/>
+            <children/>
+          </tabbedpane>
+        </children>
+      </grid>
+    </children>
+  </grid>
+  <inspectionSuppressions>
+    <suppress inspection="NoLabelFor" id="e2b6"/>
+    <suppress inspection="I18nForm"/>
+  </inspectionSuppressions>
+</form>
