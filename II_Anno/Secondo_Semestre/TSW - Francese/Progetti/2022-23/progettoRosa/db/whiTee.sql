@@ -1,0 +1,106 @@
+DROP DATABASE IF EXISTS whiTee;
+CREATE DATABASE whiTee;
+USE whiTee;
+
+DROP TABLE IF EXISTS Maglietta;
+
+CREATE TABLE Maglietta (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    prezzo FLOAT DEFAULT 0 NOT NULL,
+    IVA INT DEFAULT 0 NOT NULL,
+    colore VARCHAR(30) NOT NULL,
+    tipo VARCHAR(50) NOT NULL,
+    grafica VARCHAR(400) NOT NULL,
+    descrizione VARCHAR(150) NOT NULL
+);
+
+DROP TABLE IF EXISTS Taglia;
+
+CREATE TABLE Taglia (
+	taglia VARCHAR(3) PRIMARY KEY
+);
+
+DROP TABLE IF EXISTS Misura;
+
+CREATE TABLE Misura (
+	IDMaglietta INT NOT NULL,
+    taglia VARCHAR(3) NOT NULL,
+    quantita INT DEFAULT 0 NOT NULL,
+
+    PRIMARY KEY (IDMaglietta, taglia),
+    FOREIGN KEY (IDMaglietta) REFERENCES Maglietta(ID)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(taglia) REFERENCES Taglia(taglia)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS Utente;
+
+CREATE TABLE Utente (
+	username VARCHAR(30) PRIMARY KEY ,
+    pwd VARCHAR(64) NOT NULL,
+    nome VARCHAR(30) NOT NULL,
+    cognome VARCHAR(30) NOT NULL,
+    email VARCHAR(40) NOT NULL UNIQUE,
+    dataNascita DATE NOT NULL,
+    nomeCarta VARCHAR(30),
+    cognomeCarta VARCHAR(30),
+    numCarta VARCHAR(50),
+    dataScadenza DATE,
+    CVV VARCHAR(5),
+    cap VARCHAR(5),
+    via VARCHAR(70),
+    citta VARCHAR(30),
+    tipo VARCHAR(30) NOT NULL
+);
+
+DROP TABLE IF EXISTS Recensione;
+
+CREATE TABLE Recensione (
+	ID INT AUTO_INCREMENT PRIMARY KEY,
+    IDMaglietta INT NOT NULL,
+    username VARCHAR(30) NOT NULL,
+    contenuto VARCHAR(2000) NOT NULL,
+
+    FOREIGN KEY(IDMaglietta) REFERENCES Maglietta(ID)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (username) REFERENCES Utente(username)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS Ordine;
+
+CREATE TABLE Ordine (
+	ID INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(30) NOT NULL,
+    prezzoTotale FLOAT DEFAULT 0 NOT NULL,
+    dataConsegna DATE NOT NULL,
+    dataOrdine DATE NOT NULL,
+    nomeConsegna VARCHAR(30) NOT NULL,
+    cognomeConsegna VARCHAR(30) NOT NULL,
+    cap VARCHAR(5) NOT NULL,
+    via VARCHAR(70) NOT NULL,
+    citta VARCHAR (30) NOT NULL,
+
+    FOREIGN KEY(username) REFERENCES Utente(username)
+        ON UPDATE CASCADE ON DELETE NO ACTION
+);
+
+DROP TABLE IF EXISTS Acquisto;
+
+CREATE TABLE Acquisto (
+    IDAcquisto INT AUTO_INCREMENT PRIMARY KEY,
+	IDOrdine INT NOT NULL,
+    IDMaglietta INT NOT NULL,
+    quantita INT DEFAULT 1 NOT NULL,
+    immagine VARCHAR(400),
+    prezzoAq FLOAT DEFAULT 0 NOT NULL,
+    ivaAq INT DEFAULT 0 NOT NULL,
+    taglia VARCHAR(3) NOT NULL,
+
+    FOREIGN KEY(IDOrdine) REFERENCES Ordine(ID)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(IDMaglietta) REFERENCES Maglietta(ID)
+        ON UPDATE CASCADE ON DELETE NO ACTION
+);
