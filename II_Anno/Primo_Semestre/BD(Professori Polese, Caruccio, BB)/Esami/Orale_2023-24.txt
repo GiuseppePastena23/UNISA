@@ -1,0 +1,16 @@
+Pietro (voto iniziale 24 + 1.5 dal progetto):
+  - Quando si usa la clausola HAVING e le differenze con WHERE
+  - Cos'è il carico applicativo, con struttura delle tre tabelle
+  - Quali sono le tipologie di generalizzazione e cosa possiamo dire riguardo al volume
+  - Definizione generale di 3NF e differenze con la BCNF + esempio
+  
+Peppe (voto iniziale 28 + 2 dal progetto):
+  - Esempio di schema che si trova in 3NF ma non in BCNF
+  - Dipendenze funzionali (?)
+  - Regole di inferenza con dimostrazioni di quarta, quinta e sesta
+  
+Salvatore (voto iniziale x + 0.5 dal progetto):
+  - Differenze tra B-tree e B+-tree
+  - Regole di inferenza, in particolare quelle di Armstrong
+  - Tipi di indici, in particolare gli indici cluster
+  - Partizionamento verticale ed orizzontale

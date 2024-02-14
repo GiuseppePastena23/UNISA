@@ -1,0 +1,28 @@
+- Esercizio su una tabella per verificare se quelle scritte dal prof siano o meno dipendenze funzionali valide
+    (ricorda che la definizione di dipendenza funzionale è un'implicazione e se l'ipotesi dell'implicazione è falsa allora l'implicazione risulta vera)
+- Regole di Armstrong
+- Progettazione topdown e bottomup: differenze  e vantaggi
+- Clausola all
+- Clausola check 
+- Scrivere una query in sql in base allo schema ER che ti da
+- Ristrutturazione dello schema in base a uno creato dal prof (vedere in quale entità va la chiave o se c'è bisogno di fare una join table)
+- Transazioni e proprietà ACID
+- Viste sia in sql che in generale, modifiche sulle viste 
+- Conflitto di impedenza
+- Vincoli di integrità
+- Vincolo di integrità referenziale
+- Definizione di superchiave, chiave candidata e chiave primaria
+- Operatori dell'algebra relazionale e come si ottengono quelli non fondamentali tramite i fondamentali
+- Dimostrazione delle regole di inferenza
+- Update anomalies (anomalie di aggiornameto nella lezione della normalizzazione)
+- Overfliw e Underflow (alberi)
+- Indici e quali vengono usati nei DBMS (alberi)
+- Outer Join
+- Cardinalità del join
+- Dangling Tuples
+- Differenza tra 3FN E BCNF
+- Clausola IN in SQL e differenza con EXISTS
+- Ciclo di vita dei sistemi informativi
+- Join implicito (con la from) e esplicito
+- Forme normali
+- Alberi
