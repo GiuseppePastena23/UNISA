@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNISA Repository</title>
+</head>
+<body>
+    <h1>Contenuti dell'Università</h1>
+    <ul id="fileList">
+        <!-- La lista dei file verrà generata qui dinamicamente -->
+    </ul>
+
+    <script>
+        // Recupera elenco file dalla repository GitHub
+        fetch('https://api.github.com/repos/GiuseppePastena23/UNISA/contents')
+            .then(response => response.json())
+            .then(data => {
+                // Itera sui file
+                data.forEach(file => {
+                    // Crea un elemento di lista per ogni file
+                    const li = document.createElement('li');
+                    // Crea un link per scaricare il file
+                    const link = document.createElement('a');
+                    link.href = file.download_url;
+                    link.textContent = file.name;
+                    // Aggiunge il link all'elemento di lista
+                    li.appendChild(link);
+                    // Aggiunge l'elemento di lista alla lista
+                    document.getElementById('fileList').appendChild(li);
+                });
+            })
+            .catch(error => console.error('Errore durante il recupero dei file:', error));
+    </script>
+</body>
+</html>
