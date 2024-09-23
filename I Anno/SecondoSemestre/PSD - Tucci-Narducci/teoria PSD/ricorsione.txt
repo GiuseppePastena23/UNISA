@@ -1,0 +1,38 @@
+RICORSIONE
+
+Un record di attivazione è una struttura dati creata dinamicamente quando viene invocata una funzione,
+permane durante tutta la sua esecuzione e viene deallocato al termine del processo.
+Ad ogni singola funzione è associato un record di una certa grandezza, calcolabile a priori, ed
+ogni funzione ha un record di attivazione di dimensione diversa dalle altre.
+In esso troviamo i parametri formali, le variabili locali, l'indirizzo di ritorno, che indica
+il punto in cui tornare nel codice della funzione chiamante (detta cliente), un link dinamico DL,
+che collega questo record al record del cliente, e infine l'indirizzo del codice della funzione,
+cioè un puntatore alla prima istruzione del corpo.
+Funzioni che chiamano altre funzioni originano una sequenza di record di attivazione, i quali
+vengono gestiti come uno stack: allocati secondo l'ordine delle chiamate e deallocati in ordine inverso.
+
+Una funzione matematica è definita ricorsivamente quando nella sua definizione compare un riferimento a
+se stessa e si basa sul principio di induzione matematica: dimostrata una proprietà per il caso base,
+si può ipotizzare che essa valga per un n generico e si dimostra che vale anche per il successivo n + 1,
+in tal modo la proprietà varrà per ogni n.
+Per risolvere un problema ricorsivamente, bisogna identificare il caso base e poi esprimere la soluzione
+del generico caso n in termini dei casi precedenti.
+Un programma ricorsivo chiama direttamente o indirettamente se stesso e gestisce le chiamate tramite record.
+Si ha ricorsione non lineare quando ogni invocazione del servitore comporta due nuove chiamate ricorsive.
+Con la ricorsione il risultato viene calcolato "a ritroso", cioè creato a partire dalla fine:
+giunti al caso base con l'ultima chiamata "si risale" calcolando i risultati parziali per giungere infine a quello finale.
+
+Usando un processo iterativo, invece, si ottiene un risultato intermedio ad ogni singolo passo,
+motivo per cui il risultato viene costruito "in avanti".
+È possibile eseguire processi iterativi anche tramite funzioni ricorsive, operando una modifica:
+viene usata una variabile accumulatore da usare per esprimere in ogni istante il valore corrente.
+
+Una ricorsione che realizza un processo iterativo è una ricorsione apparente detta ricorsione tail,
+in cui prima si svolgono i calcoli e dopo avviene la chiamata ricorsiva al solo scopo di proseguire la computazione.
+Il corpo del ciclo non viene cambiato, ma entra all'interno di un if che termina con una chiamata ricorsiva tail.
+In questo metodo il risultato è costruito in avanti: ogni passo decompone, calcola e porta avanti un risultato
+parziale e al termine si riporta indietro fino al cliente il risultato ottenuto.
+
+Le ricorsioni richiedono un notevole sovraccarico per il sistema viste le continue chiamate a funzione,
+ma sono preferibili per esprimere algoritmi o strutture dati che hanno una natura ricorsiva, poiché
+risultano più naturali rispetto agli algoritmi iterativi.

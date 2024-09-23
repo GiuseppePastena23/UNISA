@@ -1,0 +1,7 @@
+1. conta nodi di un albero fino al livello k (compreso)
+2. rimuovi minimo da uno stack (tutte le occorrenze) 
+3. (facoltativo) restituisci il secondo minimo di una lista
+
+Prototipi di funzione 1. e 2. 
+1. int conta_nodi_fino_a_k(Btree T, int k)
+2. void rimuovi_minimo(stack S)

@@ -1,0 +1,30 @@
+GRAFI E ALBERI BINARI
+Un grafo orientato G è costituito da una coppia <N, A>, in cui
+N è l'insieme (non vuoto) dei nodi e
+A è un insieme finito di coppie ordinate di nodi che prendono il nome di archi.
+Al grafo si possono ricondurre due strutture dati: liste ed alberi.
+
+L'albero è una struttura dati che può essere vista come una prima specializzazione dei grafi:
+non c'è infatti la possibilità che un arco esca da un nodo per rientrare in se stesso.
+Si può fare un'ulteriore differenziazione tra alberi in cui è stabilita una gerarchia dei nodi,
+i quali prendono il nome di alberi radicati, e quelli invece non radicati.
+A sua volta, l'albero ordinato è l'albero radicato che stabilisce un ordinamento anche per i nodi sullo stesso livello.
+Gli alberi presentano una serie di caratteristiche:
+ - Ogni nodo ha un unico arco entrante; fa eccezione la radice, che non ne ha nessuno
+ - Ogni nodo può avere 0 o più archi uscenti
+ - I nodi che non presentano archi uscenti prendono il nome di foglie
+ - Esiste un cammino fatto di archi che collega la radice ad ogni nodo ed è unico
+ - Gli archi creano una relazione padre - figlio
+ - A ciascun nodo viene associato un valore che prende il nome di etichetta
+ - I nodi che condividono lo stesso padre sono detti fratelli
+Grado di un nodo: numero di figli del nodo
+Livello di un nodo: lunghezza del cammino nodo - radice (0 radice, 1 + livello del padre altrimenti)
+Altezza dell'albero: lunghezza del cammino più lungo dell'albero
+Sottoalbero: dato un albero ed un suo nodo u, i suoi discendenti formano un albero detto sottoalbero di radice u
+
+Un albero che ha al massimo K figli è un albero di ordine K, in particolare un albero
+che ha al massimo 2 figli è detto albero binario.
+Gli alberi binari sono alberi ordinati in cui il sottoalbero sinistro, detto figlioSX,
+viene sempre prima del figlioDX. Ricorsivamente:
+un albero binario o è vuoto o è formato da un nodo detto radice
+e da due sottoalberi binari detti figlioSX e figlioDX.
