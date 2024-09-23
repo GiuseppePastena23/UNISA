@@ -1,0 +1,27 @@
+db {
+	display: table;
+	width: 40%;
+	border: 2px solid black;
+	border-collapse: collapse;
+}
+
+person {
+	display: table-row;
+}
+
+person > last {
+	display: table-cell;
+	border: 1px solid black;
+	color: red;
+}
+
+person > last::after {
+	content: " ";
+	white-space: pre;
+}
+
+person > first {
+    display: table-cell;
+    border: 1px solid black;
+	color: blue;
+}

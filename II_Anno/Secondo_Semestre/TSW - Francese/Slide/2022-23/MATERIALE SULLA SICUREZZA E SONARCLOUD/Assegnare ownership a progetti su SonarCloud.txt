@@ -1,0 +1,5 @@
+Ai fini del progetto, è necessario che voi:
+1. Mi rendiate collaboratore dei vostri progetti su GitHub, un po' come avete reso collaboratori i vostri colleghi di progetto, quindi andando nelle impostazioni del repository e selezionando come account da invitare a collaborare sabato-nocera;
+2. Mi rendiate owner dei vostri progetti su SonarCloud, a tal fine lascio delle slide che illustrano passo passo come rendere owner un utente dei vostri progetti su SonarCloud (potete farlo con i vostri colleghi di progetto ed obbligatoriamente con me, il nome del mio account è sempre sabato-nocera).
+
+N.B. Il mio account, a cui concedere i permessi, si chiama sia su GitHub che su SonarCloud "sabato-nocera", quindi NON dovete scegliere altri account come sabatonocera, nocera-sabato, ecc.

@@ -1,0 +1,221 @@
+@charset "UTF-8";
+
+* {
+	font-family: verdana, sans-serif;
+}
+
+body {
+	margin: 0 auto;
+	width: 80%;
+}
+
+header.top {
+	height: 50px;
+	text-align: center;
+	background: linear-gradient(white, orange);
+}
+
+header.top img {
+	height: 45px;
+	width: 45px;
+	float: right;
+}
+
+nav {
+	height: 25px;
+	background-color: yellow;
+	padding-top: 5px;
+}
+
+nav div#menu {
+	display: none;
+}
+
+nav ul {
+	margin: 0px;
+	list-style-type: none;
+}
+
+nav ul li {
+	display: inline;
+	padding: 0 10px 0 10px;
+}
+
+nav ul li.selected {
+	background-color: green;
+}
+
+nav ul li a:link, nav ul li a:visited {
+	color: red;
+	text-decoration: none;
+}
+
+nav ul li a:hover {
+	color: blue;
+}
+
+nav ul li.selected a:link {
+	color: white;
+}
+
+div#tableContainer {
+	display: table;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+div#tableRow {
+	display: table-row;
+}
+
+section {
+	display: table-cell;
+	border: 1px solid black;
+	width: auto;
+}
+
+section#left {
+	display: table-cell;
+	border: 1px solid black;
+	min-width: 100px;
+}
+
+aside {
+	display: table-cell;
+	border: 1px solid black;
+	background: cyan;
+	width: auto;
+}
+
+div#multiColumn {
+	width: 100%;
+}
+
+#bar1 {
+	float: left;
+	width: 34%;
+	height: 3em;
+	background-color: green;
+}
+
+#bar2 {
+	float: left;
+	width: 33%;
+	height: 3em;
+	background-color: white;
+}
+
+#bar3 {
+	float: left;
+	width: 33%;
+	height: 3em;
+	background-color: red;
+}
+
+footer.bottom {
+	clear: both;
+	height: 50px;
+	background-color: orange;
+	text-align: center;
+	font-size: 80%;
+	background-image: url("layout.png");
+	background-size: 45px 45px;
+	background-repeat: no-repeat;
+	background-position: bottom right;
+}
+
+header, footer {
+	background-color: magenta;
+}
+
+/*******************************************/
+@media screen and (max-width: 1000px) {
+	body {
+		width: 90%;
+	}
+	header.top {
+		background: linear-gradient(orange, orange);
+	}
+	
+	nav div#menu {
+		display: block;
+		width: 40px;
+		height: 30px;
+		background-image: url("https://cutcodedown.com/images/burgerIcon.png");
+		background-size: 20px 20px;
+		background-repeat: no-repeat;
+		background-position: top 5px;
+		cursor: context-menu;		
+	}
+	
+	nav ul li {
+		display: none;
+	}
+	
+	section {
+		display: block;
+		width: auto;
+	}
+	
+	aside {
+		display: block;
+		backgound-color: purple;
+	}
+	
+	#bar1 {
+		width: 50%;
+	}	
+	
+	#bar2 {
+		width: 50%;
+	}
+	
+	#bar3 {
+		clear: both;
+		width: 100%;
+	}	
+	
+}
+
+/*******************************************/
+@media screen and (max-width: 600px) {
+	body {
+		width: 100%;
+	}	
+	
+	header.top {
+		background: linear-gradient(pink, pink);
+	}	
+	
+	header.top img {
+		display: none;
+	}
+	
+	nav {
+		display: none;
+	}
+	
+	section#left {
+		display: block;
+	}	
+	
+	aside {
+		display: none;
+	}
+	
+	footer.bottom {
+		background-color: pink;
+		background-image: none;
+	}
+	
+	#bar1 {
+		clear: both;
+		width: 100%;
+	}	
+	
+	#bar2 {
+		clear: both;
+		width: 100%;
+	}	
+}
+

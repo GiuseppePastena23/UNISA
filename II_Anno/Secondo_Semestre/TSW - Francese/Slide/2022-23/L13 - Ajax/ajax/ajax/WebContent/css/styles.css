@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+
+html {
+   width: 500px;
+   margin: 10px auto;
+}
+
+body {
+	border: 1px solid gray;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+h3 {
+   text-align: right;
+}
+
+.timer {
+	color: red;
+	text-align: center;
+}
+
+p.added {
+	font-size: 10pt;
+}
+
+#wait {
+	display: none;
+	position : fixed;
+	z-index: 100;
+	top : 20px;	
+}
+
+#wait img {
+	width: 80px;
+}

@@ -1,0 +1,76 @@
+1)Nel protocollo slotted ALOHA un nodo che intende iniziare una comunicazione:
+- attente l'inizio dello slot successivo, se si verifica una collisione il nodo la rileva prima della fine dello slot e ritrasmette con probabilità p il suo pacchetto durante gli slot successivi.
+
+2) Un protocollo CSMA 1-persistente consente di:
+- controllare continuamente se il canale è libero, appena è libero si trasmette.
+
+3)In un protocollo CSMA p-persistente:
+- il tempo è suddiviso in slot temporali come nello slotted aloha e chi desidera trasmettere ascolta il canale continuamente e quando lo trova libero trasmette con probabilità p, oppure attente la slot successiva con probabilità (1-p)
+
+4)Che cos'è l'Address Resolution Protocol (ARP)?
+- Come specificato da RFC 826, l'ARP è un protocollo di rete il cui compito è fornire la mappatura tra l'indirizzo IP (32 bit) e l'indirizzo MAC (48 bit) corrispondente di un terminale in una rete locale ethernet
+
+5)In una tecnologia 10Base-T il mezzo trasmissivo è:
+- Costituito da due doppini intrecciati non schermati di categoria 4 o 5, di derivazione telefonica
+
+6) Che cos'è lo spettro di un segnale periodico:
+è una descrizione dei segnali nel dominio della frequenza. Nello spettro delle ampiezze si rappresenta in ordinata---
+
+7)Cosa si intende per banda del segnale:
+è l'intervallo di frequenze in cui sono contenute tutte le armoniche significative di quel certo segnale
+
+8) supponendo di avere n bit a disposizione per rappresentare i numeri di sequenza in una rete facente uso dell'algoritmo go-back-N, indicare la dimensione (W) della finestra affinché non ci sia ambiguità
+- W<=(2^n)-1
+CON LA SELECT REJECT è W<=2^(N-1)
+
+9)Indicare se la sequenza di bit 0101101000111 ricevuta da un host è priva di errori, considerando che il polinomio generatore è G(x)= x^4 + x^2 + 1
+- vero
+
+10) In termine di dimensioni, una rete di computer installata in un edificio è definita con la sigla:
+-LAN
+
+11) quale problema risolve il sottolivello MAC del DLL?
+- risolve il problema della condivisione del mezzo trasmissivo usato dalla rete in oggetto
+
+12) indicare qual è la principale funzione del LLC nel DLL:
+la funzione principale del LLC definito da IEEE è di mascherare allo strato di rete le specifiche dei protocolli 802 utilizzati a livello mac, in modo da offrire allo strato superiore una interfaccia uniforme
+
+13) quale delle seguenti affermazioni, relative ad una rete token ring, è corretta?
+il token è un particolare pacchetto che autorizza il nodo che lo riceve a trasmettere i propri dati; non vi può essere più di un token nella rete; a turno tutti i nodi della rete ricevono il token.
+
+14) cosa si intende per frequency-hopping spread spectrum?
+- è una tecnica di trasmissione radio usata per aumentare la larghezza di banda di un segnale;: consiste nel variare la frequenza di trasmissione a intervalli regolari in maniera pseudocasuale attraverso un codice prestabilito
+
+15) la tecnologia trasmissiva broadcast è:
+- tale che ha un unico canale trasmissivo e le informazioni trasmesse da un calcolatore sono ricevute da tutti gli altri calcolatori in ascolto sul canale
+
+16) il controllo di flusso è una funzionalità:
+- del livello trasporto che consente di controllare la congestione della rete
+
+17) quale funzione CSMA/CA fornisce di differenza di CSMA/CD:
+- evita collisione di pacchetti di dati
+
+18) indicare a quale livello della pila iso/osi corrispondono le seguenti attività:
+-gestione di connessioni multiple all'interno dello stesso elaboratore: trasporto
+-trasmissione di pacchetti di dati tra nodi adiacenti: data link
+-definizione dei servizi per l'utente e i programmi: applicazione
+-scelta del cammino migliore per far arrivare un messaggio a destinazione: network
+
+19)Si supponga di utilizzare un codice di controllo errori del tipo CRC (cyclic redundance check-sum) su GF(5), indicare il valore numerico decimale che assumerà il CRC relativo al seguente messaggio costituito da cifre decimali: MSG= 1 0 2 3 1 1 0 2 2 4 2 1 2 2 3 2 
+- CRC = 3 perché la somma dei numeri viene divisa per GF(q) dove q=5
+
+20)Il principio di CRC (cyclic redundancy check) consiste nel trattare le sequenze binarie come dei polinomi binari, cioè dei polinomi i cui coefficienti corrispondono alla sequenza binaria. 
+- una sequenza di n bits costituisce quindi un polinomio di grado massimo n-1
+
+21)si supponga di utilizzare la sequenza di bit 01111110 come separatore di frames al livello data link, indicare quale messaggio sarà posto nel payload del frame nel caso in cui il messaggio da inviare sia il seguente: 011011111111
+-0110111110111 (inserire lo 0 dopo il quinto 1)
+
+22) vera : è possibile segnalare l'inizio o la fine di una trama con una deliberata violazione delle regole di codifica del segnale
+
+23) per un crc (cyclic redundancy check), indicare quale delle seguenti condizioni deve sussistere tra il grado r del polinomio generatore ed il grado p del polinomio associato al messaggio da trasmettere:
+- r <= p-1
+
+24)un adattatore o scheda di rete ethernet serve a:
+- connettere il proprio computer ad una rete locale con un MAC di tipo CSMA/CD
+
+

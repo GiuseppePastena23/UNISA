@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+.error {
+  background-color: red;
+  border: 2px solid orange;
+}
+
+.ok {
+  border: 3px solid green;
+}
+
+</style>
+
+
+</head>
+<body>
+<p>Enter a number and click OK:</p>
+
+<input id="id1" type="number" min="100" max="300" required><span id="id1msg"></span><br>
+<input id="id2" type="email" required><span id="id2msg"></span><br>
+<button onclick="myFunction()">OK</button>
+
+
+
+<p>If the number is less than 100 or greater than 300, 
+an error message will be displayed.</p>
+<p>The email is mandatory and it has to be valid, 
+otherwise an error message will be displayed.</p>
+
+
+<script>
+function myFunction() {
+	var inpObj = document.getElementById("id1");
+	if(inpObj.checkValidity() == false) {
+		document.getElementById("id1msg").innerHTML = inpObj.validationMessage;
+		document.getElementById("id1").className = "error";
+	} else { 
+		document.getElementById("id1msg").innerHTML = "Input OK";
+		document.getElementById("id1").classList.remove("error");
+		document.getElementById("id1").className = "ok";
+	}
+	
+	var inpObj = document.getElementById("id2");
+	if(inpObj.checkValidity() == false) {
+		document.getElementById("id2msg").innerHTML = inpObj.validationMessage;
+		document.getElementById("id2").className = "error";
+	} else { 
+		document.getElementById("id2msg").innerHTML = "Input OK";
+		document.getElementById("id2").classList.remove("error");
+		document.getElementById("id2").className = "ok";
+	}	
+}
+</script>
+
+</body>
+</html>

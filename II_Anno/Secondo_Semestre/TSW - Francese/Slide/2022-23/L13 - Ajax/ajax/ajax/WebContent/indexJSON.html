@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AJAX Call</title>
+<link href="css/styles.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="ajaxJSON.js"></script>
+
+<script>
+function displayResults(listJSON, id) {
+	try { 
+		var json = JSON.parse(listJSON) 
+		var obj = document.getElementById(id);		
+		if(obj != null) {
+			while (obj.hasChildNodes()) {
+			    obj.removeChild(obj.childNodes[0]);
+			}
+			
+			var rdfs = json.info.person;
+			var len = rdfs.length;
+			for(var i=0; i<len; i++) {
+            	var label = document.createElement("p");
+            	label.className = "added";
+            	label.appendChild( document.createTextNode(rdfs[i]));            
+            	obj.appendChild(label);
+			}
+			console.log("Handle JSON results");
+		}
+	} catch(e1) {
+	}
+	 
+}
+
+var i = 0;
+function count(){
+	var obj = document.getElementById("count");
+	obj.innerHTML = i;
+	i = i + 1;
+    setTimeout(count, 1000);
+}
+</script>
+
+</head>
+<body onload="count();">
+
+<h3>Perform an AJAX call (JSON)</h3>
+<h5>The servlet provides a response after 1000 milliseconds.</h5>
+<div class="timer">Timer <span id="count"></span></div>
+<br>
+<div id="result"></div>
+<br>
+<label for="times">Times:</label>
+<input id="times" name="times" type="number" value="5" min="1" max="10" required><br>
+<label for="name">Name:</label>
+<input id="name" name="name" type="text" value="Rita Francese JSON" placeholder="Rita Francese JSON" required><br>
+<label for="timeout">Timeout:</label>
+<input id="timeout" name="timeout" type="number" value="5000" min=0><br>
+
+
+<input type="button" onclick="i=i+10;ajaxCall('result','/ajax/ServletResponseJSON',displayResults,document.getElementById('times').value, document.getElementById('name').value, document.getElementById('timeout').value);" value="Call">
+
+<div id="wait"><img src="images/loading.gif"></div>
+</body>
+</html>
+
+
+

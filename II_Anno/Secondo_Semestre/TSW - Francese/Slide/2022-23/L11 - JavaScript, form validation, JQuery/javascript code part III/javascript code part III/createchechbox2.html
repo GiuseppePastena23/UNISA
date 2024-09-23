@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        
+        <p>Click the button to create a Checkbox with a label.</p>
+        
+        <button onclick="Aggiungi()">Add checkbox</button>
+        <br>
+        <br>
+        <form id="myForm" name="myForm" action="action.php" method="get" onSubmit="return Spedisci()">
+        
+        <input type="submit" value="Submit">
+        </form>
+        
+        
+        <script>
+            function Aggiungi() {
+            	var obj = document.getElementById("myForm");
+            	if(obj) {
+            		var list = document.getElementsByName("myName");
+            
+            		var idd = list.length;
+                	var divv = document.createElement("DIV");
+                	
+                	var check = document.createElement("INPUT");
+                	check.type = "checkbox";
+                	check.name = "myName";
+                	check.value= "valore";
+                	check.id = "id" + idd;
+                
+                	divv.appendChild(check);
+                
+                	var label = document.createElement("LABEL");
+                	label.htmlFor = "id" + idd;
+                	label.appendChild( document.createTextNode("Nuovo checkbox "+idd) );
+                
+                	divv.appendChild(label);
+                
+                	obj.appendChild(divv);
+                }
+            }
+            
+            function Spedisci() {
+                var controllo = false;
+                var text = "";
+            	var lista = document.getElementsByName("myName");
+            	for(var x=0; x < lista.length; x++) {
+            			if(lista[x].checked) controllo = true;
+            			text += " " + lista[x].checked
+            	}
+            	alert(text);
+            	return controllo;
+            }   
+        </script>
+        
+    </body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <link rel="icon" type="image/x-icon" href="./imgs/echo.png">
+ <link href="./css/style.css" rel="stylesheet">
+ 
+ <title>ECHO</title>
+</head>
+
+<body>
+<h4>ECHO THE REQUEST PARAMETERS 2</h4>
+<form method="post" action="recho" name="echo">
+  <label for="name">Name </label><br>
+  <input type="text" name="name" value="" 
+  	placeholder="insert name" maxlength="10" autofocus required/>
+  <br>
+  <label for="surname">Surname </label><br>
+  <input type="text" name="surname" value="" 
+    placeholder="insert surname" required/>
+  <br>
+  <label for="gender">Gender </label><br>
+  <input type="radio" name="gender" value="male" checked> Male<br>
+  <input type="radio" name="gender" value="female"> Female<br>
+  <input type="radio" name="gender" value="other"> Other
+  <br>
+  <label for="list">Bag </label><br>
+  <input type="checkbox" name="list" value="PC">Computer<br>
+  <input type="checkbox" name="list" value="PEN">Pen<br>    
+  <input type="checkbox" name="list" value="PHONE">Smartphone<br>    
+  <br>   
+  <input type="submit" value="Send">
+  <input type="reset" value="Reset">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+Tra i vincoli del progetto è necessario risolvere le issue di SonarCloud. In allegato, vi lascio un video che vi fa vedere come fissare manualmente le issue di un progetto su SonarCloud. Ci tengo a sottolineare come la risoluzione manuale delle issue deve essere ben motivata, ad esempio perché la issue è stata risolta in un modo diverso dalla rimozione delle linee di codice "incriminate", oppure perché l'issue non costituisce o non costituisce più davvero un problema... tutte queste motivazioni devono essere specificate e ben spiegate lasciando un commento.
+
+N.B. Nel video viene mostrato anche come visualizzare le linee di codice scansionate da SonarCloud (nel caso specifico erano soltanto 50 linee di codice Java).

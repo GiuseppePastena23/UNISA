@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Registration</title>
+
+<style>
+	body {
+		width: 400px;
+		margin: 0 auto;
+	}
+	legend {
+		padding: 3px;
+		border: 1px solid purple;
+		border-radius: 3px;
+	}
+	fieldset {
+		border: 1px solid purple;
+		border-radius: 7px;		
+	}
+	.backYellow {
+		background-color: yellow;
+	}
+	.error {
+		background-color: red;
+	}
+	hr {
+		border: 0;
+		border-top: 1px solid purple;
+		-webkit-margin-start: -0.8em;
+		-webkit-margin-end: -0.8em;
+	}
+</style>
+
+
+<script>
+
+var count = 2;
+
+function addPhone() {
+	var container = document.getElementById("phones");
+	
+	var divv = document.createElement("div");
+	divv.id = "id"+count;
+	count++;
+	
+	var label = document.createElement("label");
+	label.htmlFor = "number";
+	label.appendChild(document.createTextNode("Phone:"));
+	divv.appendChild(label);
+	
+	var element = document.createElement("input");
+	element.type = "text";
+	element.name = "number";
+	element.placeholder = "111-1111111";
+	element.required = "required";
+	element.className = "backYellow";
+	divv.appendChild(element);
+	
+	var input = document.createElement("input");
+	input.type = "button";
+	input.value = "-";
+	input.addEventListener("click", function() {removePhone(divv.id)});
+	divv.appendChild(input);
+	
+	container.appendChild(divv);
+}
+ 
+function removePhone(idd) {
+	var element = document.getElementById(idd);
+	element.parentNode.removeChild(element);
+}
+
+
+function checkNamesurname(inputtxt) {
+	var name = /^[A-Za-z]+$/;;
+	if(inputtxt.value.match(name)) 
+		return true
+
+	return false;	
+}
+
+function checkEmail(inputtxt) {
+	var email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	if(inputtxt.value.match(email)) 
+		return true;
+	
+	return false;	
+}
+
+function checkPhonenumber(inputtxt) {
+	var phoneno = /^([0-9]{3}-[0-9]{7})$/;
+	if(inputtxt.value.match(phoneno)) 
+		return true;
+	
+	return false;
+}
+
+
+function validate(obj) {	
+	var valid = true;	
+	
+	var name = document.getElementsByName("firstname")[0];
+	if(!checkNamesurname(name)) {
+		valid = false;
+		name.classList.add("error");
+	} else {
+		name.classList.remove("error");
+	}
+	
+	var surname = document.getElementsByName("lastname")[0];
+	if(!checkNamesurname(surname)) {
+		valid = false;
+		surname.classList.add("error");
+	} else {
+		surname.classList.remove("error");
+	}
+	
+	var email = document.getElementsByName("email")[0];
+	if(!checkEmail(email)) {
+		valid = false;
+		email.classList.add("error");
+	} else {
+		email.classList.remove("error");
+	}	
+	
+	var numbers = document.getElementsByName("number");
+	for(var i=0; i < numbers.length; i++) {
+		if(!checkPhonenumber(numbers[i])) {
+			valid = false;
+			numbers[i].classList.add("error");
+		} else  {
+			numbers[i].classList.remove("error");
+		}
+	}	
+	
+	if(valid) obj.submit();
+}
+</script>
+
+
+</head>
+<body>
+<h3>Registration</h3>
+<form id="dForm" action="Registration" onsubmit="event.preventDefault(); validate(this)">
+<fieldset>
+	<legend>Information</legend>
+	<label for="firstname">Name:</label>
+	<input type="text" name="firstname" placeholder="name" required>
+	<br>
+	<label for="lastname">Surname:</label>
+	<input type="text" name="lastname" placeholder="surname" required>	
+	<br>
+	<label for="email">Email:</label>
+	<input type="text" name="email" placeholder="mrisi@unisa.it" required>	
+	<br>	
+	<hr>
+	<div id="phones">
+		<label for="number">Phone:</label>
+		<input class="backYellow" type="text" name="number" placeholder="111-1111111" required>
+		<input type="button" value="+" onclick="addPhone()">
+	</div>
+	<br>
+	<input type="submit" value="Register">&nbsp;
+	<input type="reset" value="Reset">
+	
+</fieldset>
+</form>
+
+</body>
+</html>
+
+
+
+
+
+
+
+

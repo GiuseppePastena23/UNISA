@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AJAX Call</title>
+<script type="text/javascript" src="ajax.js"></script>
+
+<script>
+function displayResults(listXML, id) {
+	try { 
+		var obj = document.getElementById(id);		
+		if(obj != null) {
+			var rdfs = listXML.getElementsByTagName("person")[0].firstChild.nodeValue; 
+			obj.innerHTML =rdfs;
+			console.log("Handle results");
+		}
+	} catch(e1) {
+	}
+	 
+}
+
+var i = 0;
+function count(){
+	var obj = document.getElementById("count");
+	obj.innerHTML = i;
+	i = i + 1;
+    setTimeout(count, 1000);
+}
+</script>
+
+</head>
+<body onload="count();">
+
+<h3>Perform an AJAX call</h3>
+<h5>The servlet provides a response after 3000 milliseconds.</h5>
+Timer <span id="count"></span>
+<br>
+<div id="result">...</div>
+<br>
+<label for="timeout">Timeout</label>
+<input id="timeout" name="timeout" type="number" value="5000" min=0>
+<input type="button" onclick="ajaxCall('result','/ajax/ServletResponse',displayResults,'Rita Francese', document.getElementById('timeout').value);" value="Call">
+<br>
+<div id="wait"></div>
+</body>
+</html>
+
+
+

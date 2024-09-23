@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>The Starbuzz Bean Machine</title>
+  </head>
+  <body>
+
+    <h1>The Starbuzz Bean Machine</h1>
+    <h2>Fill out the form below and click "order now" to order</h2>
+
+    <form action="http://starbuzzcoffee.com/processorder.php" method="post">
+    <fieldset>
+    	<legend>Order details</legend>
+          <label for="beans">Choose your beans:</label>
+            <select name="beans" id="beans">
+              <option value="House Blend">House Blend</option>
+              <option value="Bolivia" selected>Shade Grown Bolivia Supremo</option>
+              <option value="Guatemala">Organic Guatemala</option>
+              <option value="Kenya">Kenya</option>
+            </select>
+        <br>    
+		<label>Type:</label><br>
+            <input type="radio" id="whole_beantype" name="beantype" value="whole">
+            <label for="whole_beantype">Whole bean</label>
+            <br>
+            <input type="radio" id="ground_beantype" name="beantype" value="ground" checked> 
+            <label for="ground_beantype">Ground</label>
+		<p>
+		<label>Number of bags:<input type="number" name="bags" min="1" max="10" value="1"></label><br>
+		<label>Must arrive by date: <input type="date" name="date"></label>
+		</p>
+		<label>Extras:</label><br>
+            <input type="checkbox" id="giftwrap" name="extras[]" value="giftwrap">
+            <label for="giftwrap">Gift wrap</label><br>
+            <input type="checkbox" id="catalog" name="extras[]" value="catalog" checked>
+            <label for="catalog">Include catalog with order</label>
+	</fieldset>	
+	
+	
+	<fieldset>
+		<legend>Ship to</legend>
+          <label>Name: <input type="text" name="name" value="" placeholder="Buckaroo Banzai" required></label><br>
+          <label>Address:<input type="text" name="address" value="" placeholder="Banzai Institute" required></label><br>
+          <label>City:<input type="text" name="city" value="" placeholder="Los Angeles" required></label><br>
+          <label>State:<input type="text" name="state" value="" placeholder="CA" required></label><br>
+          <label>Zip:<input type="text" name="zip" value="" placeholder="90050" required></label><br>
+		  <label>Phone:<input type="tel" name="phone" value="" placeholder="310-555-1212" required></label><br>
+		<br>
+          Customer Comments:<br>
+            <textarea name="comments"></textarea>
+		<p>
+            <input type="submit" value="Order Now">
+		</p>
+	 </fieldset>	
+      </form>
+  </body>
+</html>
+

@@ -1,0 +1,14 @@
+• Introduzione alla sicurezza informatica e alla sicurezza del software
+• Classificazione delle vulnerabilità più popolari (OWASP Top 10)
+• Configurazione ed utilizzo di SonarCloud per l'individuazione e risoluzione di problemi di sicurezza nel codice sorgente
+
+
+Alcune considerazioni:
+• La configurazione di SonarCloud per un repository su GitHub prevede la creazione di due file:
+	- build.yml, nella cartella .github/workflows
+	- sonar-project.properties
+  La cartella .github ed il file sonar-project.properties devono trovarsi nella radice della directory caricata su GitHub, in altre parole la cartella .github ed il file sonar-project.properties non devono essere contenute in altre director, altrimenti l'analisi di SonarCloud fallirà.
+• Il file sonar-project.properties deve essere modificato rispetto a quello che SonarCloud automaticamente vi suggerisce, nello specifico vanno aggiunte, così come riportato nell'ultima slide, le proprietà:
+	- sonar.source=. (in realtà, tale proprietà già dovrebbe apparire, ma commentata, quindi vi basterà togliere il carettere #)
+	- sonar.java.binaries=.
+• Assicuratevi che SonarCloud scannerizzi i file Java/JSP/JavaScript. Ciò può essere verificato andando a controllare se, tra le linee di codice esaminate, appaiono Java/JSP/JavaScript (... potreste accorgervene banalmente anche se non vi compaiono mai issue per tali linguaggi di programmazione 🙂).
